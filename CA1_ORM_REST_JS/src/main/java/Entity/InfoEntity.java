@@ -12,6 +12,7 @@ import javax.persistence.Id;
  */
 
 @Entity
+<<<<<<< Updated upstream
 public abstract class InfoEntity implements Serializable {
     
     @Id
@@ -39,5 +40,9 @@ public abstract class InfoEntity implements Serializable {
     }
     
     
+=======
+public class InfoEntity 
+{
+>>>>>>> Stashed changes
     
 }
