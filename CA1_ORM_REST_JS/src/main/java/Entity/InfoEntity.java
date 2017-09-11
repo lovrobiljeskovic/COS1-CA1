@@ -12,7 +12,6 @@ import javax.persistence.Id;
  */
 
 @Entity
-<<<<<<< Updated upstream
 public abstract class InfoEntity implements Serializable {
     
     @Id
@@ -38,11 +37,5 @@ public abstract class InfoEntity implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
-=======
-public class InfoEntity 
-{
->>>>>>> Stashed changes
     
 }
