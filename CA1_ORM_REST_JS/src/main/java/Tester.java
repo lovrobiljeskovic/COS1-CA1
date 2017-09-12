@@ -1,5 +1,8 @@
+import Entity.Company;
 import Entity.Person;
 import Facade.PersonFacade;
+import Utility.CompanyGenerator;
+import Utility.PersonGenerator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,6 +35,11 @@ public class Tester {
 //        } finally {
 //            em.close();
 //        }
+        PersonGenerator pg = new PersonGenerator();
+        List<Person> list = pg.generateJSON(10, 22311255);
+        for (Person p:list){
+            System.out.println(p.getFirstName() + " "+ p.getLastName());
+        }
 
     }
     

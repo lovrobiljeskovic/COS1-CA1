@@ -15,7 +15,7 @@ import java.util.Random;
  *
  * @author mathiasjepsen
  */
-public class Generator {
+public class PersonGenerator {
 
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -179,7 +179,7 @@ public class Generator {
         
     }
     
-    public String generateJSON(int count, int startingPhoneNumber) {
+    public List<Person> generateJSON(int count, int startingPhoneNumber) {
         Random random = new Random();
         createHobbies();
         createPhoneNumbers(count, startingPhoneNumber);
@@ -201,7 +201,8 @@ public class Generator {
             p.setHobbies(personHobby);
             
             p.setAddress(addresses.get(random.nextInt(addresses.size())));
+            persons.add(p);
         }
-        return gson.toJson(persons);
+        return persons;//gson.toJson(persons);
     }
 }
