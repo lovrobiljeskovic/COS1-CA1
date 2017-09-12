@@ -16,7 +16,6 @@ import javax.persistence.Query;
 public class CompanyFacade implements ICompanyFacade {
 
     private EntityManagerFactory emf;
-    private static Map<Integer, Company> companies = new HashMap();
 
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -69,11 +68,12 @@ public class CompanyFacade implements ICompanyFacade {
     public List<Company> getCompanies(String zipCode) {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityinfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
+            return em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
         } finally {
             em.close();
         }
     }
+
 
     public Company addCompany(Company c) {
         EntityManager em = getEntityManager();
@@ -99,4 +99,18 @@ public class CompanyFacade implements ICompanyFacade {
         }
     }
 
-}
+    @Override
+    public void createCompany(Company c) {
+        EntityManager em = getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(c);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+    }
+
+

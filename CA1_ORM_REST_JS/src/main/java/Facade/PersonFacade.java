@@ -28,7 +28,7 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
         
         try {
-            return em.find(Person.class, 1);
+            return em.find(Person.class, id);
         } finally {
             em.close();
         }
@@ -55,6 +55,21 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
+
+    @Override
+    public void createPerson(Person p) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+    
+    
     
     public List<Person> getPersonsFromPhone(int number)
     {
