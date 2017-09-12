@@ -9,6 +9,7 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author mathiasjepsen
  */
+
 public class PersonFacade implements IPersonFacade {
     
     private EntityManagerFactory emf;
