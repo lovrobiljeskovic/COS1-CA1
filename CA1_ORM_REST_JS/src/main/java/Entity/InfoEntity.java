@@ -2,10 +2,13 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -15,6 +18,8 @@ import javax.persistence.OneToMany;
  */
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(name="INFOENTITY_TYPE")
 public abstract class InfoEntity implements Serializable {
     
     @Id
@@ -23,7 +28,7 @@ public abstract class InfoEntity implements Serializable {
     private String email;
     @OneToMany
     private List<Phone> phones;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private Address address;
     
 
@@ -45,5 +50,23 @@ public abstract class InfoEntity implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+    
+    
     
 }

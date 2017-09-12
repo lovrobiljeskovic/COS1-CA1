@@ -3,6 +3,7 @@ package Entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
@@ -10,20 +11,21 @@ import javax.persistence.Id;
  */
 
 @Entity
+@Table(name = "CITYINFO")
 public class CityInfo implements Serializable {
 
     @Id
-    private int zipCode;
+    private String zipCode;
     private String city;
 
     public CityInfo() {
     }
     
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 

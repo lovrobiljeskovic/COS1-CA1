@@ -2,13 +2,20 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="cos1_CA1_ORM_REST_JS_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>Entity.Address</class>
+    <class>Entity.CityInfo</class>
+    <class>Entity.Company</class>
+    <class>Entity.Hobby</class>
+    <class>Entity.InfoEntity</class>
+    <class>Entity.Person</class>
+    <class>Entity.Phone</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://146.185.167.16/ca1"/>
+      <property name="javax.persistence.jdbc.user" value="tomcat"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="1234"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+<!--      <property name="javax.persistence.sql-load-script-source" value="scripts/script.sql"/>-->
     </properties>
   </persistence-unit>
 </persistence>
