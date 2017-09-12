@@ -3,7 +3,6 @@ package UnitTest;
 import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
-import Entity.Person;
 import Facade.CompanyFacade;
 import java.util.List;
 import javax.persistence.Persistence;
@@ -53,6 +52,7 @@ public class CompanyFacadeTest {
         a3.setAddSitionalInfo("This is more cool additional info");
         a3.setCityInfo(c3);
         p1.setAddress(a1);
+        p1.setCvr("270593");
         p2.setAddress(a2);
         p3.setAddress(a3);
         cf.createCompany(p1);
@@ -96,4 +96,9 @@ public class CompanyFacadeTest {
         assertEquals("Apple", companies.get(0).getName());
     }
     
+    @Test
+    public void getCompanyByCVR() {
+        Company c = cf.getCompanyCvr("270593");
+        assertEquals("Apple", c.getName());
+    }
 }

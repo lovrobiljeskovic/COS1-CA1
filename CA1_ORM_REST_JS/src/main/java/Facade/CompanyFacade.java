@@ -92,7 +92,7 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
-            Company company = (Company) em.createQuery("SELECT c FROM Company cWHERE c.cvr = :cvr").setParameter("cvr", cvr).getSingleResult();
+            Company company = (Company) em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr").setParameter("cvr", cvr).getSingleResult();
             return company;
         } finally {
             em.close();
