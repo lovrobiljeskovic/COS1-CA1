@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utility;
+package Utility;
 
 import Entity.Company;
 import com.google.gson.Gson;
@@ -19,11 +19,11 @@ public class JSONcompanyConverter {
             return gson.fromJson(js, Company.class);
         }
 
-        public static String getJSONFromPet(Company c) {
+        public static String getJSONFromCompany(Company c) {
             return gson.toJson(c);
         }
 
-        public static String getJSONFromPet(List<Company> companies) {
+        public static String getJSONFromCompany(List<Company> companies) {
             return gson.toJson(companies);
         }
 

@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
  */
 public interface IPersonFacade {
     
+    void createPerson(Person p);
     Person getPerson(int id);
     List<Person> getPersons();
     List<Person> getPersons(String zipCode);
