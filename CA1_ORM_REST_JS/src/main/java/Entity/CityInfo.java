@@ -22,6 +22,10 @@ public class CityInfo implements Serializable {
 
     public CityInfo() {
     }
+    public CityInfo(String zipCode, String city) {
+        this.zipCode = zipCode;
+        this.city = city;
+    }
     
     public String getZipCode() {
         return zipCode;
