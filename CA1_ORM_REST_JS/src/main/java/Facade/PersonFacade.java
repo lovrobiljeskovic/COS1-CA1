@@ -56,4 +56,18 @@ public class PersonFacade implements IPersonFacade {
         }
     }
     
+    public List<Person> getPersonsFromPhone(int number)
+    {
+        EntityManager em = getEntityManager();
+        
+        try
+            {
+                return em.createQuery("SELECT p FROM Person p join p.phones f WHERE f.number = :number").setParameter("number", number).getResultList();
+            }
+        finally
+            {
+                em.close();
+            }
+    }
+    
 }
