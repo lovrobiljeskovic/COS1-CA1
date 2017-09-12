@@ -23,7 +23,7 @@ public class CompanyFacade implements ICompanyFacade{
         this.emf = emf;
     }
     @Override
-    public Company getCompany(int cvr) {
+    public Company getCompany(int id) {
           EntityManager em = getEntityManager();
         
         try {
@@ -49,11 +49,19 @@ public class CompanyFacade implements ICompanyFacade{
     @Override
     public List<Company> getCompanies(String zipCode) {
   EntityManager em = getEntityManager();
-         List<Company> list = new ArrayList();
         try {
-            Query q1 = em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityinfo.zipCode = :zipCode");
-            list = q1.getResultList();
-            return list;
+            return em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityinfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
+        } finally {
+            em.close();
+    }
+}
+    
+    public Company getCompanyByCvr(String cvr) {
+  EntityManager em = getEntityManager();
+
+        try {            
+            Company company = (Company) em.createQuery("SELECT c FROM Company cWHERE c.cvr = :cvr").setParameter("cvr", cvr).getSingleResult();
+            return company;
         } finally {
             em.close();
     }
