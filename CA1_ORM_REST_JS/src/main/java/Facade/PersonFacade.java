@@ -57,13 +57,14 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public void createPerson(Person p) {
+    public Person createPerson(Person p) {
         EntityManager em = getEntityManager();
         
         try {
             em.getTransaction().begin();
             em.persist(p);
             em.getTransaction().commit();
+            return p;
         } finally {
             em.close();
         }

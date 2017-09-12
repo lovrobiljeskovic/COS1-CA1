@@ -176,8 +176,8 @@ public class CompanyGenerator {
         }
     }
     
-    private void createAddresses(int count){
-        for (int i = 0; i< count; i++){
+    private void createAddresses(){
+        for (int i = 0; i < cities.size(); i++){
             Address ad = new Address();
             ad.setCityInfo(cities.get(random.nextInt(cities.size())));
             ad.setAddSitionalInfo(additionalInfo.get(random.nextInt(additionalInfo.size())));
@@ -191,7 +191,7 @@ public class CompanyGenerator {
         int cvr = startingCVR;
         createNames(count);
         createPhoneNumbers(count, startingPhoneNumber);
-        createAddresses(count);
+        createAddresses();
         List<Company> companies = new ArrayList();
         for (int i = 0; i < count; i++) {
             Company c = new Company();
@@ -200,8 +200,7 @@ public class CompanyGenerator {
             c.setDescription(descriptions.get(random.nextInt(descriptions.size())));
             c.setNumEmployees(random.nextInt((1000-5)+1) + 5);
             c.setMarketValue(random.nextInt((10000000-10000)+1) + 10000);
-            
-            c.setAddress(addresses.get(random.nextInt(addresses.size())));
+            c.setAddress(addresses.get(i));
             cvr++;
             companies.add(c);
         }

@@ -1,10 +1,4 @@
-import Entity.Company;
-import Entity.Person;
-import Facade.PersonFacade;
 import Utility.CompanyGenerator;
-import Utility.PersonGenerator;
-import java.util.List;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -15,11 +9,11 @@ import javax.persistence.Persistence;
 public class Tester {
     
     public static void main(String[] args) {
-        
+        CompanyGenerator cg = new CompanyGenerator();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("cos1_CA1_ORM_REST_JS_war_1.0-SNAPSHOTPU");
-        EntityManager em = emf.createEntityManager();
-        PersonFacade pf = new PersonFacade();
-        pf.addEntityManagerFactory(emf);
+//        EntityManager em = emf.createEntityManager();
+//        PersonFacade pf = new PersonFacade();
+//        pf.addEntityManagerFactory(emf);
         
 //        try {
 //            InfoEntity p = new Person();
@@ -35,11 +29,16 @@ public class Tester {
 //        } finally {
 //            em.close();
 //        }
-        PersonGenerator pg = new PersonGenerator();
-        List<Person> list = pg.generateJSON(10, 22311255);
-        for (Person p:list){
-            System.out.println(p.getFirstName() + " "+ p.getLastName());
-        }
+//        PersonGenerator pg = new PersonGenerator();
+//        List<Person> list = pg.generateJSON(10, 22311255);
+//        for (Person p:list){
+//            System.out.println(p.getFirstName() + " "+ p.getLastName());
+//            System.out.println("\n");
+//            for (Hobby h : p.getHobbies()) {
+//                System.out.println(h.getName());
+//            }
+//        }
+        System.out.println(cg.generateJSON(10, 20000000, 5200));
 
     }
     

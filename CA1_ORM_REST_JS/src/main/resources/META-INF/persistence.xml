@@ -16,6 +16,7 @@
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="1234"/>
       <!--      <property name="javax.persistence.sql-load-script-source" value="scripts/script.sql"/>-->
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
   <persistence-unit name="PersonFacadeTest" transaction-type="RESOURCE_LOCAL">
@@ -33,7 +34,7 @@
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:Users;create=true"/>
       <property name="eclipselink.logging.level" value="WARNING"/>
-      <property name="eclipselink.canonicalmodel.subpackage" value="test"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="personFacadeTest"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
@@ -52,7 +53,7 @@
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:Users;create=true"/>
       <property name="eclipselink.logging.level" value="WARNING"/>
-      <property name="eclipselink.canonicalmodel.subpackage" value="test"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="companyFacadeTest"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>

@@ -14,6 +14,7 @@ import java.util.List;
  * @author Lovro
  */
 public class JsonCompany {
+    
     private String email;
     private List<Phone> phones;
 

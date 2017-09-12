@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
  */
 public interface ICompanyFacade {
     
-    void createCompany(Company c);
+    Company createCompany(Company c);
     Company getCompany(int id);
     Company getCompanyCvr(String cvr);
     List<Company> getCompanies();

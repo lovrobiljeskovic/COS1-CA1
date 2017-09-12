@@ -129,22 +129,24 @@ public class PersonGenerator {
         Hobby h10 = new Hobby();
         h1.setName("football");
         h1.setDescription("round ball");
-        h1.setName("handball");
-        h1.setDescription("another round ball but small");
-        h1.setName("video game");
-        h1.setDescription("nerd");
-        h1.setName("painting");
-        h1.setDescription("boring");
-        h1.setName("theatre");
-        h1.setDescription("no comment");
-        h1.setName("reading");
-        h1.setDescription("smart one");
-        h1.setName("reality tv");
-        h1.setDescription("get a life");
-        h1.setName("tennis");
-        h1.setDescription("get a racket");
-        h1.setName("fussball");
-        h1.setDescription("you are an athlete");
+        h2.setName("handball");
+        h2.setDescription("another round ball but small");
+        h3.setName("video game");
+        h3.setDescription("nerd");
+        h4.setName("painting");
+        h4.setDescription("boring");
+        h5.setName("theatre");
+        h5.setDescription("no comment");
+        h6.setName("reading");
+        h6.setDescription("smart one");
+        h7.setName("reality tv");
+        h7.setDescription("get a life");
+        h8.setName("tennis");
+        h8.setDescription("get a racket");
+        h9.setName("fussball");
+        h9.setDescription("you are an athlete");
+        h10.setName("waterpolo");
+        h10.setDescription("become one with the water");
         hobbies.add(h1);
         hobbies.add(h2);
         hobbies.add(h3);
@@ -179,7 +181,7 @@ public class PersonGenerator {
         
     }
     
-    public List<Person> generateJSON(int count, int startingPhoneNumber) {
+    public String generateJSON(int count, int startingPhoneNumber) {
         Random random = new Random();
         createHobbies();
         createPhoneNumbers(count, startingPhoneNumber);
@@ -188,21 +190,25 @@ public class PersonGenerator {
         for (int i = 0; i < count; i++) {
             Person p = new Person(
                     firstNames.get(random.nextInt(firstNames.size())),
-                    lastNames.get(random.nextInt(lastNames.size())));
+                    lastNames.get(random.nextInt(lastNames.size()))
+            );
 
             List<Hobby> personHobby = new ArrayList();
             personHobby.add(hobbies.get(random.nextInt(hobbies.size())));
             personHobby.add(hobbies.get(random.nextInt(hobbies.size())));
-
-            while (personHobby.get(0).equals(personHobby.get(1))) {
-                personHobby.remove(1);
-                personHobby.add(hobbies.get(random.nextInt(hobbies.size())));
+ 
+            for (int j = 0; j < personHobby.size() - 1; j++) {
+                if (personHobby.get(j).equals(personHobby.get(j + 1))) {
+                    personHobby.remove(j + 1);
+                    personHobby.add(hobbies.get(random.nextInt(hobbies.size())));
+                }
             }
+            
             p.setHobbies(personHobby);
             
             p.setAddress(addresses.get(random.nextInt(addresses.size())));
             persons.add(p);
         }
-        return persons;//gson.toJson(persons);
+        return gson.toJson(persons);
     }
 }

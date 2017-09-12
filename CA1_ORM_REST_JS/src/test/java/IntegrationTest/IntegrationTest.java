@@ -1,15 +1,15 @@
-    package IntegrationTest;
+package IntegrationTest;
 
+import Utility.CompanyGenerator;
+import Utility.PersonGenerator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.*;
 import io.restassured.parsing.Parser;
-import static org.hamcrest.Matchers.*;
 
 
 /**
@@ -18,14 +18,17 @@ import static org.hamcrest.Matchers.*;
  */
 public class IntegrationTest {
     
+    PersonGenerator pg = new PersonGenerator();
+    CompanyGenerator cg = new CompanyGenerator();
+    
     public IntegrationTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        RestAssured.baseURI = "146.185.167.16";
+        RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8080;
-        RestAssured.basePath = "/REST_Persons";
+        RestAssured.basePath = "/CA1_ORM_REST_JS";
         RestAssured.defaultParser = Parser.JSON;
     }
     
@@ -40,10 +43,23 @@ public class IntegrationTest {
     @After
     public void tearDown() {
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    
+    @Test
+    public void serverIsRunning() {
+        given().
+                when().get().
+                then().
+                statusCode(200);
+    }
+    
+    @Test
+    public void addCompaniesTest() {
+        given()
+                .contentType("application/json") 
+                .body(cg.generateJSON(10, 100000, 3430))
+                .when()
+                .post("/api/company/")
+                .then()
+                .statusCode(200);
+    }
 }

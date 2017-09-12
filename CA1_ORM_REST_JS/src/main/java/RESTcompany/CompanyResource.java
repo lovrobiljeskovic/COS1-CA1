@@ -17,7 +17,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import Utility.JSONcompanyConverter;
+import Utility.JSONCompanyConverter;
+import static Utility.JSONCompanyConverter.getCompaniesFromJson;
+import static Utility.JSONCompanyConverter.getJSONFromCompanies;
+import javax.persistence.Persistence;
 
 
 @Path("company")
@@ -29,6 +32,7 @@ public class CompanyResource {
     private UriInfo context;
 
     public CompanyResource() {
+        cf.addEntityManagerFactory(Persistence.createEntityManagerFactory("cos1_CA1_ORM_REST_JS_war_1.0-SNAPSHOTPU"));        
     }
 
     @GET
@@ -45,19 +49,19 @@ public class CompanyResource {
 
     }
     @GET
-    @Path("{id}")
+    @Path("id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyById(@PathParam("id") int id) {
         Company c = cf.getCompany(id);
-        return JSONcompanyConverter.getJSONFromCompany(c);
+        return JSONCompanyConverter.getJSONFromCompany(c);
     }
     
-     @GET
-    @Path("{cvr}")
+    @GET
+    @Path("cvr/{cvr}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyByCvr(@PathParam("cvr") String cvr) {
         Company c = cf.getCompanyCvr(cvr);
-        return JSONcompanyConverter.getJSONFromCompany(c);
+        return JSONCompanyConverter.getJSONFromCompany(c);
     }
     @GET
     @Path("city/{zipcode}")
@@ -68,7 +72,8 @@ public class CompanyResource {
           return gson.toJson(companies);
 
     }
-     @GET
+    
+    @GET
     @Path("count/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAll() {
@@ -85,12 +90,22 @@ public class CompanyResource {
     public void putJson(String content) {
     }
 
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public String postCompany(String companyAsJson) {
+//        Company c = JSONCompanyConverter.getCompanyFromJson(companyAsJson);
+//        cf.createCompany(c);
+//        return JSONCompanyConverter.getJSONFromCompany(c);
+//    }
+    
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String postCompany(String companyAsJson) {
-        Company c = JSONcompanyConverter.getCompanyFromJson(companyAsJson);
-        cf.addCompany(c);
-        return JSONcompanyConverter.getJSONFromCompany(c);
-
+        List<Company> companies = getCompaniesFromJson(companyAsJson);
+        cf.createCompanies(companies);
+        return getJSONFromCompanies(companies);
     }
+    
 }
