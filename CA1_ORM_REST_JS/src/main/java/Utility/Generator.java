@@ -1,4 +1,4 @@
-package utility;
+package Utility;
 
 import Entity.Address;
 import Entity.CityInfo;
