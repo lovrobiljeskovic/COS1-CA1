@@ -10,7 +10,8 @@ import javax.persistence.EntityManagerFactory;
  */
 public interface ICompanyFacade {
     
-    Company getCompany(int cvr);
+    Company getCompany(int id);
+    Company getCompanyCvr(String cvr);
     List<Company> getCompanies();
     List<Company> getCompanies(String zipCode);
     void addEntityManagerFactory(EntityManagerFactory emf);
