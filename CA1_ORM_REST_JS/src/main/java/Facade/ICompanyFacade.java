@@ -12,7 +12,7 @@ public interface ICompanyFacade {
     
     Company getCompany(int cvr);
     List<Company> getCompanies();
-    List<Company> getCompanies(int zipCode);
+    List<Company> getCompanies(String zipCode);
     void addEntityManagerFactory(EntityManagerFactory emf);
 
 }

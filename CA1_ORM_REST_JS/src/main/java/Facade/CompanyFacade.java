@@ -47,8 +47,8 @@ public class CompanyFacade implements ICompanyFacade{
     }
 
     @Override
-    public List<Company> getCompanies(int zipCode) {
-         EntityManager em = getEntityManager();
+    public List<Company> getCompanies(String zipCode) {
+  EntityManager em = getEntityManager();
          List<Company> list = new ArrayList();
         try {
             Query q1 = em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityinfo.zipCode = :zipCode");
@@ -56,8 +56,6 @@ public class CompanyFacade implements ICompanyFacade{
             return list;
         } finally {
             em.close();
-        }
     }
-
-    
+}
 }

@@ -28,7 +28,7 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
         
         try {
-            
+            return em.find(Person.class, 1);
         } finally {
             em.close();
         }
@@ -36,21 +36,21 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public List<Person> getPersons() {
-                EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager();
         
         try {
-            
+            return em.createQuery("SELECT p FROM Person p").getResultList();
         } finally {
             em.close();
         }
     }
 
     @Override
-    public List<Person> getPersons(int zipCode) {
-                EntityManager em = getEntityManager();
+    public List<Person> getPersons(String zipCode) {
+        EntityManager em = getEntityManager();
         
         try {
-            
+            return em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
         } finally {
             em.close();
         }
