@@ -2,7 +2,9 @@ package Facade;
 
 import Entity.Company;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -35,6 +37,20 @@ public class CompanyFacade implements ICompanyFacade {
         }
     }
 
+    /*
+     @Override
+    public Company getCompanyPhone(String phone) {
+        EntityManager em = getEntityManager();
+
+        try {
+            Company c = new Company();
+            return em.find(Company.class, c.getPhones());
+        } finally {
+            em.close();
+        }
+    }
+     */
+
     @Override
     public List<Company> getCompanies() {
         EntityManager em = getEntityManager();
@@ -58,7 +74,21 @@ public class CompanyFacade implements ICompanyFacade {
         }
     }
 
-    public Company getCompanyByCvr(String cvr) {
+
+    public Company addCompany(Company c) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(c);
+            em.getTransaction().commit();
+            return c;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public Company getCompanyCvr(String cvr) {
         EntityManager em = getEntityManager();
 
         try {
@@ -81,4 +111,6 @@ public class CompanyFacade implements ICompanyFacade {
             em.close();
         }
     }
-}
+    }
+
+
