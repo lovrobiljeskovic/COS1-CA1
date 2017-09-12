@@ -1,4 +1,4 @@
-package Utility;
+package utility;
 
 import Entity.Hobby;
 import Entity.Person;
@@ -13,9 +13,9 @@ import java.util.Random;
  * @author mathiasjepsen
  */
 public class Generator {
-    
+
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    
+
     private List<String> firstNames = new ArrayList() {
         {
             add("Mathias");
@@ -24,9 +24,13 @@ public class Generator {
             add("Peter");
             add("Petru");
             add("Patrick");
+            add("Hanne");
+            add("Flemming");
+            add("Lars");
+            add("Nicklas");
         }
     };
-    
+
     private List<String> lastNames = new ArrayList() {
         {
             add("Jepsen");
@@ -35,12 +39,17 @@ public class Generator {
             add("Catana");
             add("Fenger");
             add("Mihok");
+            add("Petersen");
+            add("Gadegaard");
+            add("Jobs");
+            add("Wozniacki");
+            add("Larsen");
         }
     };
-    
+
     private List<Hobby> hobbies = new ArrayList();
-        
-    private void createHobbies(){
+
+    private void createHobbies() {
         Hobby h1 = new Hobby();
         Hobby h2 = new Hobby();
         Hobby h3 = new Hobby();
@@ -78,23 +87,23 @@ public class Generator {
         hobbies.add(h7);
         hobbies.add(h8);
         hobbies.add(h9);
-        hobbies.add(h10);        
-    }    
-       
+        hobbies.add(h10);
+    }
+
     public String generateJSON(int count) {
         createHobbies();
         Random random = new Random();
         List<Person> persons = new ArrayList();
         for (int i = 0; i < count; i++) {
             Person p = new Person(
-                firstNames.get(random.nextInt(firstNames.size())), 
-                lastNames.get(random.nextInt(lastNames.size())));
-            
-            List<Hobby> personHobby =new ArrayList();
+                    firstNames.get(random.nextInt(firstNames.size())),
+                    lastNames.get(random.nextInt(lastNames.size())));
+
+            List<Hobby> personHobby = new ArrayList();
             personHobby.add(hobbies.get(random.nextInt(hobbies.size())));
             personHobby.add(hobbies.get(random.nextInt(hobbies.size())));
-            
-            while(personHobby.get(0).equals(personHobby.get(1))){
+
+            while (personHobby.get(0).equals(personHobby.get(1))) {
                 personHobby.remove(1);
                 personHobby.add(hobbies.get(random.nextInt(hobbies.size())));
             }
@@ -102,5 +111,4 @@ public class Generator {
         }
         return gson.toJson(persons);
     }
-    
 }
