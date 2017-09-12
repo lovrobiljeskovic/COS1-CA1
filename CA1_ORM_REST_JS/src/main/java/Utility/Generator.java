@@ -116,7 +116,6 @@ public class Generator {
     
     private List<Address> addresses = new ArrayList();
     
-
     private void createHobbies() {
         Hobby h1 = new Hobby();
         Hobby h2 = new Hobby();
@@ -157,6 +156,7 @@ public class Generator {
         hobbies.add(h9);
         hobbies.add(h10);
     }
+    
     private void createPhoneNumbers(int count, int startNb){
         int number = startNb;
         for (int i = 0 ; i < count; i++){
@@ -167,6 +167,7 @@ public class Generator {
             phones.add(ph);
         }
     }
+    
     private void createAddresses(int count, Random random){
         for (int i = 0; i< count; i++){
             Address ad = new Address();
@@ -178,7 +179,6 @@ public class Generator {
         
     }
     
-
     public String generateJSON(int count, int startingPhoneNumber) {
         Random random = new Random();
         createHobbies();
