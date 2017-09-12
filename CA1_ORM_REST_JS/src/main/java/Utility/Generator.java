@@ -1,5 +1,6 @@
 package Utility;
 
+import Entity.Hobby;
 import Entity.Person;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,7 +16,7 @@ public class Generator {
     
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
-    List<String> firstNames = new ArrayList() {
+    List<String> personFirstNames = new ArrayList() {
         {
             add("Mathias");
             add("Lovro");
@@ -23,6 +24,10 @@ public class Generator {
             add("Peter");
             add("Petru");
             add("Patrick");
+            add("Hanne");
+            add("Flemming");
+            add("Lars");
+            add("Nicklas");
         }
     };
     
@@ -34,6 +39,17 @@ public class Generator {
             add("Catana");
             add("Fenger");
             add("Mihok");
+            add("Petersen");
+            add("Gadegaard");
+            add("Jobs");
+            add("Wozniacki");
+            add("Larsen");
+        }
+    };
+    
+    List<Hobby> hobbies = new ArrayList() {
+        {
+            
         }
     };
        
@@ -42,7 +58,7 @@ public class Generator {
         List<Person> persons = new ArrayList();
         for (int i = 0; i < count; i++) {
             persons.add(new Person(
-                firstNames.get(random.nextInt(firstNames.size())), 
+                personFirstNames.get(random.nextInt(personFirstNames.size())), 
                 lastNames.get(random.nextInt(lastNames.size()))));
             
         }
