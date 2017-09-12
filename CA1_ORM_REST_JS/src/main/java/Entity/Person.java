@@ -2,6 +2,7 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
@@ -10,6 +11,7 @@ import javax.persistence.ManyToMany;
  * @author Lovro
  */
 @Entity
+@DiscriminatorValue("Person")
 public class Person extends InfoEntity implements Serializable  {
 
     private String firstName;

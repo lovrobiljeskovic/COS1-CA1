@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 public class Address implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String street;
     private String addSitionalInfo;
