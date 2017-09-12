@@ -23,6 +23,11 @@ public class Person extends InfoEntity implements Serializable  {
         
     }
 
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
