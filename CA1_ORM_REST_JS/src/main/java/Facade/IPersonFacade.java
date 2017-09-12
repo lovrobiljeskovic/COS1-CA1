@@ -12,7 +12,7 @@ public interface IPersonFacade {
     
     Person getPerson(int id);
     List<Person> getPersons();
-    List<Person> getPersons(int zipCode);
+    List<Person> getPersons(String zipCode);
     void addEntityManagerFactory(EntityManagerFactory emf);
 
     

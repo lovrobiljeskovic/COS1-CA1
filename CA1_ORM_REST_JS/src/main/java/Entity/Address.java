@@ -1,6 +1,7 @@
 package Entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class Address implements Serializable {
     private int id;
     private String street;
     private String addSitionalInfo;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private CityInfo cityInfo;
 
     public Address() {
@@ -54,6 +55,16 @@ public class Address implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    public CityInfo getCityInfo() {
+        return cityInfo;
+    }
+
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
+    }
+    
+    
 
     @Override
     public int hashCode() {

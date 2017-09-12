@@ -18,6 +18,10 @@ public class Person extends InfoEntity implements Serializable  {
     private String lastName;
     @ManyToMany(mappedBy = "persons")
     private List<Hobby> hobbies;
+    
+    public Person() {
+        
+    }
 
     public String getFirstName() {
         return firstName;
@@ -34,8 +38,8 @@ public class Person extends InfoEntity implements Serializable  {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    
+    
 
-    public Person() {
-    }
     
 }
