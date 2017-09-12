@@ -33,7 +33,7 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.find(Company.class, 1);
+            return em.find(Company.class, id);
         } finally {
             em.close();
         }

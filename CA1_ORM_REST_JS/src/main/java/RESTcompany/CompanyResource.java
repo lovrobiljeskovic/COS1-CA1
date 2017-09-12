@@ -61,7 +61,7 @@ public class CompanyResource {
         return JSONcompanyConverter.getJSONFromCompany(c);
     }
     @GET
-    @Path("{zipcode}")
+    @Path("city/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompaniesByZipCode(@PathParam("zipcode")String zipcode) {
         List<Company> companies = cf.getCompanies();
@@ -69,6 +69,14 @@ public class CompanyResource {
           return gson.toJson(companies);
 
     }
+     @GET
+    @Path("count/{zipcode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAll() {
+     
+            String companyCount = "Count: " + cf.getCompanies().size();
+          return gson.toJson(companyCount);
+        }
     
 
 
