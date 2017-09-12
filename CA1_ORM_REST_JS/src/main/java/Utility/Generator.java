@@ -1,7 +1,10 @@
 package utility;
 
+import Entity.Address;
+import Entity.CityInfo;
 import Entity.Hobby;
 import Entity.Person;
+import Entity.Phone;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -46,8 +49,73 @@ public class Generator {
             add("Larsen");
         }
     };
+    
+    private List<CityInfo> cities = new ArrayList() {
+        {
+           add(new CityInfo("5932","Humble"));
+           add(new CityInfo("5935", "Bagenkop"));
+           add(new CityInfo("7490", "Aulum"));
+           add(new CityInfo("6040", "Egtved"));
+           add(new CityInfo("6051", "Almind"));
+           add(new CityInfo("7300", "Jelling"));
+           add(new CityInfo("6660", "Lintrup"));
+           add(new CityInfo("6823", "Ansager"));
+           add(new CityInfo("6855", "Outrup"));
+           add(new CityInfo("7140", "Stouby"));          
+        }
+    };
+    
+    private List<String> zipcodes = new ArrayList() {
+        {
+            add("Jepsen");
+            add("Biljeskovic");
+            add("Thimothee");
+            add("Catana");
+            add("Fenger");
+            add("Mihok");
+            add("Petersen");
+            add("Gadegaard");
+            add("Jobs");
+            add("Wozniacki");
+            add("Larsen");
+        }
+    };
+    
+    private List<String> streets = new ArrayList(){
+        {
+            add("Kongevej");
+            add("langgade");
+            add("roskildevej");
+            add("vesterbrogade");
+            add("osterbrogade");
+            add("norrebrogade");
+            add("amelievej");
+            add("englandvej");
+            add("parisgade");
+        }
+    };
+    
+    private List<String> additionalInfo = new ArrayList(){
+        {
+            add("nummer 1");
+            add("nummer 2");
+            add("nummer 3");
+            add("nummer 4");
+            add("nummer 5");
+            add("nummer 6");
+            add("nummer 7");
+            add("nummer 8");
+            add("nummer 9");
+            add("nummer 10");
+        }
+    };
+    
+    private List<Phone> phones = new ArrayList();
 
     private List<Hobby> hobbies = new ArrayList();
+    
+    private List<Address> addresses = new ArrayList();
+    
 
     private void createHobbies() {
         Hobby h1 = new Hobby();
@@ -89,10 +157,33 @@ public class Generator {
         hobbies.add(h9);
         hobbies.add(h10);
     }
+    private void createPhoneNumbers(int count, int startNb){
+        int number = startNb;
+        for (int i = 0 ; i < count; i++){
+            Phone ph = new Phone();
+            ph.setNumber(number);           
+            ph.setDescription("the number is:" + number);
+            number++;
+            phones.add(ph);
+        }
+    }
+    private void createAddresses(int count, Random random){
+        for (int i = 0; i< count; i++){
+            Address ad = new Address();
+            ad.setCityInfo(cities.get(random.nextInt(cities.size())));
+            ad.setAddSitionalInfo(additionalInfo.get(random.nextInt(additionalInfo.size())));
+            ad.setStreet(streets.get(random.nextInt(streets.size())));
+            addresses.add(ad);
+        }
+        
+    }
+    
 
-    public String generateJSON(int count) {
-        createHobbies();
+    public String generateJSON(int count, int startingPhoneNumber) {
         Random random = new Random();
+        createHobbies();
+        createPhoneNumbers(count, startingPhoneNumber);
+        createAddresses(count, random);
         List<Person> persons = new ArrayList();
         for (int i = 0; i < count; i++) {
             Person p = new Person(
@@ -108,6 +199,8 @@ public class Generator {
                 personHobby.add(hobbies.get(random.nextInt(hobbies.size())));
             }
             p.setHobbies(personHobby);
+            
+            p.setAddress(addresses.get(random.nextInt(addresses.size())));
         }
         return gson.toJson(persons);
     }
