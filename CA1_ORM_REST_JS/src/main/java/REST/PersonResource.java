@@ -41,7 +41,7 @@ public class PersonResource {
     @Path("complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonFromId(@PathParam("id") int id) {
-        return gson.toJson(pf.getPerson(id));
+        return gson.toJson(pf.getPersonByID(id));
     }
 
     @GET
@@ -71,7 +71,7 @@ public class PersonResource {
     @Path("contactInfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getContactInfo(@PathParam("id") int id) {
-        Person p = pf.getPerson(id);
+        Person p = pf.getPersonByID(id);
         JSONPersonContactDetails jpcd = new JSONPersonContactDetails(p);
 
         return gson.toJson(jpcd);
@@ -81,7 +81,7 @@ public class PersonResource {
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getContactInfoByPhone(@PathParam("phone") int number) {
-        List<Person> persons = pf.getPersonsFromPhone(number);
+        List<Person> persons = pf.getPersonsByPhone(number);
 
         return gson.toJson(persons);
     }

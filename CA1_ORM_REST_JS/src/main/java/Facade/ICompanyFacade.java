@@ -1,6 +1,7 @@
 package Facade;
 
 import Entity.Company;
+import Entity.Hobby;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 
@@ -11,10 +12,12 @@ import javax.persistence.EntityManagerFactory;
 public interface ICompanyFacade {
     
     void createCompany(Company c);
-    Company getCompany(int id);
-    Company getCompanyCvr(String cvr);
+    Company getCompanyByID(int id);
+    Company getCompanyByCVR(String cvr);
     List<Company> getCompanies();
-    List<Company> getCompanies(String zipCode);
+    List<Company> getCompaniesByZipCode(String zipCode);
+    List<Company> getCompaniesByPhone(int number);
+    List<Company> getCompaniesWithEmployees(int minimumNum);
     void addEntityManagerFactory(EntityManagerFactory emf);
 
 }
