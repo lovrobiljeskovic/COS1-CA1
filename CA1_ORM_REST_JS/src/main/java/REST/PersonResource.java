@@ -110,19 +110,21 @@ public class PersonResource {
     @GET
     @Path("zip/count/{postalcode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCountPersonsByZipCode(@PathParam("postalcode") String postalcode) {
-        int count = pf.getCountOfPersonsByCity(postalcode);
-
-        return gson.toJson(count);
+    public String getCountPersonsByZipCode(@PathParam("postalcode")String postalcode) 
+    {
+         Long count = pf.getCountOfPersonsByCity(postalcode);
+         
+         return gson.toJson(count);
     }
 
     @GET
     @Path("person/count/{{hobby}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCountPersonsByHobby(@PathParam("hobby") String hobby) {
-        int count = pf.getCountOfPersonsWithHobby(hobby);
-
-        return gson.toJson(count);
+    public String getCountPersonsByHobby(@PathParam("hobby")String hobby) 
+    {
+         Long count = pf.getCountOfPersonsWithHobby(hobby);
+         
+         return gson.toJson(count);
     }
 
     @GET

@@ -2,7 +2,6 @@ package Utility;
 
 import Entity.Address;
 import Entity.Company;
-import static Entity.Company_.cvr;
 import Entity.Hobby;
 import Entity.Person;
 import Entity.Phone;
@@ -222,10 +221,10 @@ private List<String> firstNames = new ArrayList() {
         gf.createAddress(address);
     }
     
-    public void createHobbies() {
-        Hobby hobby = hobbies.get(random.nextInt(hobbies.size()));
-        gf.createHobbies(hobby);
-    }
+//    public Hobby createHobbies() {
+//        Hobby hobby = hobbies.get(random.nextInt(hobbies.size()));
+//        return gf.createHobbies(hobby);
+//    }
 
     public void createCompanies(int phoneNumber, int cvr) {
         Company company = new Company();
@@ -249,22 +248,26 @@ private List<String> firstNames = new ArrayList() {
         List<Phone> phones = new ArrayList();
         phones.add(gf.getPhone(phoneNumber));
         person.setPhones(phones);
+        Hobby hobby = hobbies.get(random.nextInt(hobbies.size()));
+        hobby.setId(phoneNumber - 1);
+        person.addHobby(hobby);
+        hobby.addPerson(person);
         gf.createPerson(person);
     }
-
-    public void createTestData(int count, int startingPhoneNumber, int startingCVR) {
+    
+    public void createTestData(int count, int startingCVR) {
         int cvr = startingCVR;
+        int phoneNumber = 1;
         createNames(count);
         hobbiesList();
         for (int i = 0; i < count; i++) {     
-            createPhones(startingPhoneNumber);
-            createHobbies();
+            createPhones(phoneNumber);
             createAddresses();
-            createCompanies(startingPhoneNumber, cvr);
-            startingPhoneNumber++;
-            createPhones(startingPhoneNumber);
-            createPersons(startingPhoneNumber);
-            startingPhoneNumber++;
+            createCompanies(phoneNumber, cvr);
+            phoneNumber++;
+            createPhones(phoneNumber);
+            createPersons(phoneNumber);
+            phoneNumber++;
             cvr++;
         }
     }

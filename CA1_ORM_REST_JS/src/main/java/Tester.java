@@ -13,7 +13,7 @@ public class Tester {
     
     public static void main(String[] args) {
         
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cos1_CA1_ORM_REST_JS_war_1.0-SNAPSHOTPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cos1_CA1_ORM_REST_JS_war_1.0-SNAPSHOTPU");
 //        EntityManager em = emf.createEntityManager();
 //        PersonFacade pf = new PersonFacade();
 //        pf.addEntityManagerFactory(emf);
@@ -37,8 +37,8 @@ public class Tester {
 ////        CompanyGenerator cg = new CompanyGenerator(emf);
 ////        cg.createTestData(1, 10000, 2490);
 //        
-//        TestGenerator tg = new TestGenerator(emf);
-//        tg.createTestData(100, 80000000, 12450);
+        TestGenerator tg = new TestGenerator(emf);
+        tg.createTestData(100, 12450);
     }
     
 }
