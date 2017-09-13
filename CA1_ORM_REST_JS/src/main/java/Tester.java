@@ -36,10 +36,10 @@ public class Tester {
 //            em.close();
 //        }
         PersonGenerator pg = new PersonGenerator();
-        List<Person> list = pg.generateJSON(10, 22311255);
-        for (Person p:list){
-            System.out.println(p.getFirstName() + " "+ p.getLastName());
-        }
+        CompanyGenerator cg = new CompanyGenerator();
+//        List<Person> list = pg.generateJSON(10, 22311255);
+        
+        System.out.println(cg.generateJSON(10, 1000, 3430));
 
     }
     
