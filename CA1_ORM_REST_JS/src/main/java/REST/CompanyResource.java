@@ -1,5 +1,6 @@
 package REST;
 
+import Entity.Address;
 import Entity.Company;
 import Facade.CompanyFacade;
 import Utility.JSONCompanyContactDetails;
@@ -18,6 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import Utility.JSONCompanyConverter;
+import Utility.JSONStreet;
 import javax.persistence.Persistence;
 
 @Path("company")
@@ -74,14 +76,37 @@ public class CompanyResource {
     @GET
     @Path("count/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAll() {
-        String companyCount = "Count: " + cf.getCompanies().size();
+    public String getAll(@PathParam("zipcode") String zipcode) {
+        String companyCount = "Count: " + cf.getCompaniesByZipCode(zipcode).size();
         return gson.toJson(companyCount);
+    }
+    
+    @GET
+    @Path("street")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllStreets() {
+        List<Address> addresses = cf.getAllStreets();
+        List<JSONStreet> newList = new ArrayList();
+        for (Address a : addresses) {
+            JSONStreet js = new JSONStreet(a);
+            newList.add(js);
+        }
+        return gson.toJson(newList);
+    }
+    @GET
+    @Path("employees/more/{employeeNumber}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllCompaniesByZipCode(@PathParam("employeeNumber") int employeeNumber) {
+        List<Company> companies = cf.getCompaniesWithEmployees(employeeNumber);
+        return gson.toJson(companies);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String putJson(String content) {
+        Company company = JSONCompanyConverter.getCompanyFromJson(content);
+        return JSONCompanyConverter.getJSONFromCompany(cf.editCompany(company));
     }
 
     @POST
