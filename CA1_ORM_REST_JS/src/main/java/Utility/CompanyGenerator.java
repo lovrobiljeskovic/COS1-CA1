@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -27,6 +28,13 @@ public class CompanyGenerator {
     private Random random = new Random();
     private List<String> names = new ArrayList();
     GeneralFacade gf = new GeneralFacade();
+
+    public CompanyGenerator(EntityManagerFactory emf) {
+        gf.addEntityManagerFactory(emf);
+    }
+    
+    
+    
     
     private List<String> firstParts = new ArrayList() {
         {
