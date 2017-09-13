@@ -118,7 +118,7 @@ public class PersonResource {
     }
 
     @GET
-    @Path("person/count/{{hobby}")
+    @Path("person/count/{hobby}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCountPersonsByHobby(@PathParam("hobby")String hobby) 
     {
