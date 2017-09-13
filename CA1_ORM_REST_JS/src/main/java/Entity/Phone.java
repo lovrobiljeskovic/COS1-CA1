@@ -15,7 +15,6 @@ import javax.persistence.Id;
 public class Phone implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int number;
     private String description;
 

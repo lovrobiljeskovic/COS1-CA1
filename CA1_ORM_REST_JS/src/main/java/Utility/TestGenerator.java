@@ -233,9 +233,7 @@ private List<String> firstNames = new ArrayList() {
         company.setName(names.get(random.nextInt(names.size())));
         company.setCvr(String.valueOf(cvr));
         company.setEmail(company.getName() + "@company.com");
-        List<Phone> phones = new ArrayList();
-        phones.add(gf.getPhone(phoneNumber));
-        company.setPhones(phones);
+        company.addPhone(gf.getPhone(phoneNumber));
         company.setNumEmployees(random.nextInt((1000 - 5) + 1) + 5);
         gf.createCompany(company);
     }
@@ -245,10 +243,8 @@ private List<String> firstNames = new ArrayList() {
         person.setFirstName(firstNames.get(random.nextInt(firstNames.size())));
         person.setLastName(lastNames.get(random.nextInt(lastNames.size())));
         person.setEmail(person.getFirstName() + "@person.com");
-        List<Phone> phones = new ArrayList();
-        phones.add(gf.getPhone(phoneNumber));
-        person.setPhones(phones);
-        Hobby hobby = hobbies.get(random.nextInt(hobbies.size()));
+        person.addPhone(gf.getPhone(phoneNumber));
+        Hobby hobby = hobbies.get(phoneNumber - 1);
         hobby.setId(phoneNumber - 1);
         person.addHobby(hobby);
         hobby.addPerson(person);

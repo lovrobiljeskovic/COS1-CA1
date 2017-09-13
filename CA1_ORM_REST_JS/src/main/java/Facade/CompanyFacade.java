@@ -41,7 +41,7 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :phone").setParameter("number", number).getResultList();
+            return em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", number).getResultList();
         } finally {
             em.close();
         }

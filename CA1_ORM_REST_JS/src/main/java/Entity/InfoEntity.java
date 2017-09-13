@@ -1,6 +1,7 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
@@ -33,7 +34,11 @@ public abstract class InfoEntity implements Serializable {
     
 
     public InfoEntity() {
-        
+        this.phones = new ArrayList();
+    }
+    
+    public void addPhone(Phone phone) {
+        phones.add(phone);
     }
     
     public int getId() {
