@@ -18,8 +18,8 @@ public interface IPersonFacade {
     List<Person> getPersonsByHobby(String hobby);
     List<Person> getPersonsByPhone(int phone);
     List<Person> getPersonsByCity(String city);
-    int getCountOfPersonsByCity(String zipCode);
-    int getCountOfPersonsWithHobby(String hobby);
+    Long getCountOfPersonsByCity(String zipCode);
+    Long getCountOfPersonsWithHobby(String hobby);
     void addEntityManagerFactory(EntityManagerFactory emf);
 
     

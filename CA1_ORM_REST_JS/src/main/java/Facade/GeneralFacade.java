@@ -139,13 +139,9 @@ public class GeneralFacade {
         EntityManager em = getEntityManager();
         
         List<Address> addresses = em.createQuery("SELECT a FROM Address a").getResultList();
-        List<Hobby> hobbies = em.createQuery("SELECT h FROM Hobby h").getResultList();
 
         try {
             person.setAddress(addresses.get(random.nextInt(addresses.size())));
-            List<Hobby> list = new ArrayList();
-            list.add(hobbies.get(random.nextInt(hobbies.size())));
-            person.setHobbies(list);
             em.getTransaction().begin();
             em.persist(person);
             em.getTransaction().commit();

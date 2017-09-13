@@ -2,13 +2,17 @@ package UnitTest;
 
 import Entity.Address;
 import Entity.CityInfo;
+import Entity.Hobby;
 import Entity.Person;
+import Entity.Phone;
 import Facade.PersonFacade;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,6 +39,16 @@ public class PersonFacadeTest {
         Address a1 = new Address();
         Address a2 = new Address();
         Address a3 = new Address();
+        Phone phone = new Phone();
+        phone.setNumber(12345678);
+        phone.setDescription("This is a phone number");
+        List<Phone> phones = new ArrayList();
+        phones.add(phone);
+        Hobby hobby = new Hobby();
+        List<Hobby> hobbies = new ArrayList();
+        hobbies.add(hobby);
+        hobby.setName("handball");
+        hobby.setDescription("This is a cool sport");
         c1.setCity("Holte");
         c1.setZipCode("2840");
         c2.setCity("Lyngby");
@@ -53,6 +67,8 @@ public class PersonFacadeTest {
         p1.setAddress(a1);
         p2.setAddress(a2);
         p3.setAddress(a3);
+        p1.setHobbies(hobbies);
+        p1.setPhones(phones);
         pf.createPerson(p1);
         pf.createPerson(p2);
         pf.createPerson(p3);
@@ -95,24 +111,33 @@ public class PersonFacadeTest {
     }
     
     @Test
-    public void getPersonssByHobby() {
-        
+    public void getPersonsByHobby() {
+        List<Person> persons = pf.getPersonsByHobby("handball");
+        assertNotNull(persons);
     }
     
     @Test
-    public void getPersonssByHobby() {
-        
+    public void getPersonsByPhone() {
+        List<Person> persons = pf.getPersonsByPhone(12345678);
+        assertNotNull(persons);
     }
     
     @Test
-    public void getPersonssByHobby() {
-        
+    public void getPersonsByCity() {
+        List<Person> persons = pf.getPersonsByZipCode("2840");
+        assertNotNull(persons);
     }
     
-//    List<Person> getPersonsByHobby(String hobby);
-//    List<Person> getPersonsByPhone(int phone);
-//    List<Person> getPersonsByCity(String city);
+    @Test
+    public void getCountOfPersonsByCity() {
+        Long count = pf.getCountOfPersonsByCity("2840");
+        assertEquals(Long.valueOf(1l), count);
+    }
     
-    
+    @Test
+    public void getCountOfPersonsWithHobby() {
+        Long count = pf.getCountOfPersonsWithHobby("handball");
+        assertEquals(Long.valueOf(1l), count);
+    }
     
 }
