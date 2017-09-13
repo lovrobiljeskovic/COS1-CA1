@@ -28,7 +28,7 @@ public abstract class InfoEntity implements Serializable {
     private String email;
     @OneToMany
     private List<Phone> phones;
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Address address;
     
 

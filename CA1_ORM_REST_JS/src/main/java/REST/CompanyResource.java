@@ -17,7 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import Utility.JSONcompanyConverter;
+import Utility.JSONCompanyConverter;
 import javax.persistence.Persistence;
 
 @Path("company")
@@ -51,7 +51,7 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyById(@PathParam("id") int id) {
         Company c = cf.getCompanyByID(id);
-        return JSONcompanyConverter.getJSONFromCompany(c);
+        return JSONCompanyConverter.getJSONFromCompany(c);
     }
 
     @GET
@@ -59,7 +59,7 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyByCvr(@PathParam("cvr") String cvr) {
         Company c = cf.getCompanyByCVR(cvr);
-        return JSONcompanyConverter.getJSONFromCompany(c);
+        return JSONCompanyConverter.getJSONFromCompany(c);
     }
 
     @GET
@@ -88,9 +88,9 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String postCompany(String companyAsJson) {
-        Company c = JSONcompanyConverter.getCompanyFromJson(companyAsJson);
+        Company c = JSONCompanyConverter.getCompanyFromJson(companyAsJson);
         cf.addCompany(c);
-        return JSONcompanyConverter.getJSONFromCompany(c);
+        return JSONCompanyConverter.getJSONFromCompany(c);
 
     }
 }

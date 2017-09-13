@@ -4,7 +4,6 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -12,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @DiscriminatorValue("Person")
-@XmlRootElement
 public class Person extends InfoEntity  {
 
     private String firstName;

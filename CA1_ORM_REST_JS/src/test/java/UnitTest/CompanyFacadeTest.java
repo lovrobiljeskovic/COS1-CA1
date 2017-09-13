@@ -91,7 +91,7 @@ public class CompanyFacadeTest {
     }
     
     @Test
-    public void getCompaniesByZipcode() {
+    public void getCompaniesByZipCode() {
         List<Company> companies = cf.getCompaniesByZipCode("2840");
         assertEquals("Apple", companies.get(0).getName());
     }
