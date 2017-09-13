@@ -1,6 +1,5 @@
 package Facade;
 
-import Entity.Hobby;
 import Entity.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -28,7 +27,7 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.find(Person.class, id);
+            return em.find(Person.class, id);        
         } finally {
             em.close();
         }
@@ -102,8 +101,8 @@ public class PersonFacade implements IPersonFacade {
         }
     }
 
-    
-    public List<Person> getPersonFromCity (String city)
+    @Override
+    public List<Person> getPersonsByCity (String city)
     {
         EntityManager em = getEntityManager();
         
@@ -116,6 +115,18 @@ public class PersonFacade implements IPersonFacade {
             em.close();
           }
         
+    }
+
+    @Override
+    public int getCountOfPersonsByCity(String zipCode)
+    {
+        EntityManager em = getEntityManager();
+
+        try {
+            return (int) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getSingleResult();
+        } finally {
+            em.close();
+        }
     }
     
 }
