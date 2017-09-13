@@ -47,7 +47,7 @@ public class CompanyResource {
     }
 
     @GET
-    @Path("{id}")
+    @Path("id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyById(@PathParam("id") int id) {
         Company c = cf.getCompanyByID(id);
@@ -55,7 +55,7 @@ public class CompanyResource {
     }
 
     @GET
-    @Path("{cvr}")
+    @Path("cvr/{cvr}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyByCvr(@PathParam("cvr") String cvr) {
         Company c = cf.getCompanyByCVR(cvr);
@@ -67,7 +67,6 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompaniesByZipCode(@PathParam("zipcode") String zipcode) {
         List<Company> companies = cf.getCompanies();
-
         return gson.toJson(companies);
 
     }
@@ -86,6 +85,7 @@ public class CompanyResource {
     }
 
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String postCompany(String companyAsJson) {
         Company c = JSONcompanyConverter.getCompanyFromJson(companyAsJson);
