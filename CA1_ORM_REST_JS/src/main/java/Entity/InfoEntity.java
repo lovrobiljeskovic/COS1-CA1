@@ -26,13 +26,14 @@ public abstract class InfoEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String email;
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Phone> phones;
     @ManyToOne(cascade = {CascadeType.ALL})
     private Address address;
     
 
     public InfoEntity() {
+        
     }
     
     public int getId() {

@@ -84,18 +84,18 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p join p.hobbies h WHERE h.name").setParameter("hobby", hobby).getResultList();
+            return em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.name = :hobby").setParameter("hobby", hobby).getResultList();
         } finally {
             em.close();
         }
     }
 
     @Override
-    public int getCountOfPersonsWithHobby(String hobby) {
+    public Long getCountOfPersonsWithHobby(String hobby) {
         EntityManager em = getEntityManager();
 
         try {
-            return (int) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.hobbies h WHERE h.name").setParameter("hobby", hobby).getSingleResult();
+            return (Long) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.hobbies h WHERE h.name = :hobby").setParameter("hobby", hobby).getSingleResult();
         } finally {
             em.close();
         }
@@ -118,12 +118,12 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public int getCountOfPersonsByCity(String zipCode)
+    public Long getCountOfPersonsByCity(String zipCode)
     {
         EntityManager em = getEntityManager();
 
         try {
-            return (int) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getSingleResult();
+            return (Long) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getSingleResult();
         } finally {
             em.close();
         }
