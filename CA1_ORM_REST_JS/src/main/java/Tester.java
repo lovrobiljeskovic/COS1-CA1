@@ -22,9 +22,7 @@ public class Tester {
         PersonFacade pf = new PersonFacade();
         pf.addEntityManagerFactory(emf);
         GeneralFacade gf = new GeneralFacade();
-        gf.addEntityManagerFactory(emf);
-        
-        
+        gf.addEntityManagerFactory(emf);  
 //        try {
 //            InfoEntity p = new Person();
 //            Address a = new Address();
@@ -42,7 +40,6 @@ public class Tester {
 //        List<Person> list = pg.generateJSON(10, 22311255);
         CompanyGenerator cg = new CompanyGenerator(emf);
         System.out.println(cg.generateJSON(1, 1000, 222222));
-
     }
     
 }
