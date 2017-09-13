@@ -13,11 +13,11 @@ import java.util.List;
  *
  * @author Lovro
  */
-public class JsonCompany {
+public class JSONCompany {
     private String email;
     private List<Phone> phones;
 
-    public JsonCompany(Company company) {
+    public JSONCompany(Company company) {
         this.email = company.getEmail();
         this.phones = company.getPhones();
     }

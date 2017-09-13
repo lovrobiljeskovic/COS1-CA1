@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RESTcompany;
+package REST;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -29,8 +29,8 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(RESTcompany.CompanyResource.class);
-        resources.add(RESTperson.PersonResource.class);
+        resources.add(REST.CompanyResource.class);
+        resources.add(REST.PersonResource.class);
     }
     
 }

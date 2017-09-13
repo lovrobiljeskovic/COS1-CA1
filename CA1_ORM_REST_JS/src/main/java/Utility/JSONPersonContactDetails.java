@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RESTperson;
+package Utility;
 
 import Entity.Address;
 import Entity.InfoEntity;
@@ -15,13 +15,13 @@ import java.util.List;
  *
  * @author Dell
  */
-public class JsonPersonContactDetails
+public class JSONPersonContactDetails
 {
     private String email;
     private List<Phone> phones;
     private Address address;
     
-    public JsonPersonContactDetails(Person p)
+    public JSONPersonContactDetails(Person p)
     {
         this.email =  p.getEmail() ;
         this.phones = p.getPhones();

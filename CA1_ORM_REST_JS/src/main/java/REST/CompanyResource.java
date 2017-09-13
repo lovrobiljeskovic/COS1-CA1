@@ -1,8 +1,8 @@
-package RESTcompany;
+package REST;
 
 import Entity.Company;
 import Facade.CompanyFacade;
-import Utility.JsonCompany;
+import Utility.JSONCompany;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import Utility.JSONcompanyConverter;
 
-
 @Path("company")
 public class CompanyResource {
-  private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     CompanyFacade cf = new CompanyFacade();
 
     @Context
@@ -36,14 +36,14 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompanies() {
         List<Company> companies = cf.getCompanies();
-          List<JsonCompany> newList = new ArrayList();
-          for(Company c : companies) {
-              JsonCompany jc = new JsonCompany(c);
-              newList.add(jc);
-          }
-          return gson.toJson(newList);
-
+        List<JSONCompany> newList = new ArrayList();
+        for (Company c : companies) {
+            JSONCompany jc = new JSONCompany(c);
+            newList.add(jc);
+        }
+        return gson.toJson(newList);
     }
+
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,34 +51,32 @@ public class CompanyResource {
         Company c = cf.getCompany(id);
         return JSONcompanyConverter.getJSONFromCompany(c);
     }
-    
-     @GET
+
+    @GET
     @Path("{cvr}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyByCvr(@PathParam("cvr") String cvr) {
         Company c = cf.getCompanyCvr(cvr);
         return JSONcompanyConverter.getJSONFromCompany(c);
     }
+
     @GET
     @Path("city/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllCompaniesByZipCode(@PathParam("zipcode")String zipcode) {
+    public String getAllCompaniesByZipCode(@PathParam("zipcode") String zipcode) {
         List<Company> companies = cf.getCompanies();
-       
-          return gson.toJson(companies);
+
+        return gson.toJson(companies);
 
     }
-     @GET
+
+    @GET
     @Path("count/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAll() {
-     
-            String companyCount = "Count: " + cf.getCompanies().size();
-          return gson.toJson(companyCount);
-        }
-    
-
-
+        String companyCount = "Count: " + cf.getCompanies().size();
+        return gson.toJson(companyCount);
+    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
