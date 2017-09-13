@@ -3,6 +3,7 @@ package REST;
 import Utility.JSONPersonContactDetails;
 import Entity.Person;
 import Facade.PersonFacade;
+import Utility.JSONPerson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -41,7 +42,8 @@ public class PersonResource {
     @Path("complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonFromId(@PathParam("id") int id) {
-        return gson.toJson(pf.getPersonByID(id));
+        
+        return gson.toJson(new JSONPerson(pf.getPersonByID(id)));
     }
 
     @GET

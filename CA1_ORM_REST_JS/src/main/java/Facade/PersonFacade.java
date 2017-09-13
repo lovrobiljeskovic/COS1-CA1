@@ -1,6 +1,5 @@
 package Facade;
 
-import Entity.Hobby;
 import Entity.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -28,7 +27,7 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.find(Person.class, id);
+            return em.find(Person.class, id);        
         } finally {
             em.close();
         }
