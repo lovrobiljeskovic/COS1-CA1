@@ -10,6 +10,7 @@ import Entity.CityInfo;
 import Entity.Company;
 import Entity.Hobby;
 import Entity.Phone;
+import Facade.GeneralFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class CompanyGenerator {
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private Random random = new Random();
     private List<String> names = new ArrayList();
+    GeneralFacade gf = new GeneralFacade();
     
     private List<String> firstParts = new ArrayList() {
         {
@@ -92,36 +94,7 @@ public class CompanyGenerator {
         }
     };
     
-    private List<CityInfo> cities = new ArrayList() {
-        {
-           add(new CityInfo("5932","Humble"));
-           add(new CityInfo("5935", "Bagenkop"));
-           add(new CityInfo("7490", "Aulum"));
-           add(new CityInfo("6040", "Egtved"));
-           add(new CityInfo("6051", "Almind"));
-           add(new CityInfo("7300", "Jelling"));
-           add(new CityInfo("6660", "Lintrup"));
-           add(new CityInfo("6823", "Ansager"));
-           add(new CityInfo("6855", "Outrup"));
-           add(new CityInfo("7140", "Stouby"));          
-        }
-    };
-    
-    private List<String> zipcodes = new ArrayList() {
-        {
-            add("Jepsen");
-            add("Biljeskovic");
-            add("Thimothee");
-            add("Catana");
-            add("Fenger");
-            add("Mihok");
-            add("Petersen");
-            add("Gadegaard");
-            add("Jobs");
-            add("Wozniacki");
-            add("Larsen");
-        }
-    };
+    private List<CityInfo>  cityInfoList = new ArrayList();
     
     private List<String> streets = new ArrayList(){
         {
@@ -177,9 +150,10 @@ public class CompanyGenerator {
     }
     
     private void createAddresses(int count){
+        cityInfoList = gf.getCityInfoList();
         for (int i = 0; i< count; i++){
             Address ad = new Address();
-            ad.setCityInfo(cities.get(random.nextInt(cities.size())));
+            ad.setCityInfo(cityInfoList.get(random.nextInt(cityInfoList.size())));
             ad.setAddSitionalInfo(additionalInfo.get(random.nextInt(additionalInfo.size())));
             ad.setStreet(streets.get(random.nextInt(streets.size())));
             addresses.add(ad);
