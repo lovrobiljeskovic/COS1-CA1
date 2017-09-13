@@ -116,6 +116,5 @@ public class CompanyResource {
         Company c = JSONCompanyConverter.getCompanyFromJson(companyAsJson);
         cf.addCompany(c);
         return JSONCompanyConverter.getJSONFromCompany(c);
-
     }
 }

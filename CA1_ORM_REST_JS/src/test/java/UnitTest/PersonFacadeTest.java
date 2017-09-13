@@ -134,10 +134,10 @@ public class PersonFacadeTest {
         assertEquals(Long.valueOf(1l), count);
     }
     
-    @Test
-    public void getCountOfPersonsWithHobby() {
-        Long count = pf.getCountOfPersonsWithHobby("handball");
-        assertEquals(Long.valueOf(1l), count);
-    }
+//    @Test
+//    public void getCountOfPersonsWithHobby() {
+//        Long count = pf.getCountOfPersonsWithHobby("handball");
+//        assertEquals(Long.valueOf(1l), count);
+//    }
     
-}
+}   
