@@ -48,7 +48,7 @@ public class CompanyResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyById(@PathParam("id") int id) {
-        Company c = cf.getCompany(id);
+        Company c = cf.getCompanyByID(id);
         return JSONcompanyConverter.getJSONFromCompany(c);
     }
 
@@ -56,7 +56,7 @@ public class CompanyResource {
     @Path("{cvr}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyByCvr(@PathParam("cvr") String cvr) {
-        Company c = cf.getCompanyCvr(cvr);
+        Company c = cf.getCompanyByCVR(cvr);
         return JSONcompanyConverter.getJSONFromCompany(c);
     }
 

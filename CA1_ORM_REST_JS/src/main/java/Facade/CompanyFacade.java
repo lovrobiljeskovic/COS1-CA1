@@ -2,9 +2,7 @@ package Facade;
 
 import Entity.Company;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -27,7 +25,7 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public Company getCompany(int id) {
+    public Company getCompanyByID(int id) {
         EntityManager em = getEntityManager();
 
         try {
@@ -37,19 +35,16 @@ public class CompanyFacade implements ICompanyFacade {
         }
     }
 
-    /*
-     @Override
-    public Company getCompanyPhone(String phone) {
+    @Override
+    public List<Company> getCompaniesByPhone(int number) {
         EntityManager em = getEntityManager();
 
         try {
-            Company c = new Company();
-            return em.find(Company.class, c.getPhones());
+            return em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :phone").setParameter("number", number).getResultList();
         } finally {
             em.close();
         }
     }
-     */
 
     @Override
     public List<Company> getCompanies() {
@@ -65,7 +60,7 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public List<Company> getCompanies(String zipCode) {
+    public List<Company> getCompaniesByZipCode(String zipCode) {
         EntityManager em = getEntityManager();
         try {
             return em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
@@ -73,7 +68,6 @@ public class CompanyFacade implements ICompanyFacade {
             em.close();
         }
     }
-
 
     public Company addCompany(Company c) {
         EntityManager em = getEntityManager();
@@ -88,7 +82,7 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public Company getCompanyCvr(String cvr) {
+    public Company getCompanyByCVR(String cvr) {
         EntityManager em = getEntityManager();
 
         try {
@@ -111,6 +105,15 @@ public class CompanyFacade implements ICompanyFacade {
             em.close();
         }
     }
+
+    @Override
+    public List<Company> getCompaniesWithEmployees(int minimumNum) {
+        EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT c FROM Company c WHERE c.numEmployees > :min").setParameter("min", minimumNum).getResultList();
+        } finally {
+            em.close();
+        }
     }
-
-
+}

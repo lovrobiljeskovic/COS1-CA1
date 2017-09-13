@@ -1,5 +1,6 @@
 package Facade;
 
+import Entity.Hobby;
 import Entity.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -23,7 +24,7 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person getPerson(int id) {
+    public Person getPersonByID(int id) {
         EntityManager em = getEntityManager();
 
         try {
@@ -45,7 +46,7 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public List<Person> getPersons(String zipCode) {
+    public List<Person> getPersonsByZipCode(String zipCode) {
         EntityManager em = getEntityManager();
 
         try {
@@ -67,12 +68,35 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
-
-    public List<Person> getPersonsFromPhone(int number) {
+    
+    @Override
+    public List<Person> getPersonsByPhone(int number) {
         EntityManager em = getEntityManager();
 
         try {
             return em.createQuery("SELECT p FROM Person p join p.phones f WHERE f.number = :number").setParameter("number", number).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<Person> getPersonsByHobby(String hobby) {
+        EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT p FROM Person p join p.hobbies h WHERE h.name").setParameter("hobby", hobby).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public int getCountOfPersonsWithHobby(String hobby) {
+        EntityManager em = getEntityManager();
+
+        try {
+            return (int) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.hobbies h WHERE h.name").setParameter("hobby", hobby).getSingleResult();
         } finally {
             em.close();
         }

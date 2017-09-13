@@ -74,9 +74,9 @@ public class PersonFacadeTest {
 
     @Test
     public void getPerson() {
-        Person p1 = pf.getPerson(1);
-        Person p2 = pf.getPerson(2);
-        Person p3 = pf.getPerson(3);
+        Person p1 = pf.getPersonByID(1);
+        Person p2 = pf.getPersonByID(2);
+        Person p3 = pf.getPersonByID(3);
         assertEquals("Mathias", p1.getFirstName());
         assertEquals("Thomas", p2.getFirstName());
         assertEquals("Lovro", p3.getFirstName());
@@ -90,7 +90,7 @@ public class PersonFacadeTest {
     
     @Test
     public void getPersonsByZipcode() {
-        List<Person> persons = pf.getPersons("2840");
+        List<Person> persons = pf.getPersonsByZipCode("2840");
         assertEquals("Mathias", persons.get(0).getFirstName());
     }
     

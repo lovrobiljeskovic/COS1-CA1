@@ -1,5 +1,6 @@
 package Facade;
 
+import Entity.Hobby;
 import Entity.Person;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -11,9 +12,12 @@ import javax.persistence.EntityManagerFactory;
 public interface IPersonFacade {
     
     void createPerson(Person p);
-    Person getPerson(int id);
+    Person getPersonByID(int id);
     List<Person> getPersons();
-    List<Person> getPersons(String zipCode);
+    List<Person> getPersonsByZipCode(String zipCode);
+    List<Person> getPersonsByHobby(String hobby);
+    List<Person> getPersonsByPhone(int phone);
+    int getCountOfPersonsWithHobby(String hobby);
     void addEntityManagerFactory(EntityManagerFactory emf);
 
     
