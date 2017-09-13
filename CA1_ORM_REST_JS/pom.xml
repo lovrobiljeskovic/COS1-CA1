@@ -16,17 +16,6 @@
     
     <dependencies>
         <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>3.0.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.39</version>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jersey.bundles</groupId>
             <artifactId>jaxrs-ri</artifactId>
             <version>2.26-b09</version>
@@ -153,6 +142,9 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.12.4</version>
                 <configuration>
+                    <environmentVariables>
+                        <PUPLATFORM>development</PUPLATFORM>
+                    </environmentVariables>
                     <includes>
                         <include>**/*IntegrationTest*</include>
                     </includes>
@@ -193,8 +185,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
-
 </project>
