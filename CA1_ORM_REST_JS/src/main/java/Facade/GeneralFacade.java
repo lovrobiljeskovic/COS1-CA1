@@ -6,7 +6,6 @@
 package Facade;
 
 import Entity.CityInfo;
-import Entity.Company;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,7 +17,8 @@ import javax.persistence.Query;
  * @author thomasthimothee
  */
 public class GeneralFacade {
-     private EntityManagerFactory emf;
+    private EntityManagerFactory emf;
+    
 
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -27,7 +27,6 @@ public class GeneralFacade {
     public void addEntityManagerFactory(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
 
     public List<CityInfo> getCityInfoList() {
         EntityManager em = getEntityManager();

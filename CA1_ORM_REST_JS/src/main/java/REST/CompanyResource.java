@@ -18,6 +18,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import Utility.JSONcompanyConverter;
+import javax.persistence.Persistence;
 
 @Path("company")
 public class CompanyResource {
@@ -29,6 +30,7 @@ public class CompanyResource {
     private UriInfo context;
 
     public CompanyResource() {
+        cf.addEntityManagerFactory(Persistence.createEntityManagerFactory("cos1_CA1_ORM_REST_JS_war_1.0-SNAPSHOTPU"));
     }
 
     @GET
