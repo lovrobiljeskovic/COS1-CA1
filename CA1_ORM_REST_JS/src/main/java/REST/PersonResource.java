@@ -17,7 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import Utility.JSONcompanyConverter;
+
 
 /**
  * REST Web Service
@@ -30,7 +30,7 @@ public class PersonResource {
     @Context
     private UriInfo context;
 
-    JSONcompanyConverter js = new JSONcompanyConverter();
+    
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     PersonFacade pf = new PersonFacade();
 
@@ -85,6 +85,28 @@ public class PersonResource {
 
         return gson.toJson(persons);
     }
+
+    
+    @GET
+    @Path("city/{city}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonsInCity(@PathParam("city")String city) 
+    {
+         List<Person> persons = pf.getPersonFromCity("city");
+         
+         return gson.toJson(persons);
+    }
+    
+    @GET
+    @Path("zip/{postalcode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersons(@PathParam("postalcode")String postalcode) 
+    {
+         List<Person> persons = pf.getPersonFromCity("city");
+         
+         return gson.toJson(persons);
+    }
+    
 
     @PUT
     @Consumes(MediaType.APPLICATION_XML)

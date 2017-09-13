@@ -102,4 +102,20 @@ public class PersonFacade implements IPersonFacade {
         }
     }
 
+    
+    public List<Person> getPersonFromCity (String city)
+    {
+        EntityManager em = getEntityManager();
+        
+        try
+          {
+            return em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.city = :city").setParameter("city", city).getResultList();
+          }
+        finally
+          {
+            em.close();
+          }
+        
+    }
+    
 }
