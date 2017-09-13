@@ -6,9 +6,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.*;
 import io.restassured.parsing.Parser;
@@ -25,7 +23,6 @@ public class IntegrationTest {
     
     @BeforeClass
     public static void setUpClass() {
-
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8080;
         RestAssured.basePath = "/CA1_ORM_REST_JS";
@@ -53,15 +50,6 @@ public class IntegrationTest {
                 statusCode(200);
     }
     
-//    @Test
-//    public void addCompaniesTest() {
-//        given()
-//                .contentType("application/json") 
-//                .body("")
-//                .when()
-//                .post("/api/company/")
-//                .then()
-//                .statusCode(200);
-//    }
+
 
 }

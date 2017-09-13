@@ -7,6 +7,7 @@ package Utility;
 
 import Entity.Person;
 import Entity.Phone;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,21 +16,22 @@ import java.util.List;
  */
 public class JSONPerson {
     
-    String firstName;
-    String lastName;
-    List<String> hobbies;
-    String email;
-    List<Integer> phones;
-    String address;
+    private String firstName;
+    private String lastName;
+    private List<String> hobbies;
+    private String email;
+    private List<Integer> phones;
+    private String address;
 
     public JSONPerson(Person person) {
+        phones = new ArrayList();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.email = person.getEmail();
         this.address = person.getAddress().getStreet() + " " + person.getAddress().getAddSitionalInfo() + " " + person.getAddress().getCityInfo().getCity() + " "+ person.getAddress().getCityInfo().getZipCode();
-        for (Phone ph : person.getPhones()){
-            this.phones.add(ph.getNumber());
-        }    
+            for (Phone ph : person.getPhones()){
+                this.phones.add(ph.getNumber());
+            }    
     }
 
     public String getFirstName() {

@@ -117,8 +117,8 @@ public class CompanyFacadeTest {
     }
     
     @Test
-    public void getCompaniesWithEmployees() {
-        List<Company> companies = cf.getCompaniesWithEmployees(100);
+    public void getCompaniesWithMoreEmployees() {
+        List<Company> companies = cf.getCompaniesWithMoreEmployees(100);
         assertEquals("Apple", companies.get(0).getName());
         assertEquals("Microsoft", companies.get(1).getName());
     }
