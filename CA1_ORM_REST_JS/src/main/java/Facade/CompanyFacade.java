@@ -1,5 +1,6 @@
 package Facade;
 
+import Entity.Address;
 import Entity.Company;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,5 +116,35 @@ public class CompanyFacade implements ICompanyFacade {
         } finally {
             em.close();
         }
+    }
+
+    public Company editCompany(Company company) {
+
+        EntityManager em = getEntityManager();
+        try {
+            Company c = em.find(Company.class, company.getId());
+//            if (c == null) {
+//                throw new CompanyNotFoundException("Cannot edit. Company with provided id does not exist");
+//            }
+            em.getTransaction().begin();
+            if (!company.getName().isEmpty()) c.setName(company.getName());
+            if (!company.getDescription().isEmpty()) c.setDescription(company.getDescription());
+            if (!company.getCvr().isEmpty()) c.setCvr(company.getCvr());
+            if (company.getNumEmployees() != 0) c.setNumEmployees(company.getNumEmployees());
+            if (company.getMarketValue()!= 0) c.setMarketValue(company.getMarketValue());
+            em.getTransaction().commit();
+            return c;
+        } finally {
+            em.close();
+        }
+    }
+    public List<Address> getAllStreets() {
+         EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT a FROM Address a").getResultList();
+        } finally {
+            em.close();
+        } 
     }
 }

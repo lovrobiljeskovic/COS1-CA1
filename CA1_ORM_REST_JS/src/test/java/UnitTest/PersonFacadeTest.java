@@ -127,7 +127,7 @@ public class PersonFacadeTest {
         List<Person> persons = pf.getPersonsByZipCode("2840");
         assertNotNull(persons);
     }
-    
+
     @Test
     public void getCountOfPersonsByCity() {
         Long count = pf.getCountOfPersonsByCity("2840");
