@@ -73,7 +73,7 @@ public class PersonFacadeTest {
     }
 
     @Test
-    public void getPerson() {
+    public void getPersonByID() {
         Person p1 = pf.getPersonByID(1);
         Person p2 = pf.getPersonByID(2);
         Person p3 = pf.getPersonByID(3);
@@ -93,5 +93,26 @@ public class PersonFacadeTest {
         List<Person> persons = pf.getPersonsByZipCode("2840");
         assertEquals("Mathias", persons.get(0).getFirstName());
     }
+    
+    @Test
+    public void getPersonssByHobby() {
+        
+    }
+    
+//    @Test
+//    public void getPersonssByHobby() {
+//        
+//    }
+//    
+//    @Test
+//    public void getPersonssByHobby() {
+//        
+//    }
+    
+//    List<Person> getPersonsByHobby(String hobby);
+//    List<Person> getPersonsByPhone(int phone);
+//    List<Person> getPersonsByCity(String city);
+    
+    
     
 }

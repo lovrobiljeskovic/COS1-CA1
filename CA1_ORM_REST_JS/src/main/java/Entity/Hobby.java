@@ -50,6 +50,14 @@ public class Hobby implements Serializable {
         this.id = id;
     }
 
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

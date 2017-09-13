@@ -2,7 +2,7 @@ package REST;
 
 import Entity.Company;
 import Facade.CompanyFacade;
-import Utility.JSONCompany;
+import Utility.JSONCompanyContactDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import Utility.JSONcompanyConverter;
+import Utility.JSONCompanyConverter;
 import javax.persistence.Persistence;
 
 @Path("company")
@@ -38,9 +38,9 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompanies() {
         List<Company> companies = cf.getCompanies();
-        List<JSONCompany> newList = new ArrayList();
+        List<JSONCompanyContactDetails> newList = new ArrayList();
         for (Company c : companies) {
-            JSONCompany jc = new JSONCompany(c);
+            JSONCompanyContactDetails jc = new JSONCompanyContactDetails(c);
             newList.add(jc);
         }
         return gson.toJson(newList);
@@ -51,7 +51,7 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyById(@PathParam("id") int id) {
         Company c = cf.getCompanyByID(id);
-        return JSONcompanyConverter.getJSONFromCompany(c);
+        return JSONCompanyConverter.getJSONFromCompany(c);
     }
 
     @GET
@@ -59,14 +59,14 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyByCvr(@PathParam("cvr") String cvr) {
         Company c = cf.getCompanyByCVR(cvr);
-        return JSONcompanyConverter.getJSONFromCompany(c);
+        return JSONCompanyConverter.getJSONFromCompany(c);
     }
 
     @GET
     @Path("city/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompaniesByZipCode(@PathParam("zipcode") String zipcode) {
-        List<Company> companies = cf.getCompanies();
+        List<Company> companies = cf.getCompaniesByZipCode(zipcode);
         return gson.toJson(companies);
 
     }
@@ -88,9 +88,9 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String postCompany(String companyAsJson) {
-        Company c = JSONcompanyConverter.getCompanyFromJson(companyAsJson);
+        Company c = JSONCompanyConverter.getCompanyFromJson(companyAsJson);
         cf.addCompany(c);
-        return JSONcompanyConverter.getJSONFromCompany(c);
+        return JSONCompanyConverter.getJSONFromCompany(c);
 
     }
 }

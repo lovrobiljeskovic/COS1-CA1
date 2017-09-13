@@ -116,4 +116,5 @@ public class CompanyFacade implements ICompanyFacade {
             em.close();
         }
     }
+
 }
