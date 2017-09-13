@@ -79,7 +79,6 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
-<<<<<<< Updated upstream
 
     @Override
     public List<Person> getPersonsByHobby(String hobby) {
@@ -103,9 +102,8 @@ public class PersonFacade implements IPersonFacade {
         }
     }
 
-=======
-    
-    public List<Person> getPersonFromCity (String city)
+    @Override
+    public List<Person> getPersonsByCity (String city)
     {
         EntityManager em = getEntityManager();
         
@@ -119,8 +117,17 @@ public class PersonFacade implements IPersonFacade {
           }
         
     }
+
+    @Override
+    public int getCountOfPersonsByCity(String zipCode)
+    {
+        EntityManager em = getEntityManager();
+
+        try {
+            return (int) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
     
-    
-    
->>>>>>> Stashed changes
 }
