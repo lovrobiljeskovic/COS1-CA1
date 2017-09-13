@@ -1,5 +1,6 @@
 import Entity.Company;
 import Entity.Person;
+import Facade.GeneralFacade;
 import Facade.PersonFacade;
 import Utility.CompanyGenerator;
 import Utility.PersonGenerator;
@@ -20,6 +21,9 @@ public class Tester {
         EntityManager em = emf.createEntityManager();
         PersonFacade pf = new PersonFacade();
         pf.addEntityManagerFactory(emf);
+        GeneralFacade gf = new GeneralFacade();
+        gf.addEntityManagerFactory(emf);
+        
         
 //        try {
 //            InfoEntity p = new Person();
@@ -34,12 +38,10 @@ public class Tester {
 //            em.getTransaction().commit();
 //        } finally {
 //            em.close();
-//        }
-        PersonGenerator pg = new PersonGenerator();
-        CompanyGenerator cg = new CompanyGenerator();
+//        
 //        List<Person> list = pg.generateJSON(10, 22311255);
-        
-        System.out.println(cg.generateJSON(10, 1000, 3430));
+        CompanyGenerator cg = new CompanyGenerator(emf);
+        System.out.println(cg.generateJSON(1, 1000, 222222));
 
     }
     

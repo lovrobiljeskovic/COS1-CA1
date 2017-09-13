@@ -1,6 +1,5 @@
 package Entity;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -14,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @DiscriminatorValue("Person")
 @XmlRootElement
-public class Person extends InfoEntity implements Serializable  {
+public class Person extends InfoEntity  {
 
     private String firstName;
     private String lastName;

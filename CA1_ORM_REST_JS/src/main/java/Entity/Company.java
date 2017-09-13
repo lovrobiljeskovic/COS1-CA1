@@ -1,6 +1,5 @@
 package Entity;
 
-import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -10,7 +9,7 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("Company")
-public class Company extends InfoEntity implements Serializable {
+public class Company extends InfoEntity {
 
     private String name;
     private String description;

@@ -160,7 +160,7 @@ public class PersonGenerator {
 
     }
 
-    public List<Person> generateJSON(int count, int startingPhoneNumber) {
+    public String generateJSON(int count, int startingPhoneNumber) {
         Random random = new Random();
         createHobbies();
         createPhoneNumbers(count, startingPhoneNumber);
@@ -184,6 +184,6 @@ public class PersonGenerator {
             p.setAddress(addresses.get(random.nextInt(addresses.size())));
             persons.add(p);
         }
-        return persons;//gson.toJson(persons);
+        return gson.toJson(persons);
     }
 }
