@@ -79,7 +79,6 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
-<<<<<<< Updated upstream
 
     @Override
     public List<Person> getPersonsByHobby(String hobby) {
@@ -103,7 +102,6 @@ public class PersonFacade implements IPersonFacade {
         }
     }
 
-=======
     
     public List<Person> getPersonFromCity (String city)
     {
@@ -120,7 +118,4 @@ public class PersonFacade implements IPersonFacade {
         
     }
     
-    
-    
->>>>>>> Stashed changes
 }
