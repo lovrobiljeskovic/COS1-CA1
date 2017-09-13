@@ -1,5 +1,6 @@
 package Facade;
 
+import Entity.Address;
 import Entity.Company;
 import java.util.ArrayList;
 import java.util.List;
@@ -136,5 +137,14 @@ public class CompanyFacade implements ICompanyFacade {
         } finally {
             em.close();
         }
+    }
+    public List<Address> getAllStreets() {
+         EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT a FROM Address a").getResultList();
+        } finally {
+            em.close();
+        } 
     }
 }
