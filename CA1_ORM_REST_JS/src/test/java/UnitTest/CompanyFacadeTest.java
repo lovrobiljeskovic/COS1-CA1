@@ -76,9 +76,9 @@ public class CompanyFacadeTest {
 
     @Test
     public void getCompany() {
-        Company p1 = cf.getCompany(1);
-        Company p2 = cf.getCompany(2);
-        Company p3 = cf.getCompany(3);
+        Company p1 = cf.getCompanyByID(1);
+        Company p2 = cf.getCompanyByID(2);
+        Company p3 = cf.getCompanyByID(3);
         assertNotNull(p1);
         assertNotNull(p2);
         assertNotNull(p3);
@@ -92,13 +92,13 @@ public class CompanyFacadeTest {
     
     @Test
     public void getCompaniesByZipcode() {
-        List<Company> companies = cf.getCompanies("2840");
+        List<Company> companies = cf.getCompaniesByZipCode("2840");
         assertEquals("Apple", companies.get(0).getName());
     }
     
     @Test
     public void getCompanyByCVR() {
-        Company c = cf.getCompanyCvr("270593");
+        Company c = cf.getCompanyByCVR("270593");
         assertEquals("Apple", c.getName());
     }
 }

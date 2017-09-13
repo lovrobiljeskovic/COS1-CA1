@@ -21,17 +21,17 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String street;
-    private String addSitionalInfo;
+    private String additionalInfo;
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private CityInfo cityInfo;
 
     public Address() {
     }
 
-    public Address(int id, String street, String addSitionalInfo) {
+    public Address(int id, String street, String additionalInfo) {
         this.id = id;
         this.street = street;
-        this.addSitionalInfo = addSitionalInfo;
+        this.additionalInfo = additionalInfo;
     }
 
     public String getStreet() {
@@ -43,11 +43,11 @@ public class Address implements Serializable {
     }
 
     public String getAddSitionalInfo() {
-        return addSitionalInfo;
+        return additionalInfo;
     }
 
-    public void setAddSitionalInfo(String addSitionalInfo) {
-        this.addSitionalInfo = addSitionalInfo;
+    public void setAddSitionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
     public int getId() {
