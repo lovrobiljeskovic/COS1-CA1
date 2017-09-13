@@ -93,6 +93,13 @@ public class CompanyResource {
         }
         return gson.toJson(newList);
     }
+    @GET
+    @Path("employees/more/{employeeNumber}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllCompaniesByZipCode(@PathParam("employeeNumber") int employeeNumber) {
+        List<Company> companies = cf.getCompaniesWithEmployees(employeeNumber);
+        return gson.toJson(companies);
+    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
