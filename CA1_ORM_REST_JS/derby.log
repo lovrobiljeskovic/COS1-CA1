@@ -1,20 +1,13 @@
 ----------------------------------------------------------------
-<<<<<<< HEAD
-Wed Sep 13 10:00:34 CEST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-7a41-01b3-000006f5deb0 
-on database directory /Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS/Users with class loader sun.misc.Launcher$AppClassLoader@28d93b30 
-Loaded from file:/Users/mathiasjepsen/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
-=======
-Wed Sep 13 10:15:56 CEST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-7a4f-1328-000006772fd8 
-on database directory /Users/thomasthimothee/Documents/AP Degree Class/Semester 3/CA-1/Project/COS1-CA1/CA1_ORM_REST_JS/Users with class loader sun.misc.Launcher$AppClassLoader@7ea987ac 
-Loaded from file:/Users/thomasthimothee/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
->>>>>>> 0425cb23e9108ad9e5b1b3a6fe86cfde75524bf9
+Wed Sep 13 12:32:00 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-7acb-a7c8-0000072f81e0 
+on database directory C:\Users\Dell\Documents\NetBeansProjects\COS1-CA1\CA1_ORM_REST_JS\Users with class loader sun.misc.Launcher$AppClassLoader@6bc7c054 
+Loaded from file:/C:/Users/Dell/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_111-b14
-user.dir=/Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.12.6
+java.runtime.version=1.8.0_144-b01
+user.dir=C:\Users\Dell\Documents\NetBeansProjects\COS1-CA1\CA1_ORM_REST_JS
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
