@@ -92,7 +92,7 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsInCity(@PathParam("city")String city) 
     {
-         List<Person> persons = pf.getPersonFromCity("city");
+         List<Person> persons = pf.getPersonsByCity("city");
          
          return gson.toJson(persons);
     }
@@ -100,13 +100,42 @@ public class PersonResource {
     @GET
     @Path("zip/{postalcode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersons(@PathParam("postalcode")String postalcode) 
+    public String getPersonsByZipCode(@PathParam("postalcode")String postalcode) 
     {
-         List<Person> persons = pf.getPersonFromCity("city");
+         List<Person> persons = pf.getPersonsByZipCode(postalcode);
          
          return gson.toJson(persons);
     }
     
+    @GET
+    @Path("zip/count/{postalcode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCountPersonsByZipCode(@PathParam("postalcode")String postalcode) 
+    {
+         int count = pf.getCountOfPersonsByCity(postalcode);
+         
+         return gson.toJson(count);
+    }
+    
+    @GET
+    @Path("person/count/{{hobby}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCountPersonsByHobby(@PathParam("hobby")String hobby) 
+    {
+         int count = pf.getCountOfPersonsWithHobby(hobby);
+         
+         return gson.toJson(count);
+    }
+    
+    @GET
+    @Path("hobby/{hobby}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonsByHobby(@PathParam("hobby")String hobby) 
+    {
+         List<Person> persons = pf.getPersonsByZipCode(hobby);
+         
+         return gson.toJson(persons);
+    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_XML)

@@ -17,6 +17,8 @@ public interface IPersonFacade {
     List<Person> getPersonsByZipCode(String zipCode);
     List<Person> getPersonsByHobby(String hobby);
     List<Person> getPersonsByPhone(int phone);
+    List<Person> getPersonsByCity(String city);
+    int getCountOfPersonsByCity(String zipCode);
     int getCountOfPersonsWithHobby(String hobby);
     void addEntityManagerFactory(EntityManagerFactory emf);
 
