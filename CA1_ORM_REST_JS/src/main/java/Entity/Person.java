@@ -1,6 +1,8 @@
 package Entity;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -15,13 +17,17 @@ public class Person extends InfoEntity  {
 
     private String firstName;
     private String lastName;
-    @ManyToMany(mappedBy = "persons")
+    @ManyToMany(mappedBy = "persons", cascade = {CascadeType.ALL})
     private List<Hobby> hobbies;
     
     public Person() {
-        
+        hobbies = new ArrayList();
     }
 
+    public void addHobby(Hobby hobby) {
+        hobbies.add(hobby);
+    }
+    
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
