@@ -74,14 +74,17 @@ public class CompanyResource {
     @GET
     @Path("count/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAll() {
-        String companyCount = "Count: " + cf.getCompanies().size();
+    public String getAll(@PathParam("zipcode") String zipcode) {
+        String companyCount = "Count: " + cf.getCompaniesByZipCode(zipcode).size();
         return gson.toJson(companyCount);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String putJson(String content) {
+        Company company = JSONCompanyConverter.getCompanyFromJson(content);
+        return JSONCompanyConverter.getJSONFromCompany(cf.editCompany(company));
     }
 
     @POST
