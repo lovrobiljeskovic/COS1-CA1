@@ -13,13 +13,16 @@ import java.util.List;
  *
  * @author Lovro
  */
-public class JSONCompany {
+public class JSONCompanyContactDetails {
     private String email;
     private List<Phone> phones;
+    String address;
+    String name;
 
-    public JSONCompany(Company company) {
+    public JSONCompanyContactDetails(Company company) {
         this.email = company.getEmail();
         this.phones = company.getPhones();
+        this.address = company.getAddress().getStreet() + " " + company.getAddress().getAddSitionalInfo() + " " + company.getAddress().getCityInfo().getCity() + " "+ company.getAddress().getCityInfo().getZipCode();
     }
     
 }

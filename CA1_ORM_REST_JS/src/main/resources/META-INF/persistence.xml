@@ -15,7 +15,7 @@
       <property name="javax.persistence.jdbc.user" value="tomcat"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="1234"/>
-<!--      <property name="javax.persistence.sql-load-script-source" value="scripts/script.sql"/>-->
+<!--      <property name="javax.persistence.sql-load-script-source" value="scripts/script.sql"/> -->
     </properties>
   </persistence-unit>
   <persistence-unit name="PersonFacadeTest" transaction-type="RESOURCE_LOCAL">

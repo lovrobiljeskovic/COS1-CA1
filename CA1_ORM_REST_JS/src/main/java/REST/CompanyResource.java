@@ -2,7 +2,7 @@ package REST;
 
 import Entity.Company;
 import Facade.CompanyFacade;
-import Utility.JSONCompany;
+import Utility.JSONCompanyContactDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -38,9 +38,9 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompanies() {
         List<Company> companies = cf.getCompanies();
-        List<JSONCompany> newList = new ArrayList();
+        List<JSONCompanyContactDetails> newList = new ArrayList();
         for (Company c : companies) {
-            JSONCompany jc = new JSONCompany(c);
+            JSONCompanyContactDetails jc = new JSONCompanyContactDetails(c);
             newList.add(jc);
         }
         return gson.toJson(newList);
@@ -66,7 +66,7 @@ public class CompanyResource {
     @Path("city/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompaniesByZipCode(@PathParam("zipcode") String zipcode) {
-        List<Company> companies = cf.getCompanies();
+        List<Company> companies = cf.getCompaniesByZipCode(zipcode);
         return gson.toJson(companies);
 
     }

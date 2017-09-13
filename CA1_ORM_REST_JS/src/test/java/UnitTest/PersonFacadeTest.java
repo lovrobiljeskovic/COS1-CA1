@@ -99,15 +99,15 @@ public class PersonFacadeTest {
         
     }
     
-    @Test
-    public void getPersonssByHobby() {
-        
-    }
-    
-    @Test
-    public void getPersonssByHobby() {
-        
-    }
+//    @Test
+//    public void getPersonssByHobby() {
+//        
+//    }
+//    
+//    @Test
+//    public void getPersonssByHobby() {
+//        
+//    }
     
 //    List<Person> getPersonsByHobby(String hobby);
 //    List<Person> getPersonsByPhone(int phone);
