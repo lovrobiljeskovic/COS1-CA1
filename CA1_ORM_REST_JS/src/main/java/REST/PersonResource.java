@@ -1,9 +1,13 @@
 package REST;
 
+import Entity.Address;
+import Entity.CityInfo;
 import Utility.JSONPersonContactDetails;
 import Entity.Person;
 import Facade.PersonFacade;
+import Utility.JSONCity;
 import Utility.JSONPerson;
+import Utility.JSONStreet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -107,7 +111,7 @@ public class PersonResource {
     }
 
     @GET
-    @Path("person/count/{hobby}")
+    @Path("hobby/count/{hobby}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCountPersonsByHobby(@PathParam("hobby") String hobby) {
         return gson.toJson(pf.getCountOfPersonsWithHobby(hobby));
@@ -118,6 +122,34 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsByHobby(@PathParam("hobby") String hobby) {
         return gson.toJson(pf.getPersonsByZipCode(hobby));
+    }
+    
+    @GET
+    @Path("street")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllStreets() {
+        List<JSONStreet> newList = new ArrayList();
+        
+        for (Address a : pf.getAllStreets()) {
+            JSONStreet js = new JSONStreet(a);
+            newList.add(js);
+        }
+        
+        return gson.toJson(newList);
+    }
+    
+    @GET
+    @Path("zip")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllZipCodes() {
+        List<JSONCity> newList = new ArrayList();
+        
+        for (CityInfo c : pf.getAllZipCodes()) {
+            JSONCity js = new JSONCity(c);
+            newList.add(js);
+        }
+        
+        return gson.toJson(newList);
     }
 
 }

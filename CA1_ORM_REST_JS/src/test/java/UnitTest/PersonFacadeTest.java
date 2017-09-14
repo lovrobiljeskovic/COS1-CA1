@@ -42,8 +42,6 @@ public class PersonFacadeTest {
         Phone phone = new Phone();
         phone.setNumber(12345678);
         phone.setDescription("This is a phone number");
-        List<Phone> phones = new ArrayList();
-        phones.add(phone);
         Hobby hobby = new Hobby();      
         hobby.setName("handball"); 
         hobby.setDescription("This is a cool sport");
@@ -67,7 +65,7 @@ public class PersonFacadeTest {
         p3.setAddress(a3);
         p1.addHobby(hobby);
         hobby.addPerson(p1);
-        p1.setPhones(phones);
+        p1.addPhone(phone);
         pf.createPerson(p1);
         pf.createPerson(p2);
         pf.createPerson(p3);
