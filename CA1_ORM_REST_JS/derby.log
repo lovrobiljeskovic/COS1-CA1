@@ -1,5 +1,11 @@
 ----------------------------------------------------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
+Thu Sep 14 10:07:33 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-7f6d-c262-000005497e10 
+on database directory C:\Users\Lovro\Desktop\CAProjectSem3\COS1-CA1\CA1_ORM_REST_JS\Users with class loader sun.misc.Launcher$AppClassLoader@4aa298b7 
+Loaded from file:/C:/Users/Lovro/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+=======
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 Thu Sep 14 07:44:41 CEST 2017:
@@ -10,14 +16,22 @@ Loaded from file:/Users/thomasthimothee/.m2/repository/org/apache/derby/derby/10
 Wed Sep 13 22:31:56 CEST 2017:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-7cf0-e6e8-000006f50e58 
 on database directory /Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS/Users with class loader sun.misc.Launcher$AppClassLoader@28d93b30 
+>>>>>>> master
 =======
 Thu Sep 14 10:00:45 CEST 2017:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-7f67-89be-000006c0f9e0 
 on database directory /Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS/Persons with class loader sun.misc.Launcher$AppClassLoader@28d93b30 
 >>>>>>> master
 Loaded from file:/Users/mathiasjepsen/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+>>>>>>> master
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_111-b14
+<<<<<<< HEAD
+user.dir=C:\Users\Lovro\Desktop\CAProjectSem3\COS1-CA1\CA1_ORM_REST_JS
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+=======
 user.dir=/Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS
 os.name=Mac OS X
 os.arch=x86_64
@@ -37,6 +51,7 @@ os.version=10.0
 >>>>>>> Stashed changes
 =======
 os.version=10.12.6
+>>>>>>> master
 >>>>>>> master
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

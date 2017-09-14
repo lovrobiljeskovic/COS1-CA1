@@ -1,3 +1,7 @@
+
+/*
+package UnitTest;
+
 /*package UnitTest;
 
 import Entity.Address;
@@ -16,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 /**
  *
  * @author mathiasjepsen
@@ -113,13 +118,11 @@ public class PersonFacadeTest {
         List<Person> persons = pf.getPersonsByHobby("handball");
         assertEquals(1, persons.size());
     }
-    
     @Test
     public void getPersonsByPhone() {
         List<Person> persons = pf.getPersonsByPhone(12345678);
         assertEquals("Mathias", persons.get(0).getFirstName());
     }
-    
     @Test
     public void getPersonsByCity() {
         List<Person> persons = pf.getPersonsByZipCode("2840");
@@ -138,9 +141,6 @@ public class PersonFacadeTest {
         assertEquals(Long.valueOf(1l), count);
     }
     
-<<<<<<< Updated upstream
 }   
-=======
-}
 */
 
