@@ -8,6 +8,7 @@ import Utility.JSONPersonContactDetails;
 import Entity.Person;
 import Facade.PersonFacade;
 import Utility.JSONCity;
+import static Utility.JSONCompanyConverter.getCompanyFromJson;
 import Utility.JSONPerson;
 import Utility.JSONStreet;
 import com.google.gson.Gson;
@@ -15,13 +16,14 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Persistence;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -49,7 +51,7 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllPersons() {
         List<JSONPerson> jpl = new ArrayList();
-
+        
         for (Person p : pf.getPersons()) {
             JSONPerson jp = new JSONPerson(p);
             jpl.add(jp);
@@ -117,6 +119,7 @@ public class PersonResource {
     @GET
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
+<<<<<<< HEAD
     public Response getContactInfoByPhone(@PathParam("phone") int number) {
         
         Person p = pf.getPersonByPhone(number);
@@ -132,21 +135,47 @@ public class PersonResource {
             jpl.add(jp);
         }
         return Response.ok().entity(gson.toJson(jpl)).type(MediaType.APPLICATION_JSON).build();
+=======
+    public String getContactInfoByPhone(@PathParam("phone") int number) {
+        List<JSONPerson> jpl = new ArrayList();
+
+        for (Person p : pf.getPersonsByPhone(number)) {
+            JSONPerson jp = new JSONPerson(p);
+            jpl.add(jp);
+        }
+        return gson.toJson(jpl);
+>>>>>>> master
     }
 
     @GET
     @Path("city/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsInCity(@PathParam("city") String city) {
+<<<<<<< HEAD
         
         return gson.toJson(pf.getPersonsByCity("city"));
+=======
+        List<JSONPerson> jpl = new ArrayList();
+
+        for (Person p : pf.getPersonsByCity(city)) {
+            JSONPerson jp = new JSONPerson(p);
+            jpl.add(jp);
+        }
+        return gson.toJson(jpl);
+>>>>>>> master
     }
 
     @GET
     @Path("zip/{zipcode}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsByZipCode(@PathParam("zipcode") String zipCode) {
-        return gson.toJson(pf.getPersonsByZipCode(zipCode));
+        List<JSONPerson> jpl = new ArrayList();
+
+        for (Person p : pf.getPersonsByZipCode(zipCode)) {
+            JSONPerson jp = new JSONPerson(p);
+            jpl.add(jp);
+        }
+        return gson.toJson(jpl);
     }
 
     @GET
@@ -167,7 +196,13 @@ public class PersonResource {
     @Path("hobby/{hobby}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsByHobby(@PathParam("hobby") String hobby) {
-        return gson.toJson(pf.getPersonsByZipCode(hobby));
+        List<JSONPerson> jpl = new ArrayList();
+
+        for (Person p : pf.getPersonsByHobby(hobby)) {
+            JSONPerson jp = new JSONPerson(p);
+            jpl.add(jp);
+        }
+        return gson.toJson(jpl);
     }
     
     @GET
@@ -196,6 +231,20 @@ public class PersonResource {
         }
         
         return gson.toJson(newList);
+    }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String putJson(String personAsJson) {
+        return gson.toJson(pf.editPerson(gson.fromJson(personAsJson, Person.class)));
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String postCompany(String personAsJson) {        
+        return gson.toJson(pf.addPerson(gson.fromJson(personAsJson, Person.class)));
     }
 
 }

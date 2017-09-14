@@ -31,7 +31,7 @@ public class CompanyResource {
 
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     CompanyFacade cf = new CompanyFacade();
-
+    
     @Context
     private UriInfo context;
 
