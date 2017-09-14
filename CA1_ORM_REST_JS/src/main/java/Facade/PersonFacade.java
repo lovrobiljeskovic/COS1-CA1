@@ -4,6 +4,8 @@ import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
 import Entity.Person;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,6 +17,7 @@ import javax.persistence.EntityManagerFactory;
 public class PersonFacade implements IPersonFacade {
 
     private EntityManagerFactory emf;
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -39,7 +42,7 @@ public class PersonFacade implements IPersonFacade {
     @Override
     public List<Person> getPersons() {
         EntityManager em = getEntityManager();
-
+                
         try {
             return em.createQuery("SELECT p FROM Person p").getResultList();
         } finally {

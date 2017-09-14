@@ -48,7 +48,7 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllPersons() {
         List<JSONPerson> jpl = new ArrayList();
-
+        
         for (Person p : pf.getPersons()) {
             JSONPerson jp = new JSONPerson(p);
             jpl.add(jp);
