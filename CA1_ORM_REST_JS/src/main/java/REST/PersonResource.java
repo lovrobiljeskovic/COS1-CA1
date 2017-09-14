@@ -136,15 +136,6 @@ public class PersonResource {
         }
         return Response.ok().entity(gson.toJson(jpl)).type(MediaType.APPLICATION_JSON).build();
     }
-    public String getContactInfoByPhone(@PathParam("phone") int number) {
-        List<JSONPerson> jpl = new ArrayList();
-
-        for (Person p : pf.getPersonsByPhone(number)) {
-            JSONPerson jp = new JSONPerson(p);
-            jpl.add(jp);
-        }
-        return gson.toJson(jpl);
-    }
 
     @GET
     @Path("city/{city}")
