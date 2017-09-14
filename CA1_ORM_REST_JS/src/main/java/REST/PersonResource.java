@@ -136,8 +136,11 @@ public class PersonResource {
         }
         return Response.ok().entity(gson.toJson(jpl)).type(MediaType.APPLICATION_JSON).build();
     }
+<<<<<<< HEAD
+=======
     
     
+>>>>>>> Dimitri
 
     @GET
     @Path("city/{city}")
