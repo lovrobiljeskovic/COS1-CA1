@@ -5,7 +5,9 @@ import Entity.Company;
 import Entity.Hobby;
 import Entity.Person;
 import Entity.Phone;
+import Facade.CompanyFacade;
 import Facade.GeneralFacade;
+import Facade.PersonFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -22,13 +24,15 @@ public class TestGenerator {
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private Random random = new Random();
     GeneralFacade gf = new GeneralFacade();
+    CompanyFacade cf = new CompanyFacade();
+    PersonFacade pf = new PersonFacade();
 
     public TestGenerator(EntityManagerFactory emf) {
         gf.addEntityManagerFactory(emf);
     }
 
-    private List<String> names = new ArrayList();
-    
+    private List<String> companyNames = new ArrayList();
+
     private List<Hobby> hobbies = new ArrayList();
 
     private List<String> firstParts = new ArrayList() {
@@ -81,7 +85,7 @@ public class TestGenerator {
         }
     };
 
-    private List<String> descriptions = new ArrayList() {
+    private List<String> companyDescriptions = new ArrayList() {
         {
             add("sells car");
             add("sells paintings");
@@ -97,7 +101,7 @@ public class TestGenerator {
         }
     };
 
-private List<String> firstNames = new ArrayList() {
+    private List<String> firstNames = new ArrayList() {
         {
             add("Mathias");
             add("Lovro");
@@ -127,7 +131,7 @@ private List<String> firstNames = new ArrayList() {
             add("Larsen");
         }
     };
-    
+
     private void hobbiesList() {
         Hobby h1 = new Hobby();
         Hobby h2 = new Hobby();
@@ -170,7 +174,7 @@ private List<String> firstNames = new ArrayList() {
         hobbies.add(h9);
         hobbies.add(h10);
     }
-        
+
     private List<String> streets = new ArrayList() {
         {
             add("Kongevej");
@@ -200,71 +204,80 @@ private List<String> firstNames = new ArrayList() {
         }
     };
 
-    private void createNames(int count) {
+    private void createCompanyNames(int count) {
         for (int i = 0; i < count; i++) {
             String name = firstParts.get(random.nextInt(firstParts.size())) + " " + secondParts.get(random.nextInt(secondParts.size()));
-            names.add(name);
+            companyNames.add(name);
         }
     }
-    
-    public void createPhones(int phoneNumber) {
+
+    public Phone createPhone(int phoneNumber) {
         Phone phone = new Phone();
         phone.setNumber(phoneNumber);
         phone.setDescription("Unset description");
-        gf.createPhones(phone);
+        gf.createPhone(phone);
+        return phone;
     }
 
-    public void createAddresses() {
+    public Address createAddresse() {
         Address address = new Address();
         address.setStreet(streets.get(random.nextInt(streets.size())));
         address.setAddSitionalInfo(additionalInfo.get(random.nextInt(additionalInfo.size())));
         gf.createAddress(address);
+        return address;
     }
-    
-//    public Hobby createHobbies() {
-//        Hobby hobby = hobbies.get(random.nextInt(hobbies.size()));
-//        return gf.createHobbies(hobby);
-//    }
 
-    public void createCompanies(int phoneNumber, int cvr) {
-        Company company = new Company();
-        company.setDescription(descriptions.get(random.nextInt(descriptions.size())));
-        company.setMarketValue(random.nextInt((10000000 - 10000) + 1) + 10000);
-        company.setName(names.get(random.nextInt(names.size())));
-        company.setCvr(String.valueOf(cvr));
-        company.setEmail(company.getName() + "@company.com");
-        company.addPhone(gf.getPhone(phoneNumber));
-        company.setNumEmployees(random.nextInt((1000 - 5) + 1) + 5);
-        gf.createCompany(company);
-    }
-    
-    public void createPersons(int phoneNumber) {
-        Person person = new Person();
-        person.setFirstName(firstNames.get(random.nextInt(firstNames.size())));
-        person.setLastName(lastNames.get(random.nextInt(lastNames.size())));
-        person.setEmail(person.getFirstName() + "@person.com");
-        person.addPhone(gf.getPhone(phoneNumber));
-        Hobby hobby = hobbies.get(phoneNumber - 1);
-        hobby.setId(phoneNumber - 1);
-        person.addHobby(hobby);
-        hobby.addPerson(person);
-        gf.createPerson(person);
-    }
-    
-    public void createTestData(int count, int startingCVR) {
-        int cvr = startingCVR;
-        int phoneNumber = 1;
-        createNames(count);
+    public void createHobbies() {
         hobbiesList();
-        for (int i = 0; i < count; i++) {     
-            createPhones(phoneNumber);
-            createAddresses();
-            createCompanies(phoneNumber, cvr);
-            phoneNumber++;
-            createPhones(phoneNumber);
-            createPersons(phoneNumber);
+        for (Hobby hb : hobbies) {
+            gf.createHobby(hb);
+        }
+    }
+
+    public void createTestData(int count, int startingCVR) {
+
+        int phoneNumber = 1;
+        int cvr = startingCVR;
+        createCompanyNames(count);
+        createHobbies();
+        for (int i = 0; i < count / 2; i++) {     //COMPANY
+            Company cp = new Company();
+            Phone ph = createPhone(phoneNumber);
+            Address ad = createAddresse();
+            int nameIndex = random.nextInt(companyNames.size());
+            String name = companyNames.get(nameIndex);
+            companyNames.remove(nameIndex);
+            String description = companyDescriptions.get(random.nextInt(companyDescriptions.size()));
+            String companyCvr = String.valueOf(cvr);
+            int nbEmpl = random.nextInt((1000 - 10 + 1) + 10);
+            int marketVal = random.nextInt((1000000 - 10000 + 1) + 10000);
+            cp.setName(name);
+            cp.setDescription(description);
+            cp.setNumEmployees(nbEmpl);
+            cp.setMarketValue(marketVal);
+            cp.setCvr(companyCvr);
+            cp.setEmail(cp.getName() + "@mail.com");
+            gf.createCompany(cp, ad.getId(), ph.getNumber());
+
             phoneNumber++;
             cvr++;
+        }
+
+        for (int i = 0; i < count / 2; i++) {     //Person
+            Person p = new Person();
+            Phone ph = createPhone(phoneNumber);
+            Address ad = createAddresse();           
+            String fname = firstNames.get(random.nextInt(firstNames.size()));
+            String lname = lastNames.get(random.nextInt(lastNames.size()));
+
+            p.setFirstName(fname);
+            p.setLastName(lname);
+            int idHobby = random.nextInt(10);
+            p.setEmail(p.getFirstName()+""+p.getLastName() + "@mail.com");
+            gf.createPerson(p, ad.getId(), ph.getNumber(), idHobby);
+
+            phoneNumber++;
+
         }
     }
 
