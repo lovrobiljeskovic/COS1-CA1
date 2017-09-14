@@ -98,7 +98,7 @@ public class PersonFacade implements IPersonFacade {
             
             if (number != (int)number)
               {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Thats not a number"));
+                throw new ExceptionBuilder(new ErrorMessageBuilder(400 , "Thats not a number"));
               }
             
             
