@@ -73,23 +73,42 @@ public class GeneralFacade {
         }
     }
     
-    public Company createCompany(Company company) {
+    public Company createCompany(Company company, int addressIndex, int phoneIndex) {
         EntityManager em = getEntityManager();
-        
-        List<Address> addresses = em.createQuery("SELECT a FROM Address a").getResultList();
 
         try {
-            company.setAddress(addresses.get(random.nextInt(addresses.size())));
             em.getTransaction().begin();
             em.persist(company);
+            Company c = (Company) em.createQuery("SELECT c FROM Company c where c= :company").setParameter("company", company).getSingleResult();
+            c.setAddress(em.find(Address.class, addressIndex));
+            c.addPhone(em.find(Phone.class, phoneIndex));
             em.getTransaction().commit();
-            return company;
+            return c;
+        } finally {
+            em.close();
+        }
+    }
+    
+        public Person createPerson(Person person, int addressIndex, int phoneIndex, int hobbyId) {
+        EntityManager em = getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            Person p = (Person) em.createQuery("SELECT p FROM Person p where p= :person").setParameter("person", person).getSingleResult();
+            p.setAddress(em.find(Address.class, addressIndex));
+            p.addPhone(em.find(Phone.class, phoneIndex));
+            p.addHobby(em.find(Hobby.class, hobbyId));
+            Hobby hobby = em.find(Hobby.class, hobbyId);
+            hobby.addPerson(person);
+            em.getTransaction().commit();
+            return p;
         } finally {
             em.close();
         }
     }
 
-    public Phone createPhones(Phone phone) {
+    public Phone createPhone(Phone phone) {
         EntityManager em = getEntityManager();
         
         try {
@@ -112,7 +131,7 @@ public class GeneralFacade {
         }
     }
 
-    public Hobby createHobbies(Hobby hobby) {
+    public Hobby createHobby(Hobby hobby) {
         EntityManager em = getEntityManager();
         
         try {

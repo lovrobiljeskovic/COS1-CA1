@@ -1,5 +1,7 @@
 package Facade;
 
+import Entity.Address;
+import Entity.CityInfo;
 import Entity.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -27,7 +29,7 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.find(Person.class, id);        
+            return em.find(Person.class, id);
         } finally {
             em.close();
         }
@@ -67,13 +69,13 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
-    
+
     @Override
     public List<Person> getPersonsByPhone(int number) {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p join p.phones f WHERE f.number = :number").setParameter("number", number).getResultList();
+            return em.createQuery("SELECT p FROM Person p JOIN p.phones f WHERE f.number = :number").setParameter("number", number).getResultList();
         } finally {
             em.close();
         }
@@ -102,24 +104,19 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public List<Person> getPersonsByCity (String city)
-    {
+    public List<Person> getPersonsByCity(String city) {
         EntityManager em = getEntityManager();
-        
-        try
-          {
+
+        try {
             return em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.city = :city").setParameter("city", city).getResultList();
-          }
-        finally
-          {
+        } finally {
             em.close();
-          }
-        
+        }
+
     }
 
     @Override
-    public Long getCountOfPersonsByCity(String zipCode)
-    {
+    public Long getCountOfPersonsByCity(String zipCode) {
         EntityManager em = getEntityManager();
 
         try {
@@ -129,4 +126,26 @@ public class PersonFacade implements IPersonFacade {
         }
     }
     
+    @Override
+    public List<Address> getAllStreets() {
+        EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT a FROM Address a").getResultList();
+        } finally {
+            em.close();
+        } 
+    }
+    
+    @Override
+    public List<CityInfo> getAllZipCodes() {
+        EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT c FROM CityInfo c").getResultList();
+        } finally {
+            em.close();
+        } 
+    }
+
 }

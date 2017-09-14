@@ -1,6 +1,7 @@
 package Facade;
 
 import Entity.Address;
+import Entity.CityInfo;
 import Entity.Company;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :phone").setParameter("number", number).getResultList();
+            return em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", number).getResultList();
         } finally {
             em.close();
         }
@@ -69,10 +70,20 @@ public class CompanyFacade implements ICompanyFacade {
             em.close();
         }
     }
-
+    
+    @Override
     public Company addCompany(Company c) {
         EntityManager em = getEntityManager();
+        
         try {
+            CityInfo city = em.find(CityInfo.class, c.getAddress().getCityInfo().getZipCode());
+            
+            if (city != null) {
+                Address a = c.getAddress();
+                a.setCityInfo(city);
+                c.setAddress(a);
+            }
+            
             em.getTransaction().begin();
             em.persist(c);
             em.getTransaction().commit();
@@ -108,7 +119,7 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public List<Company> getCompaniesWithEmployees(int minimumNum) {
+    public List<Company> getCompaniesWithMoreEmployees(int minimumNum) {
         EntityManager em = getEntityManager();
 
         try {
@@ -117,32 +128,64 @@ public class CompanyFacade implements ICompanyFacade {
             em.close();
         }
     }
-
-    public Company editCompany(Company company) {
-
+    
+    @Override
+    public List<Company> getCompaniesWithLessEmployees(int maximumNum) {
         EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT c FROM Company c WHERE c.numEmployees < :max").setParameter("max", maximumNum).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public Company editCompany(Company company) {
+        EntityManager em = getEntityManager();
+        
         try {
             Company c = em.find(Company.class, company.getId());
+            CityInfo city = em.find(CityInfo.class, company.getAddress().getCityInfo().getZipCode());
+            
+            if (city != null) {
+                Address a = c.getAddress();
+                a.setCityInfo(city);
+                company.setAddress(a);
+            }
 //            if (c == null) {
 //                throw new CompanyNotFoundException("Cannot edit. Company with provided id does not exist");
 //            }
             em.getTransaction().begin();
-            if (!company.getName().isEmpty()) c.setName(company.getName());
-            if (!company.getDescription().isEmpty()) c.setDescription(company.getDescription());
-            if (!company.getCvr().isEmpty()) c.setCvr(company.getCvr());
-            if (company.getNumEmployees() != 0) c.setNumEmployees(company.getNumEmployees());
-            if (company.getMarketValue()!= 0) c.setMarketValue(company.getMarketValue());
+            if (!company.getName().isEmpty()) c.setName(company.getName()); 
+            if (!company.getDescription().isEmpty()) c.setDescription(company.getDescription()); 
+            if (!company.getCvr().isEmpty()) c.setCvr(company.getCvr()); 
+            if (company.getNumEmployees() != 0) c.setNumEmployees(company.getNumEmployees()); 
+            if (company.getMarketValue()!= 0) c.setMarketValue(company.getMarketValue()); 
             em.getTransaction().commit();
             return c;
         } finally {
             em.close();
         }
     }
+    
+    @Override
     public List<Address> getAllStreets() {
-         EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             return em.createQuery("SELECT a FROM Address a").getResultList();
+        } finally {
+            em.close();
+        } 
+    }
+    
+    @Override
+    public List<CityInfo> getAllZipCodes() {
+        EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT c FROM CityInfo c").getResultList();
         } finally {
             em.close();
         } 

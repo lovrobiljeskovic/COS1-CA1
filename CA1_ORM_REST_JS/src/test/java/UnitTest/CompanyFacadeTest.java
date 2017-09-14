@@ -3,6 +3,7 @@ package UnitTest;
 import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
+import Entity.Phone;
 import Facade.CompanyFacade;
 import java.util.List;
 import javax.persistence.Persistence;
@@ -36,6 +37,9 @@ public class CompanyFacadeTest {
         Address a1 = new Address();
         Address a2 = new Address();
         Address a3 = new Address();
+        Phone phone = new Phone();
+        phone.setNumber(12345678);
+        phone.setDescription("This is a cool phone");
         c1.setCity("Holte");
         c1.setZipCode("2840");
         c2.setCity("Lyngby");
@@ -52,9 +56,13 @@ public class CompanyFacadeTest {
         a3.setAddSitionalInfo("This is more cool additional info");
         a3.setCityInfo(c3);
         p1.setAddress(a1);
+        p1.setNumEmployees(200);
+        p2.setNumEmployees(120);
+        p3.setNumEmployees(50);
         p1.setCvr("270593");
         p2.setAddress(a2);
         p3.setAddress(a3);
+        p1.addPhone(phone);
         cf.createCompany(p1);
         cf.createCompany(p2);
         cf.createCompany(p3);
@@ -75,7 +83,7 @@ public class CompanyFacadeTest {
     }
 
     @Test
-    public void getCompany() {
+    public void getCompanyByID() {
         Company p1 = cf.getCompanyByID(1);
         Company p2 = cf.getCompanyByID(2);
         Company p3 = cf.getCompanyByID(3);
@@ -86,8 +94,8 @@ public class CompanyFacadeTest {
     
     @Test
     public void getCompanies() {
-        List<Company> persons = cf.getCompanies();
-        assertNotNull(persons);
+        List<Company> companies = cf.getCompanies();
+        assertEquals("Apple", companies.get(0).getName());
     }
     
     @Test
@@ -101,4 +109,18 @@ public class CompanyFacadeTest {
         Company c = cf.getCompanyByCVR("270593");
         assertEquals("Apple", c.getName());
     }
+    
+    @Test
+    public void getCompaniesByPhone() {
+        List<Company> companies = cf.getCompaniesByPhone(12345678);
+        assertEquals("Apple", companies.get(0).getName());
+    }
+    
+    @Test
+    public void getCompaniesWithMoreEmployees() {
+        List<Company> companies = cf.getCompaniesWithMoreEmployees(100);
+        assertEquals("Apple", companies.get(0).getName());
+        assertEquals("Microsoft", companies.get(1).getName());
+    }
+    
 }

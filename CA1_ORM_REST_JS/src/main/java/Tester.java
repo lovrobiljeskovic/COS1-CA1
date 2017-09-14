@@ -38,7 +38,7 @@ public class Tester {
 ////        cg.createTestData(1, 10000, 2490);
 //        
         TestGenerator tg = new TestGenerator(emf);
-        tg.createTestData(100, 12450);
+        tg.createTestData(100, 264923);
     }
     
 }
