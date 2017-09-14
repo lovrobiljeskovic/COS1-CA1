@@ -1,4 +1,4 @@
-/*package UnitTest;
+package UnitTest;
 
 import Entity.Address;
 import Entity.CityInfo;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
  *
  * @author mathiasjepsen
  */
-/*
+
 public class CompanyFacadeTest {
     
     static CompanyFacade cf = new CompanyFacade();
@@ -63,7 +63,7 @@ public class CompanyFacadeTest {
         p1.setCvr("270593");
         p2.setAddress(a2);
         p3.setAddress(a3);
-      //  p1.addPhone(phone);
+        p1.addPhone(phone);
         cf.createCompany(p1);
         cf.createCompany(p2);
         cf.createCompany(p3);
@@ -123,4 +123,3 @@ public class CompanyFacadeTest {
     }
     
 }
-*/

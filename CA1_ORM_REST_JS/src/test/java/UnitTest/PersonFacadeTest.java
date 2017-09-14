@@ -1,8 +1,4 @@
-
-/*
 package UnitTest;
-
-/*package UnitTest;
 
 import Entity.Address;
 import Entity.CityInfo;
@@ -10,13 +6,11 @@ import Entity.Hobby;
 import Entity.Person;
 import Entity.Phone;
 import Facade.PersonFacade;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,7 +19,7 @@ import org.junit.Test;
  *
  * @author mathiasjepsen
  */
-/*
+
 public class PersonFacadeTest {
     
     static PersonFacade pf = new PersonFacade();
@@ -35,7 +29,9 @@ public class PersonFacadeTest {
 
     @BeforeClass
     public static void setUpClass() {
+        System.out.println("1");
         pf.addEntityManagerFactory(Persistence.createEntityManagerFactory("PersonFacadeTest"));
+        System.out.println("2");
         Person p1 = new Person("Mathias", "Jepsen");
         Person p2 = new Person("Thomas", "Thimothee");
         Person p3 = new Person("Lovro", "Biljeskovic");
@@ -120,8 +116,8 @@ public class PersonFacadeTest {
     }
     @Test
     public void getPersonsByPhone() {
-        List<Person> persons = pf.getPersonsByPhone(12345678);
-        assertEquals("Mathias", persons.get(0).getFirstName());
+        Person person = pf.getPersonByPhone(12345678);
+        assertEquals("Mathias", person.getFirstName());
     }
     @Test
     public void getPersonsByCity() {
@@ -142,5 +138,5 @@ public class PersonFacadeTest {
     }
     
 }   
-*/
+
 
