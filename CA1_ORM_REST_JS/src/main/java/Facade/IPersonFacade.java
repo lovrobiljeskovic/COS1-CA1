@@ -19,7 +19,7 @@ public interface IPersonFacade {
     List<Person> getPersons();
     List<Person> getPersonsByZipCode(String zipCode);
     List<Person> getPersonsByHobby(String hobby);
-    List<Person> getPersonsByPhone(int phone);
+    Person getPersonByPhone(int phone);
     List<Person> getPersonsByCity(String city);
     Long getCountOfPersonsByCity(String zipCode);
     Long getCountOfPersonsWithHobby(String hobby);

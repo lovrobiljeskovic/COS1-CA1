@@ -71,11 +71,11 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public List<Person> getPersonsByPhone(int number) {
+    public Person getPersonByPhone(int number) {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p JOIN p.phones f WHERE f.number = :number").setParameter("number", number).getResultList();
+            return (Person) em.createQuery("SELECT p FROM Person p JOIN p.phones f WHERE f.number = :number").setParameter("number", number).getSingleResult();
         } finally {
             em.close();
         }

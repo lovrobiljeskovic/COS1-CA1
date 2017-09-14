@@ -1,12 +1,9 @@
 package REST;
 
-<<<<<<< Updated upstream
 import Entity.Address;
 import Entity.CityInfo;
-=======
 import CustomExceptions.ErrorMessageBuilder;
 import CustomExceptions.ExceptionBuilder;
->>>>>>> Stashed changes
 import Utility.JSONPersonContactDetails;
 import Entity.Person;
 import Facade.PersonFacade;
@@ -61,10 +58,35 @@ public class PersonResource {
     }
     
     @GET
+    @Path("contactInfo/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getContactInfo(@PathParam("id")int id)
+    {
+        Person p = pf.getPersonByID(id);
+        if (p == null)
+          {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with id "+id+" not found"));
+          }
+       JSONPersonContactDetails jpcd = new JSONPersonContactDetails(p);
+
+        return Response.ok().entity(gson.toJson(jpcd)).type(MediaType.APPLICATION_JSON).build();
+        
+        
+    }
+    
+    @GET
     @Path("complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonFromId(@PathParam("id") int id) {
-        return gson.toJson(new JSONPerson(pf.getPersonByID(id)));
+    public Response getPersonFromId(@PathParam("id") int id) {
+        
+          Person p = pf.getPersonByID(id);
+        if (p == null)
+          {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+id+" id not found"));
+          }
+
+        return Response.ok().entity(gson.toJson(p)).type(MediaType.APPLICATION_JSON).build();
+        
     }
     
     @GET
@@ -81,22 +103,7 @@ public class PersonResource {
     }
     
     
-    @GET
-    @Path("contactInfo/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getContactInfo(@PathParam("id")int id)
-    {
-        Person p = pf.getPersonByID(id);
-        if (p == null)
-          {
-            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with id not found"));
-          }
-       JSONPersonContactDetails jpcd = new JSONPersonContactDetails(p);
-
-        return Response.ok().entity(gson.toJson(jpcd)).type(MediaType.APPLICATION_JSON).build();
-        
-        
-    }
+    
 
     /*
     @GET
@@ -110,14 +117,28 @@ public class PersonResource {
     @GET
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getContactInfoByPhone(@PathParam("phone") int number) {
-        return gson.toJson(pf.getPersonsByPhone(number));
+    public Response getContactInfoByPhone(@PathParam("phone") int number) {
+        
+        Person p = pf.getPersonByPhone(number);
+        if (p == null)
+          {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+number+" phone number not found"));
+          }
+
+        List<JSONPerson> jpl = new ArrayList();
+
+        for (Person pe : pf.getPersons()) {
+            JSONPerson jp = new JSONPerson(pe);
+            jpl.add(jp);
+        }
+        return Response.ok().entity(gson.toJson(jpl)).type(MediaType.APPLICATION_JSON).build();
     }
 
     @GET
     @Path("city/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsInCity(@PathParam("city") String city) {
+        
         return gson.toJson(pf.getPersonsByCity("city"));
     }
 
