@@ -272,7 +272,9 @@ public class TestGenerator {
 
             p.setFirstName(fname);
             p.setLastName(lname);
-            int idHobby = random.nextInt(10);
+            
+            int idHobby = random.nextInt(10)+1;
+            
             p.setEmail(p.getFirstName()+""+p.getLastName() + "@mail.com");
             gf.createPerson(p, ad.getId(), ph.getNumber(), idHobby);
 

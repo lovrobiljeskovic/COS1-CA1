@@ -100,6 +100,7 @@ public class GeneralFacade {
             p.addPhone(em.find(Phone.class, phoneIndex));
             p.addHobby(em.find(Hobby.class, hobbyId));
             Hobby hobby = em.find(Hobby.class, hobbyId);
+            System.out.println("test hobby"+hobby.getName());
             hobby.addPerson(person);
             em.getTransaction().commit();
             return p;
