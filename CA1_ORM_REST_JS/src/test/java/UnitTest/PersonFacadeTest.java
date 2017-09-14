@@ -1,4 +1,4 @@
-package UnitTest;
+/*package UnitTest;
 
 import Entity.Address;
 import Entity.CityInfo;
@@ -20,6 +20,7 @@ import org.junit.Test;
  *
  * @author mathiasjepsen
  */
+/*
 public class PersonFacadeTest {
     
     static PersonFacade pf = new PersonFacade();
@@ -137,4 +138,9 @@ public class PersonFacadeTest {
         assertEquals(Long.valueOf(1l), count);
     }
     
+<<<<<<< Updated upstream
 }   
+=======
+}
+*/
+>>>>>>> Stashed changes
