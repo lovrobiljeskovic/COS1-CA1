@@ -1,6 +1,7 @@
 package Facade;
 
-import Entity.Hobby;
+import Entity.Address;
+import Entity.CityInfo;
 import Entity.Person;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -13,6 +14,8 @@ public interface IPersonFacade {
     
     void createPerson(Person p);
     Person getPersonByID(int id);
+    List<Address> getAllStreets();
+    List<CityInfo> getAllZipCodes();
     List<Person> getPersons();
     List<Person> getPersonsByZipCode(String zipCode);
     List<Person> getPersonsByHobby(String hobby);

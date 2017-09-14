@@ -42,12 +42,8 @@ public class PersonFacadeTest {
         Phone phone = new Phone();
         phone.setNumber(12345678);
         phone.setDescription("This is a phone number");
-        List<Phone> phones = new ArrayList();
-        phones.add(phone);
-        Hobby hobby = new Hobby();
-        List<Hobby> hobbies = new ArrayList();
-        hobbies.add(hobby);
-        hobby.setName("handball");
+        Hobby hobby = new Hobby();      
+        hobby.setName("handball"); 
         hobby.setDescription("This is a cool sport");
         c1.setCity("Holte");
         c1.setZipCode("2840");
@@ -67,8 +63,9 @@ public class PersonFacadeTest {
         p1.setAddress(a1);
         p2.setAddress(a2);
         p3.setAddress(a3);
-        p1.setHobbies(hobbies);
-        p1.setPhones(phones);
+        p1.addHobby(hobby);
+        hobby.addPerson(p1);
+        p1.addPhone(phone);
         pf.createPerson(p1);
         pf.createPerson(p2);
         pf.createPerson(p3);
@@ -101,7 +98,7 @@ public class PersonFacadeTest {
     @Test
     public void getPersons() {
         List<Person> persons = pf.getPersons();
-        assertEquals(persons.size(), 3);
+        assertEquals(3, persons.size());
     }
     
     @Test
@@ -113,19 +110,19 @@ public class PersonFacadeTest {
     @Test
     public void getPersonsByHobby() {
         List<Person> persons = pf.getPersonsByHobby("handball");
-        assertNotNull(persons);
+        assertEquals(1, persons.size());
     }
     
     @Test
     public void getPersonsByPhone() {
         List<Person> persons = pf.getPersonsByPhone(12345678);
-        assertNotNull(persons);
+        assertEquals("Mathias", persons.get(0).getFirstName());
     }
     
     @Test
     public void getPersonsByCity() {
         List<Person> persons = pf.getPersonsByZipCode("2840");
-        assertNotNull(persons);
+        assertEquals("Mathias", persons.get(0).getFirstName());
     }
 
     @Test
@@ -134,10 +131,10 @@ public class PersonFacadeTest {
         assertEquals(Long.valueOf(1l), count);
     }
     
-//    @Test
-//    public void getCountOfPersonsWithHobby() {
-//        Long count = pf.getCountOfPersonsWithHobby("handball");
-//        assertEquals(Long.valueOf(1l), count);
-//    }
+    @Test
+    public void getCountOfPersonsWithHobby() {
+        Long count = pf.getCountOfPersonsWithHobby("handball");
+        assertEquals(Long.valueOf(1l), count);
+    }
     
 }   

@@ -18,10 +18,10 @@ public class Person extends InfoEntity  {
     private String firstName;
     private String lastName;
     @ManyToMany(mappedBy = "persons", cascade = {CascadeType.ALL})
-    private List<Hobby> hobbies;
+    private List<Hobby> hobbies = new ArrayList();
+
     
     public Person() {
-        hobbies = new ArrayList();
     }
 
     public void addHobby(Hobby hobby) {
