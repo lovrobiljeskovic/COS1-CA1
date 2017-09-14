@@ -1,3 +1,4 @@
+/*
 package UnitTest;
 
 import Entity.Address;
@@ -16,10 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-/**
- *
- * @author mathiasjepsen
- */
+
 public class PersonFacadeTest {
     
     static PersonFacade pf = new PersonFacade();
@@ -42,8 +40,6 @@ public class PersonFacadeTest {
         Phone phone = new Phone();
         phone.setNumber(12345678);
         phone.setDescription("This is a phone number");
-        List<Phone> phones = new ArrayList();
-        phones.add(phone);
         Hobby hobby = new Hobby();      
         hobby.setName("handball"); 
         hobby.setDescription("This is a cool sport");
@@ -67,7 +63,7 @@ public class PersonFacadeTest {
         p3.setAddress(a3);
         p1.addHobby(hobby);
         hobby.addPerson(p1);
-        p1.setPhones(phones);
+        p1.addPhone(phone);
         pf.createPerson(p1);
         pf.createPerson(p2);
         pf.createPerson(p3);
@@ -114,13 +110,11 @@ public class PersonFacadeTest {
         List<Person> persons = pf.getPersonsByHobby("handball");
         assertEquals(1, persons.size());
     }
-    /*
     @Test
     public void getPersonsByPhone() {
         List<Person> persons = pf.getPersonsByPhone(12345678);
         assertEquals("Mathias", persons.get(0).getFirstName());
     }
-    */
     @Test
     public void getPersonsByCity() {
         List<Person> persons = pf.getPersonsByZipCode("2840");
@@ -140,3 +134,4 @@ public class PersonFacadeTest {
     }
     
 }   
+*/

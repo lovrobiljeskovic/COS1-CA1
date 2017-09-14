@@ -109,13 +109,11 @@ public class CompanyFacadeTest {
         Company c = cf.getCompanyByCVR("270593");
         assertEquals("Apple", c.getName());
     }
-    /*
     @Test
     public void getCompaniesByPhone() {
         List<Company> companies = cf.getCompaniesByPhone(12345678);
         assertEquals("Apple", companies.get(0).getName());
     }
-    */
     @Test
     public void getCompaniesWithMoreEmployees() {
         List<Company> companies = cf.getCompaniesWithMoreEmployees(100);

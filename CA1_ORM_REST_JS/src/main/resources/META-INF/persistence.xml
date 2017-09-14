@@ -31,7 +31,7 @@
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:myDB;create=true"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby:Users;create=true"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:Persons;create=true"/>
       <property name="eclipselink.logging.level" value="WARNING"/>
       <property name="eclipselink.canonicalmodel.subpackage" value="personFacadeTest"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
@@ -50,7 +50,7 @@
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:myDB;create=true"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby:Users;create=true"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:Companies;create=true"/>
       <property name="eclipselink.logging.level" value="WARNING"/>
       <property name="eclipselink.canonicalmodel.subpackage" value="companyFacadeTest"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

@@ -1,6 +1,11 @@
 package Facade;
 
+import Entity.Address;
+import Entity.CityInfo;
+import Entity.Company;
 import Entity.Person;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,6 +17,7 @@ import javax.persistence.EntityManagerFactory;
 public class PersonFacade implements IPersonFacade {
 
     private EntityManagerFactory emf;
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -36,7 +42,7 @@ public class PersonFacade implements IPersonFacade {
     @Override
     public List<Person> getPersons() {
         EntityManager em = getEntityManager();
-
+                
         try {
             return em.createQuery("SELECT p FROM Person p").getResultList();
         } finally {
@@ -73,7 +79,7 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p join p.phones f WHERE f.number = :number").setParameter("number", number).getResultList();
+            return em.createQuery("SELECT p FROM Person p JOIN p.phones f WHERE f.number = :number").setParameter("number", number).getResultList();
         } finally {
             em.close();
         }
@@ -119,6 +125,77 @@ public class PersonFacade implements IPersonFacade {
 
         try {
             return (Long) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public List<Address> getAllStreets() {
+        EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT a FROM Address a").getResultList();
+        } finally {
+            em.close();
+        } 
+    }
+    
+    @Override
+    public List<CityInfo> getAllZipCodes() {
+        EntityManager em = getEntityManager();
+
+        try {
+            return em.createQuery("SELECT c FROM CityInfo c").getResultList();
+        } finally {
+            em.close();
+        } 
+    }
+    
+    @Override
+    public Person editPerson(Person person) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            Person p = em.find(Person.class, person.getId());
+            CityInfo city = em.find(CityInfo.class, person.getAddress().getCityInfo().getZipCode());
+            
+            if (city != null) {
+                Address a = p.getAddress();
+                a.setCityInfo(city);
+                person.setAddress(a);
+            }
+//            if (p == null) {
+//                throw new PersonNotFoundException("Cannot edit. Person with provided id does not exist");
+//            }
+            em.getTransaction().begin();
+            if (!person.getFirstName().isEmpty()) p.setFirstName(person.getFirstName()); 
+            if (!person.getLastName().isEmpty()) p.setLastName(person.getLastName());
+            if (!person.getEmail().isEmpty()) p.setEmail(person.getEmail()); 
+            em.getTransaction().commit();
+            return p;
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public Person addPerson(Person person) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            CityInfo city = em.find(CityInfo.class, person.getAddress().getCityInfo().getZipCode());
+            
+            if (city != null) {
+                Address a = person.getAddress();
+                a.setCityInfo(city);
+                person.setAddress(a);
+            }
+            
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+            return person;
         } finally {
             em.close();
         }
