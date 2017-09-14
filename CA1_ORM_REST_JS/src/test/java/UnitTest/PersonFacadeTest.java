@@ -1,5 +1,8 @@
+
 /*
 package UnitTest;
+
+/*package UnitTest;
 
 import Entity.Address;
 import Entity.CityInfo;
@@ -18,6 +21,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ *
+ * @author mathiasjepsen
+ */
+/*
 public class PersonFacadeTest {
     
     static PersonFacade pf = new PersonFacade();
@@ -135,3 +143,4 @@ public class PersonFacadeTest {
     
 }   
 */
+
