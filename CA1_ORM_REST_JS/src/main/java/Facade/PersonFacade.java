@@ -2,6 +2,7 @@ package Facade;
 
 import Entity.Address;
 import Entity.CityInfo;
+import Entity.Company;
 import Entity.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -146,6 +147,55 @@ public class PersonFacade implements IPersonFacade {
         } finally {
             em.close();
         } 
+    }
+    
+    @Override
+    public Person editPerson(Person person) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            Person p = em.find(Person.class, person.getId());
+            CityInfo city = em.find(CityInfo.class, person.getAddress().getCityInfo().getZipCode());
+            
+            if (city != null) {
+                Address a = p.getAddress();
+                a.setCityInfo(city);
+                person.setAddress(a);
+            }
+//            if (p == null) {
+//                throw new PersonNotFoundException("Cannot edit. Person with provided id does not exist");
+//            }
+            em.getTransaction().begin();
+            if (!person.getFirstName().isEmpty()) p.setFirstName(person.getFirstName()); 
+            if (!person.getLastName().isEmpty()) p.setLastName(person.getLastName());
+            if (!person.getEmail().isEmpty()) p.setEmail(person.getEmail()); 
+            em.getTransaction().commit();
+            return p;
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public Person addPerson(Person person) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            CityInfo city = em.find(CityInfo.class, person.getAddress().getCityInfo().getZipCode());
+            
+            if (city != null) {
+                Address a = person.getAddress();
+                a.setCityInfo(city);
+                person.setAddress(a);
+            }
+            
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+            return person;
+        } finally {
+            em.close();
+        }
     }
 
 }
