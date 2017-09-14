@@ -236,7 +236,7 @@ public class TestGenerator {
 
     public void createTestData(int count, int startingCVR) {
 
-        int phoneNumber = 1;
+        int phoneNumber = 21453573;
         int cvr = startingCVR;
         createCompanyNames(count);
         createHobbies();
@@ -269,15 +269,11 @@ public class TestGenerator {
             Address ad = createAddresse();           
             String fname = firstNames.get(random.nextInt(firstNames.size()));
             String lname = lastNames.get(random.nextInt(lastNames.size()));
-
             p.setFirstName(fname);
-            p.setLastName(lname);
-            
-            int idHobby = random.nextInt(10)+1;
-            
+            p.setLastName(lname);           
+            int idHobby = random.nextInt(10)+1;           
             p.setEmail(p.getFirstName()+""+p.getLastName() + "@mail.com");
             gf.createPerson(p, ad.getId(), ph.getNumber(), idHobby);
-
             phoneNumber++;
 
         }
