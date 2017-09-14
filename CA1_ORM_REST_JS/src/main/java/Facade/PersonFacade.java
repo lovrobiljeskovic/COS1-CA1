@@ -1,5 +1,7 @@
 package Facade;
 
+import CustomExceptions.ErrorMessageBuilder;
+import CustomExceptions.ExceptionBuilder;
 import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
@@ -33,7 +35,12 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.find(Person.class, id);
+            Person p = em.find(Person.class, id);
+            if (p == null)
+          {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+id+" id not found"));
+          }
+            return p;
         } finally {
             em.close();
         }
@@ -79,10 +86,20 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return (Person) em.createQuery("SELECT p FROM Person p JOIN p.phones f WHERE f.number = :number").setParameter("number", number).getSingleResult();
+            Person p = (Person) em.createQuery("SELECT p FROM Person p JOIN p.phones "
+                    + "f WHERE f.number = :number").setParameter("number", number).getSingleResult();
+            
+        if (p == null)
+          {
+              System.out.println("");
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+number+" phone number not found"));
+          }
+        return p;
         } finally {
             em.close();
         }
+        
+        
     }
 
     @Override
@@ -90,8 +107,16 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.name = :hobby").setParameter("hobby", hobby).getResultList();
-        } finally {
+            List<Person> persons = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.name = :hobby").setParameter("hobby", hobby).getResultList();
+               
+            if(persons.isEmpty())
+              {
+                throw new ExceptionBuilder (new ErrorMessageBuilder(404 , "No persons that like" +hobby));
+              }
+        
+        }
+        
+        finally {
             em.close();
         }
     }
@@ -200,6 +225,12 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
+
+   
+    
+            
+    
+        
 
 
 
