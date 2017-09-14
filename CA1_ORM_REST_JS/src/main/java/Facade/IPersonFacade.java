@@ -20,8 +20,13 @@ public interface IPersonFacade {
     List<CityInfo> getAllZipCodes();
     List<Person> getPersons();
     List<Person> getPersonsByZipCode(String zipCode);
+<<<<<<< HEAD
+    List<Person> getPersonsByHobby(String hobby);
+    Person getPersonByPhone(int phone);
+=======
     List<Person> getPersonsByHobby(String hobby); 
     List<Person> getPersonsByPhone(int phone);
+>>>>>>> master
     List<Person> getPersonsByCity(String city);
     Long getCountOfPersonsByCity(String zipCode);
     Long getCountOfPersonsWithHobby(String hobby);

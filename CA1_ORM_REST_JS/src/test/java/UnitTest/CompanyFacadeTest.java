@@ -1,4 +1,4 @@
-package UnitTest;
+/*package UnitTest;
 
 import Entity.Address;
 import Entity.CityInfo;
@@ -18,6 +18,7 @@ import static org.junit.Assert.assertNotNull;
  *
  * @author mathiasjepsen
  */
+/*
 public class CompanyFacadeTest {
     
     static CompanyFacade cf = new CompanyFacade();
@@ -124,3 +125,4 @@ public class CompanyFacadeTest {
     }
     
 }
+*/
