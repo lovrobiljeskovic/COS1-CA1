@@ -119,7 +119,7 @@ public class PersonResource {
     @GET
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
-<<<<<<< HEAD
+
     public Response getContactInfoByPhone(@PathParam("phone") int number) {
         
         Person p = pf.getPersonByPhone(number);
@@ -135,7 +135,7 @@ public class PersonResource {
             jpl.add(jp);
         }
         return Response.ok().entity(gson.toJson(jpl)).type(MediaType.APPLICATION_JSON).build();
-=======
+    }
     public String getContactInfoByPhone(@PathParam("phone") int number) {
         List<JSONPerson> jpl = new ArrayList();
 
@@ -144,17 +144,16 @@ public class PersonResource {
             jpl.add(jp);
         }
         return gson.toJson(jpl);
->>>>>>> master
     }
 
     @GET
     @Path("city/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsInCity(@PathParam("city") String city) {
-<<<<<<< HEAD
+
         
-        return gson.toJson(pf.getPersonsByCity("city"));
-=======
+        
+
         List<JSONPerson> jpl = new ArrayList();
 
         for (Person p : pf.getPersonsByCity(city)) {
@@ -162,7 +161,6 @@ public class PersonResource {
             jpl.add(jp);
         }
         return gson.toJson(jpl);
->>>>>>> master
     }
 
     @GET
