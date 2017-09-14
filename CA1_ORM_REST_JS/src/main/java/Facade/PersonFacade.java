@@ -62,7 +62,14 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
+            List<Person> persons = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
+       if (persons.isEmpty())
+              {
+                throw new ExceptionBuilder (new ErrorMessageBuilder(404 , "No one lives in city with zipcode " + zipCode));
+              }
+            
+            return persons;
+            
         } finally {
             em.close();
         }
@@ -89,12 +96,17 @@ public class PersonFacade implements IPersonFacade {
             Person p = (Person) em.createQuery("SELECT p FROM Person p JOIN p.phones "
                     + "f WHERE f.number = :number").setParameter("number", number).getSingleResult();
             
-        if (p == null)
-          {
-              System.out.println("");
-            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+number+" phone number not found"));
-          }
-        return p;
+            if (number != (int)number)
+              {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Thats not a number"));
+              }
+            
+            
+            if (p == null)
+              {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+number+" phone number not found"));
+              }
+            return p;
         } finally {
             em.close();
         }
@@ -111,8 +123,9 @@ public class PersonFacade implements IPersonFacade {
                
             if(persons.isEmpty())
               {
-                throw new ExceptionBuilder (new ErrorMessageBuilder(404 , "No persons that like" +hobby));
+                throw new ExceptionBuilder (new ErrorMessageBuilder(404 , "No persons that likes " +hobby));
               }
+            return persons;
         
         }
         
@@ -137,11 +150,18 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.city = :city").setParameter("city", city).getResultList();
+            List<Person> persons = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.city = :city").setParameter("city", city).getResultList();
+            
+            if (persons.isEmpty())
+              {
+                throw new ExceptionBuilder (new ErrorMessageBuilder(404 , "No one lives in " +city));
+              }
+            
+            return persons;
+            
         } finally {
             em.close();
         }
-
     }
 
     @Override
