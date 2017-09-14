@@ -60,7 +60,7 @@ public class PersonResource {
     }
     
     @GET
-    @Path("contactInfo/{id}")
+    @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getContactInfo(@PathParam("id")int id)
     {
@@ -136,6 +136,11 @@ public class PersonResource {
         }
         return Response.ok().entity(gson.toJson(jpl)).type(MediaType.APPLICATION_JSON).build();
     }
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> Dimitri
 
     @GET
     @Path("city/{city}")
