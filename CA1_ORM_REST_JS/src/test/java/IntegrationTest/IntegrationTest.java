@@ -3,7 +3,8 @@ package IntegrationTest;
 import Entity.Address;
 import Entity.CityInfo;
 import Entity.Person;
-import static Utility.JSONPersonConverter.getJSONFromPerson;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,6 +20,8 @@ import static org.hamcrest.Matchers.equalTo;
  * @author mathiasjepsen
  */
 public class IntegrationTest {
+    
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public IntegrationTest() {
     }
@@ -73,7 +76,7 @@ public class IntegrationTest {
         
         given()
                 .contentType("application/json")
-                .body(getJSONFromPerson(p))
+                .body(gson.toJson(p))
                 .when()
                 .post("/api/person/")
                 .then()
@@ -98,7 +101,7 @@ public class IntegrationTest {
         
         given()
                 .contentType("application/json")
-                .body(getJSONFromPerson(p))
+                .body(gson.toJson(p))
                 .when()
                 .put("/api/person/")
                 .then()
