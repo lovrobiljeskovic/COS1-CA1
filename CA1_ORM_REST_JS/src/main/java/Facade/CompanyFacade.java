@@ -1,5 +1,7 @@
 package Facade;
 
+import CustomExceptions.ErrorMessageBuilder;
+import CustomExceptions.ExceptionBuilder;
 import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
@@ -27,23 +29,36 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public Company getCompanyByID(int id) {
+    public Company getCompanyByID(String idString) {
         EntityManager em = getEntityManager();
-
         try {
-            return em.find(Company.class, id);
+            int id = Integer.parseInt(idString);
+            Company cp = em.find(Company.class, id);
+            if (cp == null) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "Company with id " + id + " not found"));
+            }
+            return cp;
+        } catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid id"));
         } finally {
             em.close();
         }
     }
 
     @Override
-    public List<Company> getCompaniesByPhone(int number) {
+    public Company getCompanyByPhone(String number) {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", number).getResultList();
-        } finally {
+            int intPhone = Integer.parseInt(number);          
+            Company cp = (Company) em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", intPhone).getSingleResult();
+        if (cp == null) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following phone number " + number));
+            }
+            return cp;
+        } catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid phone number"));
+        }finally {
             em.close();
         }
     }
@@ -55,6 +70,9 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             Query q1 = em.createQuery("SELECT c FROM Company c");
             list = q1.getResultList();
+              if (list.isEmpty()) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(204, "There is currently no companies"));
+            }
             return list;
         } finally {
             em.close();
@@ -65,25 +83,35 @@ public class CompanyFacade implements ICompanyFacade {
     public List<Company> getCompaniesByZipCode(String zipCode) {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
-        } finally {
+            int testFormat = Integer.parseInt(zipCode);
+            List<Company> list = em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
+            if (list.isEmpty()) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following zipcode "+zipCode));
+            }
+            return list;
+        } catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipCode"));
+        }finally {
             em.close();
         }
     }
-    
+
     @Override
     public Company addCompany(Company c) {
         EntityManager em = getEntityManager();
-        
+
         try {
             CityInfo city = em.find(CityInfo.class, c.getAddress().getCityInfo().getZipCode());
-            
+
             if (city != null) {
                 Address a = c.getAddress();
                 a.setCityInfo(city);
                 c.setAddress(a);
             }
-            
+            if (c == null){
+                throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please fill up the required fields"));
+            }
+
             em.getTransaction().begin();
             em.persist(c);
             em.getTransaction().commit();
@@ -98,9 +126,15 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
+            int testFormat = Integer.parseInt(cvr);
             Company company = (Company) em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr").setParameter("cvr", cvr).getSingleResult();
+           if (company == null) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following cvr "+cvr));
+            }
             return company;
-        } finally {
+        } catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid cvr"));
+        }finally {
             em.close();
         }
     }
@@ -119,75 +153,106 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public List<Company> getCompaniesWithMoreEmployees(int minimumNum) {
+    public List<Company> getCompaniesWithMoreEmployees(String minimumNum) {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT c FROM Company c WHERE c.numEmployees > :min").setParameter("min", minimumNum).getResultList();
-        } finally {
+            int testFormat = Integer.parseInt(minimumNum);
+            List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees > :min").setParameter("min", minimumNum).getResultList();
+        if (list.isEmpty()) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with more than "+minimumNum)+ " employees");
+            }
+            return list;
+        } catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid number"));
+        }finally {
             em.close();
         }
     }
-    
+
     @Override
-    public List<Company> getCompaniesWithLessEmployees(int maximumNum) {
+    public List<Company> getCompaniesWithLessEmployees(String maximumNum) {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT c FROM Company c WHERE c.numEmployees < :max").setParameter("max", maximumNum).getResultList();
+            int testFormat = Integer.parseInt(maximumNum);
+            List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees < :max").setParameter("max", maximumNum).getResultList();
+         if (list.isEmpty()) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with less than "+maximumNum)+ " employees");
+            }
+            return list;
         } finally {
             em.close();
         }
     }
-    
+
     @Override
     public Company editCompany(Company company) {
         EntityManager em = getEntityManager();
-        
+
         try {
             Company c = em.find(Company.class, company.getId());
+            if (c == null) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "there is no company with the following id " + company.getId()));
+            }
             CityInfo city = em.find(CityInfo.class, company.getAddress().getCityInfo().getZipCode());
-            
+
             if (city != null) {
                 Address a = c.getAddress();
                 a.setCityInfo(city);
                 company.setAddress(a);
             }
-//            if (c == null) {
-//                throw new CompanyNotFoundException("Cannot edit. Company with provided id does not exist");
-//            }
+            
             em.getTransaction().begin();
-            if (!company.getName().isEmpty()) c.setName(company.getName()); 
-            if (!company.getDescription().isEmpty()) c.setDescription(company.getDescription()); 
-            if (!company.getCvr().isEmpty()) c.setCvr(company.getCvr()); 
-            if (company.getNumEmployees() != 0) c.setNumEmployees(company.getNumEmployees()); 
-            if (company.getMarketValue()!= 0) c.setMarketValue(company.getMarketValue()); 
+            if (!company.getName().isEmpty()) {
+                c.setName(company.getName());
+            }
+            if (!company.getDescription().isEmpty()) {
+                c.setDescription(company.getDescription());
+            }
+            if (!company.getCvr().isEmpty()) {
+                c.setCvr(company.getCvr());
+            }
+            if (company.getNumEmployees() != 0) {
+                c.setNumEmployees(company.getNumEmployees());
+            }
+            if (company.getMarketValue() != 0) {
+                c.setMarketValue(company.getMarketValue());
+            }
             em.getTransaction().commit();
             return c;
         } finally {
             em.close();
         }
     }
-    
+
     @Override
     public List<Address> getAllStreets() {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT a FROM Address a").getResultList();
+            List<Address> list = em.createQuery("SELECT a FROM Address a").getResultList();
+        if (list.isEmpty()) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(204, "There is currently no streets"));
+            }
+        return list;
         } finally {
             em.close();
-        } 
+        }
     }
-    
+
     @Override
     public List<CityInfo> getAllZipCodes() {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT c FROM CityInfo c").getResultList();
+            List<CityInfo> list = em.createQuery("SELECT c FROM CityInfo c").getResultList();
+            if (list.isEmpty()) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(204, "There is currently no zip codes"));
+            }
+        return list;
         } finally {
             em.close();
-        } 
+        }
     }
 }
