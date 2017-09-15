@@ -8,6 +8,7 @@ import Entity.Company;
 import Entity.Person;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -31,16 +32,20 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person getPersonByID(int id) {
+    public Person getPersonByID(String idString) {
         EntityManager em = getEntityManager();
 
         try {
+            int id = Integer.parseInt(idString);
             Person p = em.find(Person.class, id);
             if (p == null)
           {
             throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+id+" id not found"));
           }
             return p;
+        }
+            catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid id"));
         } finally {
             em.close();
         }
@@ -51,7 +56,13 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
                 
         try {
-            return em.createQuery("SELECT p FROM Person p").getResultList();
+            List<Person> persons = new ArrayList<>();
+            persons = em.createQuery("SELECT p FROM Person p").getResultList();
+            if (persons.isEmpty())
+              {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(200, "There are no persons"));
+              }
+            return persons;
         } finally {
             em.close();
         }
@@ -89,25 +100,22 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person getPersonByPhone(int number) {
+    public Person getPersonByPhone(String StringNumber) {
         EntityManager em = getEntityManager();
-
+   
         try {
+            int number = Integer.parseInt(StringNumber);
             Person p = (Person) em.createQuery("SELECT p FROM Person p JOIN p.phones "
                     + "f WHERE f.number = :number").setParameter("number", number).getSingleResult();
-            
-            if (number != (int)number)
-              {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(400 , "Thats not a number"));
-              }
-            
-            
             if (p == null)
               {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+number+" phone number not found"));
               }
             return p;
-        } finally {
+            } catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid id"));
+            }
+        finally {
             em.close();
         }
         
