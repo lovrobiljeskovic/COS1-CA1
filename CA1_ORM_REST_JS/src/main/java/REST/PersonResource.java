@@ -75,11 +75,9 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllContactInfo() {
         List<JSONPersonContactDetails> jpcds = new ArrayList<>();
-
         for (Person p : pf.getPersons()) {
             jpcds.add(new JSONPersonContactDetails(p));
         }
-
         return gson.toJson(jpcds);
     }
         
