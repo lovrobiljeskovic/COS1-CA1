@@ -184,7 +184,7 @@ public class PersonResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String postCompany(String personAsJson) {
+    public String postPerson(String personAsJson) {
         return gson.toJson(pf.addPerson(gson.fromJson(personAsJson, Person.class)));
 }
 }
