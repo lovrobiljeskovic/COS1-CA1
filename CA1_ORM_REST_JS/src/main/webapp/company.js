@@ -142,6 +142,11 @@ var getCompaniesByMaxEmployees = function () {
     });
 };
 var postData = function () {
+    var phoneNumber;
+    if (document.getElementById('number').value === "") {
+        phoneNumber = 0;
+    }
+    
     var headers = {
         'Content-Type': 'application/json'
     };
@@ -156,14 +161,14 @@ var postData = function () {
             phones:
                     [
                         {
-                            number: document.getElementById('number').value,
+                            number: phoneNumber,
                             description: document.getElementById('descriptionPhone').value
                         }
                     ],
             address:
                     {
                         street: document.getElementById('street').value,
-                        additionalinfo: document.getElementById('additionalinfo').value,
+                        additionalInfo: document.getElementById('additionalinfo').value,
                         cityInfo: {
                             zipCode: document.getElementById('zipCodeModal').value,
                             city: document.getElementById('city').value

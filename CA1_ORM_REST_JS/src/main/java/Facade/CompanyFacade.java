@@ -5,6 +5,7 @@ import CustomExceptions.ExceptionBuilder;
 import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
+import Entity.Phone;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -103,7 +104,12 @@ public class CompanyFacade implements ICompanyFacade {
 
         try {
             CityInfo city = em.find(CityInfo.class, c.getAddress().getCityInfo().getZipCode());
-
+            Phone phone = em.find(Phone.class, c.getPhones().get(0).getNumber());
+            
+            if (phone != null) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Duplicate phone number error"));
+            }
+            
             if (city != null) {
                 Address a = c.getAddress();
                 a.setCityInfo(city);

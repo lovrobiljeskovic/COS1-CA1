@@ -70,8 +70,8 @@ var getPersonsByCity = function () {
       var mappedCityPersons = persons.map(function (person) {
             return "<tr><td>" + person.firstName + "</td>" + "<td>" + person.lastName + "</td>" + "<td>" + person.email + "</td>" + "<td>" + person.address+ "</td></tr>";
         }).join("");
-        var cityHeaer = "<th>Company Name</th><th>Description</th><th>CVR</th>";
-        document.getElementById("cityHeader").innerHTML = personByCityHeader;
+        var cityHeader = "<th>Company Name</th><th>Description</th><th>CVR</th>";
+        document.getElementById("cityHeader").innerHTML = cityHeader;
         document.getElementById("cityBody").innerHTML = mappedCityPersons;
     });
 };
@@ -121,7 +121,7 @@ var postData = function () {
                         street: document.getElementById('street').value,
                         additionalinfo: document.getElementById('additionalinfo').value,
                         cityInfo: {
-                            zipCode: document.getElementById('zipCode').value,
+                            zipCode: document.getElementById('zipCodeModal').value,
                             city: document.getElementById('city').value
                         }
                         
@@ -145,23 +145,23 @@ var editData = function () {
         method: "PUT",
         headers: headers,
         body: JSON.stringify({
-            firstName: document.getElementById('firstName').value,
-            lastName: document.getElementById('lastName').value,
-            email: document.getElementById('email').value,
+            firstName: document.getElementById('editFirstName').value,
+            lastName: document.getElementById('editLastName').value,
+            email: document.getElementById('editEmail').value,
             phones:
                     [
                         {
-                            number: document.getElementById('number').value,
-                            description: document.getElementById('descriptionPhone').value
+                            number: document.getElementById('editNumber').value,
+                            description: document.getElementById('editDescriptionPhone').value
                         }
                     ],
             address:
                     {
-                        street: document.getElementById('street').value,
-                        additionalinfo: document.getElementById('additionalinfo').value,
+                        street: document.getElementById('editStreet').value,
+                        additionalinfo: document.getElementById('editAdditionalinfo').value,
                         cityInfo: {
-                            zipCode: document.getElementById('zipCode').value,
-                            city: document.getElementById('city').value
+                            zipCode: document.getElementById('editZipCode').value,
+                            city: document.getElementById('editCity').value
                         }
                         
                     }
@@ -182,5 +182,4 @@ document.getElementById("city").addEventListener("click", getPersonsByCity);
 document.getElementById("zipCode").addEventListener("click", getPersonsByZipCode);
 document.getElementById("postData").addEventListener("click", postData);
 document.getElementById("editData").addEventListener("click", editData);
-document.getElementById("deleteId").addEventListener("click", deleteData);
 

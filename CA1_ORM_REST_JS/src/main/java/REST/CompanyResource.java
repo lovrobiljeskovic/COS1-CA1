@@ -157,10 +157,11 @@ public class CompanyResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String postCompany(String companyAsJson) {        
+    public String postCompany(String companyAsJson) {      
         return getJSONFromCompany(cf.addCompany(getCompanyFromJson(companyAsJson)));
     }
-     @DELETE
+    
+    @DELETE
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public String deletePerson(@PathParam("id") String id) {
