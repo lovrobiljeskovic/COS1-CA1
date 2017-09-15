@@ -127,7 +127,10 @@ public class PersonResource {
         
         return (gson.toJson(jp));
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 
     @GET
     @Path("city/{city}")

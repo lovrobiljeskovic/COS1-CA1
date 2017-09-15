@@ -14,7 +14,7 @@ import javax.persistence.EntityManagerFactory;
 public interface ICompanyFacade {
     
     void createCompany(Company c);
-    Company getCompanyByID(int id);
+    Company getCompanyByID(String id);
     Company getCompanyByCVR(String cvr);
     Company editCompany(Company c);
     Company addCompany(Company c);
@@ -22,9 +22,9 @@ public interface ICompanyFacade {
     List<Address> getAllStreets();
     List<Company> getCompanies();
     List<Company> getCompaniesByZipCode(String zipCode);
-    List<Company> getCompaniesByPhone(int number);
-    List<Company> getCompaniesWithMoreEmployees(int minimumNum);
-    List<Company> getCompaniesWithLessEmployees(int maximumNum);
+    Company getCompanyByPhone(String number);
+    List<Company> getCompaniesWithMoreEmployees(String minimumNum);
+    List<Company> getCompaniesWithLessEmployees(String maximumNum);
     void addEntityManagerFactory(EntityManagerFactory emf);
 
 }
