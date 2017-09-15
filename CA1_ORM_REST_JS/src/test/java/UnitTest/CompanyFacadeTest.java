@@ -87,9 +87,9 @@ public class CompanyFacadeTest {
 
     @Test
     public void getCompanyByID() {
-        Company p1 = cf.getCompanyByID(1);
-        Company p2 = cf.getCompanyByID(2);
-        Company p3 = cf.getCompanyByID(3);
+        Company p1 = cf.getCompanyByID("1");
+        Company p2 = cf.getCompanyByID("2");
+        Company p3 = cf.getCompanyByID("3");
         assertNotNull(p1);
         assertNotNull(p2);
         assertNotNull(p3);
@@ -115,20 +115,20 @@ public class CompanyFacadeTest {
     
     @Test
     public void getCompaniesByPhone() {
-        Company company = cf.getCompanyByPhone(12345678);
+        Company company = cf.getCompanyByPhone("12345678");
         assertEquals("Apple", company.getName());
     }
     
     @Test
     public void getCompaniesWithMoreEmployees() {
-        List<Company> companies = cf.getCompaniesWithMoreEmployees(100);
+        List<Company> companies = cf.getCompaniesWithMoreEmployees("100");
         assertEquals("Apple", companies.get(0).getName());
         assertEquals("Microsoft", companies.get(1).getName());
     }
     
     @Test
     public void getCompaniesWithLessEmployees() {
-        List<Company> companies = cf.getCompaniesWithLessEmployees(150);
+        List<Company> companies = cf.getCompaniesWithLessEmployees("150");
         assertEquals("Microsoft", companies.get(0).getName());
         assertEquals("Lenovo", companies.get(1).getName());
     }
@@ -152,7 +152,7 @@ public class CompanyFacadeTest {
         address.setCityInfo(city);
         company.setAddress(address);
         cf.editCompany(company);
-        assertEquals("newDescription", cf.getCompanyByID(1).getDescription());
+        assertEquals("newDescription", cf.getCompanyByID("1").getDescription());
     }
     
     @Test
@@ -173,7 +173,7 @@ public class CompanyFacadeTest {
         address.setCityInfo(city);
         company.setAddress(address);
         cf.addCompany(company);
-        assertEquals("Company name", cf.getCompanyByID(4).getName());
+        assertEquals("Company name", cf.getCompanyByID("4").getName());
     }
     
     @Test
