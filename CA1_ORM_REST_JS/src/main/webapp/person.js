@@ -13,7 +13,7 @@ var getAllPersons = function () {
 getAllPersons();
 
 var getPersonByID = function () {
-    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/contactinfo/" + document.getElementById("idNumber").value);
+    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/complete/" + document.getElementById("idNumber").value);
     promise.then(function (response) {
         return response.json();
     }).then(function (person) {
@@ -28,13 +28,11 @@ var getPersonsByPhone = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/phone/" + document.getElementById("phoneNumber").value);
     promise.then(function (response) {
         return response.json();
-   }).then(function (persons) {
-        var mappedPhonePersons = persons.map(function (person) {
-            return "<tr><td>" + person.firstName + "</td>" + "<td>" + person.lastName + "</td>" + "<td>" + person.email + "</td>" + "<td>" + person.address+ "</td></tr>";
-        }).join("");
-        var phoneHeader = "<th>Company Name</th><th>Description</th><th>CVR</th>";
-        document.getElementById("phoneHeader").innerHTML = phoneHeader;
-        document.getElementById("phoneBody").innerHTML = mappedPhonePersons;
+  }).then(function (person) {
+        var personByPhone = "<tr><td>" + person.firstName + "</td>" + "<td>" + person.lastName + "</td>" + "<td>" + person.email + "</td>" + "<td>" + person.address+ "</td></tr>";
+        var tableHeader = "<th>First Name</th><th>Last Name</th><th>Email</th><th>Address</th>";
+        document.getElementById("phoneHeader").innerHTML = tableHeader;
+        document.getElementById("phoneBody").innerHTML = personByPhone;
     });
 };
 var getPersonsByCity = function () {
@@ -134,18 +132,6 @@ var editData = function () {
         return response.json();
     });
 };
-var deleteData = function () {
-      var headers = {
-        'Content-Type':'application/json'
-    };
-    var promise = fetch("http://localhost:8805/RESTexercise2/api/person/" + document.getElementById("deleteData").value, {
-        method: "DELETE",
-        headers: headers
-    }).then(function (response) {
-        return response.json();
-    });
-    getAllPersons();
-    };
 
 document.getElementById("id").addEventListener("click", getPersonByID);
 document.getElementById("phone").addEventListener("click", getPersonsByPhone);

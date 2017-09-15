@@ -1,26 +1,26 @@
 ----------------------------------------------------------------
-Thu Sep 14 21:56:11 CEST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-81f6-8879-000008f4a458 
-on database directory /Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS/Company with class loader sun.misc.Launcher$AppClassLoader@28d93b30 
-Loaded from file:/Users/mathiasjepsen/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+Fri Sep 15 09:43:39 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-847e-3ecc-0000072cc2a8 
+on database directory C:\Users\Lovro\Desktop\CAProjectSem3\COS1-CA1\CA1_ORM_REST_JS\Company with class loader sun.misc.Launcher$AppClassLoader@4aa298b7 
+Loaded from file:/C:/Users/Lovro/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_111-b14
-user.dir=/Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.12.6
+user.dir=C:\Users\Lovro\Desktop\CAProjectSem3\COS1-CA1\CA1_ORM_REST_JS
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Thu Sep 14 21:56:13 CEST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance ce8780ad-015e-81f6-8879-000008f4a458 
-on database directory /Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS/Person with class loader sun.misc.Launcher$AppClassLoader@28d93b30 
-Loaded from file:/Users/mathiasjepsen/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+Fri Sep 15 09:43:46 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance ce8780ad-015e-847e-3ecc-0000072cc2a8 
+on database directory C:\Users\Lovro\Desktop\CAProjectSem3\COS1-CA1\CA1_ORM_REST_JS\Person with class loader sun.misc.Launcher$AppClassLoader@4aa298b7 
+Loaded from file:/C:/Users/Lovro/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_111-b14
-user.dir=/Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.12.6
+user.dir=C:\Users\Lovro\Desktop\CAProjectSem3\COS1-CA1\CA1_ORM_REST_JS
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
