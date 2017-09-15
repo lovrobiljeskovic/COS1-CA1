@@ -61,10 +61,6 @@ public abstract class InfoEntity implements Serializable {
         return phones;
     }
 
-    public void setPhones(List<Phone> phones) {
-        this.phones = phones;
-    }
-
     public Address getAddress() {
         return address;
     }

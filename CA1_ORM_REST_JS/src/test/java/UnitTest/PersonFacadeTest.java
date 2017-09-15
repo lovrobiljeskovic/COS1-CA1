@@ -1,8 +1,4 @@
-
-/*
 package UnitTest;
-
-/*package UnitTest;
 
 import Entity.Address;
 import Entity.CityInfo;
@@ -10,13 +6,12 @@ import Entity.Hobby;
 import Entity.Person;
 import Entity.Phone;
 import Facade.PersonFacade;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,7 +20,7 @@ import org.junit.Test;
  *
  * @author mathiasjepsen
  */
-/*
+
 public class PersonFacadeTest {
     
     static PersonFacade pf = new PersonFacade();
@@ -104,7 +99,7 @@ public class PersonFacadeTest {
     @Test
     public void getPersons() {
         List<Person> persons = pf.getPersons();
-        assertEquals(3, persons.size());
+        assertFalse(persons.isEmpty());
     }
     
     @Test
@@ -120,8 +115,8 @@ public class PersonFacadeTest {
     }
     @Test
     public void getPersonsByPhone() {
-        List<Person> persons = pf.getPersonsByPhone(12345678);
-        assertEquals("Mathias", persons.get(0).getFirstName());
+        Person person = pf.getPersonByPhone(12345678);
+        assertEquals("Mathias", person.getFirstName());
     }
     @Test
     public void getPersonsByCity() {
@@ -141,6 +136,56 @@ public class PersonFacadeTest {
         assertEquals(Long.valueOf(1l), count);
     }
     
+    @Test
+    public void addPerson() {
+        Person p = new Person();
+        Address a = new Address();
+        CityInfo c = new CityInfo();
+        c.setCity("City");
+        c.setZipCode("1337");
+        a.setStreet("Street");
+        a.setAddSitionalInfo("Additional info");
+        a.setCityInfo(c);
+        p.setFirstName("NewPerson");
+        p.setAddress(a);
+        pf.addPerson(p);
+        assertEquals("NewPerson", pf.getPersonByID(4).getFirstName());
+    }
+    
+    @Test
+    public void editPerson() {
+        Person p = new Person();
+        Address a = new Address();
+        CityInfo c = new CityInfo();
+        c.setCity("City");
+        c.setZipCode("1337");
+        a.setStreet("Street");
+        a.setAddSitionalInfo("Additional info");
+        a.setCityInfo(c);
+        p.setId(1);
+        p.setAddress(a);
+        p.setFirstName("NotMathias");
+        p.setLastName("Lastname");
+        p.setEmail("email@mail.com");
+        pf.editPerson(p); 
+        assertEquals("NotMathias", pf.getPersonByID(1).getFirstName());
+    }
+    
+    @Test
+    public void getAllStreets() {
+        List<Address> addresses = pf.getAllStreets();
+        assertEquals("Kongevejen 438", addresses.get(0).getStreet());
+        assertEquals(3, addresses.size());
+    }
+    
+    @Test
+    public void getAllZipCodes() {
+        List<CityInfo> cities = pf.getAllZipCodes();
+        assertEquals("2840", cities.get(0).getZipCode());
+        assertEquals(3, cities.size());
+    }
+    
+    
 }   
-*/
+
 

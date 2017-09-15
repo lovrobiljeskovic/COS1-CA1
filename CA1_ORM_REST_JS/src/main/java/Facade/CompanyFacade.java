@@ -50,14 +50,14 @@ public class CompanyFacade implements ICompanyFacade {
     public Company getCompanyByPhone(String number) {
         EntityManager em = getEntityManager();
         try {
-            int intPhone = Integer.parseInt(number);          
+            int intPhone = Integer.parseInt(number);
             Company cp = (Company) em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", intPhone).getSingleResult();
             return cp;
         } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid phone number"));
-        }catch (NoResultException e) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following phone number " + number));
-        }finally {
+        } catch (NoResultException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following phone number " + number));
+        } finally {
             em.close();
         }
     }
@@ -69,7 +69,7 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             Query q1 = em.createQuery("SELECT c FROM Company c");
             list = q1.getResultList();
-              if (list.isEmpty()) {
+            if (list.isEmpty()) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(204, "There is currently no companies"));
             }
             return list;
@@ -85,12 +85,12 @@ public class CompanyFacade implements ICompanyFacade {
             int testFormat = Integer.parseInt(zipCode);
             List<Company> list = em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
             if (list.isEmpty()) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following zipcode "+zipCode));
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following zipcode " + zipCode));
             }
             return list;
         } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipCode"));
-        }finally {
+        } finally {
             em.close();
         }
     }
@@ -107,7 +107,7 @@ public class CompanyFacade implements ICompanyFacade {
                 a.setCityInfo(city);
                 c.setAddress(a);
             }
-            if (c == null){
+            if (c == null) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please fill up the required fields"));
             }
 
@@ -130,9 +130,9 @@ public class CompanyFacade implements ICompanyFacade {
             return company;
         } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid cvr"));
-        }catch (NoResultException e) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following cvr "+cvr));
-        }finally {
+        } catch (NoResultException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following cvr " + cvr));
+        } finally {
             em.close();
         }
     }
@@ -142,6 +142,9 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
+            if (c == null) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please fill up the required fields"));
+            }
             em.getTransaction().begin();
             em.persist(c);
             em.getTransaction().commit();
@@ -157,13 +160,13 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             int minInt = Integer.parseInt(minimumNum);
             List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees > :min").setParameter("min", minInt).getResultList();
-        if (list.isEmpty()) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with more than "+minimumNum)+ " employees");
+            if (list.isEmpty()) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with more than " + minimumNum) + " employees");
             }
             return list;
         } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid number"));
-        }finally {
+        } finally {
             em.close();
         }
     }
@@ -175,8 +178,8 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             int maxInt = Integer.parseInt(maximumNum);
             List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees < :max").setParameter("max", maxInt).getResultList();
-         if (list.isEmpty()) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with less than "+maximumNum)+ " employees");
+            if (list.isEmpty()) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with less than " + maximumNum) + " employees");
             }
             return list;
         } finally {
@@ -200,7 +203,7 @@ public class CompanyFacade implements ICompanyFacade {
                 a.setCityInfo(city);
                 company.setAddress(a);
             }
-            
+
             em.getTransaction().begin();
             if (!company.getName().isEmpty()) {
                 c.setName(company.getName());
@@ -230,10 +233,10 @@ public class CompanyFacade implements ICompanyFacade {
 
         try {
             List<Address> list = em.createQuery("SELECT a FROM Address a").getResultList();
-        if (list.isEmpty()) {
+            if (list.isEmpty()) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(204, "There is currently no streets"));
             }
-        return list;
+            return list;
         } finally {
             em.close();
         }
@@ -248,7 +251,7 @@ public class CompanyFacade implements ICompanyFacade {
             if (list.isEmpty()) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(204, "There is currently no zip codes"));
             }
-        return list;
+            return list;
         } finally {
             em.close();
         }
