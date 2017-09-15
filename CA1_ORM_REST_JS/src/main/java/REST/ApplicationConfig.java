@@ -31,7 +31,6 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(CustomExceptions.ExceptionMapperBuilder.class);
         resources.add(REST.CompanyResource.class);
-        resources.add(REST.PersonResource.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ClassNotFoundExceptionMapper.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ConversionExceptionMapper.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.DatabaseExceptionMapper.class);

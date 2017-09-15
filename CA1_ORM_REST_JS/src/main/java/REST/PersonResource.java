@@ -53,8 +53,12 @@ public class PersonResource {
             jpl.add(jp);
         }
         return gson.toJson(jpl);
+<<<<<<< HEAD
     }
     
+=======
+    }    
+>>>>>>> master
     
     @GET
     @Path("complete/{id}")
@@ -79,8 +83,12 @@ public class PersonResource {
 
         return gson.toJson(jpcds);
     }
+<<<<<<< HEAD
     
   
+=======
+        
+>>>>>>> master
     @GET
     @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -92,10 +100,14 @@ public class PersonResource {
     @GET
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
+<<<<<<< HEAD
 
 
     public String getContactInfoByPhone(@PathParam("phone") String phone) {
        
+=======
+    public String getContactInfoByPhone(@PathParam("phone") String phone) {
+>>>>>>> master
         Person p = pf.getPersonByPhone(phone);
 
             JSONPersonContactDetails jp = new JSONPersonContactDetails(p);
@@ -104,14 +116,15 @@ public class PersonResource {
         return (gson.toJson(jp));
     }
 
-
     @GET
     @Path("city/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsInCity(@PathParam("city") String city) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
         List<JSONPerson> jpl = new ArrayList();
-
         for (Person p : pf.getPersonsByCity(city)) {
             JSONPerson jp = new JSONPerson(p);
             jpl.add(jp);
