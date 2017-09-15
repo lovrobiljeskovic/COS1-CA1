@@ -88,9 +88,9 @@ public class PersonFacadeTest {
 
     @Test
     public void getPersonByID() {
-        Person p1 = pf.getPersonByID(1);
-        Person p2 = pf.getPersonByID(2);
-        Person p3 = pf.getPersonByID(3);
+        Person p1 = pf.getPersonByID("1");
+        Person p2 = pf.getPersonByID("2");
+        Person p3 = pf.getPersonByID("3");
         assertEquals("Mathias", p1.getFirstName());
         assertEquals("Thomas", p2.getFirstName());
         assertEquals("Lovro", p3.getFirstName());
@@ -115,7 +115,7 @@ public class PersonFacadeTest {
     }
     @Test
     public void getPersonsByPhone() {
-        Person person = pf.getPersonByPhone(12345678);
+        Person person = pf.getPersonByPhone("12345678");
         assertEquals("Mathias", person.getFirstName());
     }
     @Test
@@ -149,7 +149,7 @@ public class PersonFacadeTest {
         p.setFirstName("NewPerson");
         p.setAddress(a);
         pf.addPerson(p);
-        assertEquals("NewPerson", pf.getPersonByID(4).getFirstName());
+        assertEquals("NewPerson", pf.getPersonByID("4").getFirstName());
     }
     
     @Test
@@ -168,7 +168,7 @@ public class PersonFacadeTest {
         p.setLastName("Lastname");
         p.setEmail("email@mail.com");
         pf.editPerson(p); 
-        assertEquals("NotMathias", pf.getPersonByID(1).getFirstName());
+        assertEquals("NotMathias", pf.getPersonByID("1").getFirstName());
     }
     
     @Test

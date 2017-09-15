@@ -3,6 +3,7 @@ package REST;
 import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
+import Entity.Person;
 import Facade.CompanyFacade;
 import Utility.JSONCity;
 import Utility.JSONCompanyContactDetails;
@@ -25,6 +26,7 @@ import static Utility.JSONCompanyConverter.getCompanyFromJson;
 import static Utility.JSONCompanyConverter.getJSONFromCompany;
 import Utility.JSONStreet;
 import javax.persistence.Persistence;
+import javax.ws.rs.DELETE;
 
 @Path("company")
 public class CompanyResource {
@@ -157,5 +159,13 @@ public class CompanyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String postCompany(String companyAsJson) {        
         return getJSONFromCompany(cf.addCompany(getCompanyFromJson(companyAsJson)));
+    }
+     @DELETE
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deletePerson(@PathParam("id") String id) {
+       
+         return getJSONFromCompany(cf.deleteCompany(id));
+    
     }
 }

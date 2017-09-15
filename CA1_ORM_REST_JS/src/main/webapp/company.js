@@ -64,12 +64,26 @@ var getCompaniesByMinEmployees = function () {
     promise.then(function (response) {
         return response.json();
     }).then(function (companies) {
-         var mappedEmployeeCompanies = companies.map(function (company) {
+        var mappedMinEmployeeCompanies = companies.map(function (company) {
             return "<tr><td>" + company.name + "</td>" + "<td>" + company.description + "</td>" + "<td>" + company.cvr + "</td></tr>";
-        }).join("");     
+        }).join("");
         var employeeMinHeader = "<th>Company Name</th><th>Description</th><th>CVR</th>";
         document.getElementById("employeeMinHeader").innerHTML = employeeMinHeader;
-        document.getElementById("employeeMinBody").innerHTML = mappedEmployeeCompanies;
+        document.getElementById("employeeMinBody").innerHTML = mappedMinEmployeeCompanies;
+    });
+};
+
+var getCompaniesByMaxEmployees = function () {
+    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/employees/more/" + document.getElementById("employeeMaxNumber").value);
+    promise.then(function (response) {
+        return response.json();
+    }).then(function (companies) {
+        var mappedMaxEmployeeCompanies = companies.map(function (company) {
+            return "<tr><td>" + company.name + "</td>" + "<td>" + company.description + "</td>" + "<td>" + company.cvr + "</td></tr>";
+        }).join("");
+        var employeeMaxHeader = "<th>Company Name</th><th>Description</th><th>CVR</th>";
+        document.getElementById("employeeMaxHeader").innerHTML = employeeMaxHeader;
+        document.getElementById("employeeMaxBody").innerHTML = mappedMaxEmployeeCompanies;
     });
 };
 var postData = function () {
@@ -80,18 +94,89 @@ var postData = function () {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
+            email: document.getElementById('email').value,
             name: document.getElementById('name').value,
             description: document.getElementById('description').value,
-            cvr: document.getElementById('cvr').value,
-
+            cvr: document.getElementById('cvrNum').value,
+            phones:
+                    [
+                        {
+                            number: document.getElementById('number').value,
+                            description: document.getElementById('descriptionPhone').value
+                        }
+                    ],
+            address:
+                    {
+                        street: document.getElementById('street').value,
+                        additionalinfo: document.getElementById('additionalinfo').value,
+                        cityInfo: {
+                            zipCode: document.getElementById('zipCode').value,
+                            city: document.getElementById('city').value
+                        }
+                        
+                    }
+         
         })
     }).then(function (response) {
         return response.json();
     });
 };
 
+var editData = function () {
+    var headers = {
+        'Content-Type': 'application/json'
+    };
+    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company", {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify({
+            email: document.getElementById('editEmail').value,
+            name: document.getElementById('editName').value,
+            description: document.getElementById('editDescription').value,
+            cvr: document.getElementById('editCvrNum').value,
+            phones:
+                    [
+                        {
+                            number: document.getElementById('editNumber').value,
+                            description: document.getElementById('editDescriptionPhone').value
+                        }
+                    ],
+            address:
+                    {
+                        street: document.getElementById('editStreet').value,
+                        additionalinfo: document.getElementById('editAdditionalinfo').value,
+                        cityInfo: {
+                            zipCode: document.getElementById('editZipCode').value,
+                            city: document.getElementById('editCity').value
+                        }
+                        
+                    }
+         
+        })
+    }).then(function (response) {
+        return response.json();
+    });
+};
+var deleteData = function () {
+      var headers = {
+        'Content-Type':'application/json'
+    };
+    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/" + document.getElementById("deleteData").value, {
+        method: "DELETE",
+        headers: headers
+    }).then(function (response) {
+        return response.json();
+    });
+    getAllCompanies();
+    };
+
 document.getElementById("phone").addEventListener("click", getCompanyByPhone);
 document.getElementById("cvr").addEventListener("click", getCompanyByCVR);
 document.getElementById("id").addEventListener("click", getCompanyByID);
 document.getElementById("zipCode").addEventListener("click", getCompanyByZipCode);
 document.getElementById("minNumber").addEventListener("click", getCompaniesByMinEmployees);
+document.getElementById("maxNumber").addEventListener("click", getCompaniesByMaxEmployees);
+document.getElementById("postData").addEventListener("click", postData);
+document.getElementById("editData").addEventListener("click", editData);
+document.getElementById("deleteId").addEventListener("click", deleteData);
+
