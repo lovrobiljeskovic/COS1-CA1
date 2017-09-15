@@ -1,6 +1,12 @@
 var getAllCompanies = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/complete");
     promise.then(function (response) {
+        if (response.status === 204) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is currently no companies.";
+        }
+        return response.json();
+
         return response.json();
     }).then(function (companies) {
         var mappedCompanies = companies.map(function (company) {
@@ -15,6 +21,14 @@ getAllCompanies();
 var getCompanyByPhone = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/complete/phone/" + document.getElementById("phoneNumber").value);
     promise.then(function (response) {
+        if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with the following phone number " + document.getElementById("phoneNumber").value;
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid phone number";
+        }
         return response.json();
     }).then(function (company) {
         var companyByPhone = "<tr><td>" + company.name + "</td>" + "<td>" + company.description + "</td>" + "<td>" + company.cvr + "</td></tr>";
@@ -27,6 +41,14 @@ var getCompanyByPhone = function () {
 var getCompanyByCVR = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/cvr/" + document.getElementById("cvrNumber").value);
     promise.then(function (response) {
+        if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with the following cvr" + document.getElementById("cvrNumber").value;
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid cvr";
+        }
         return response.json();
     }).then(function (company) {
         var companyByCVR = "<tr><td>" + company.name + "</td>" + "<td>" + company.description + "</td>" + "<td>" + company.cvr + "</td></tr>";
@@ -38,6 +60,14 @@ var getCompanyByCVR = function () {
 var getCompanyByID = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/id/" + document.getElementById("idNumber").value);
     promise.then(function (response) {
+        if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with the following id " + document.getElementById("idNumber").value;
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid id";
+        }
         return response.json();
     }).then(function (company) {
         var CompanyByID = "<tr><td>" + company.name + "</td>" + "<td>" + company.description + "</td>" + "<td>" + company.cvr + "</td></tr>";
@@ -50,6 +80,14 @@ var getCompanyByID = function () {
 var getCompanyByZipCode = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/city/" + document.getElementById("zipCodeNumber"));
     promise.then(function (response) {
+        if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with the following zip code " + document.getElementById("zipCodeNumber").value;
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid zip code";
+        }
         return response.json();
     }).then(function (company) {
         var CompanyByZip = "<tr><td>" + company.name + "</td>" + "<td>" + company.description + "</td>" + "<td>" + company.cvr + "</td></tr>";
@@ -62,6 +100,14 @@ var getCompanyByZipCode = function () {
 var getCompaniesByMinEmployees = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/employees/less/" + document.getElementById("employeeMinNumber").value);
     promise.then(function (response) {
+        if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with less than " + document.getElementById("employeeMinNumber").value + " employees";
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid number";
+        }
         return response.json();
     }).then(function (companies) {
         var mappedMinEmployeeCompanies = companies.map(function (company) {
@@ -76,6 +122,14 @@ var getCompaniesByMinEmployees = function () {
 var getCompaniesByMaxEmployees = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/employees/more/" + document.getElementById("employeeMaxNumber").value);
     promise.then(function (response) {
+        if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with more than " + document.getElementById("employeeMaxNumber").value + " employees";
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid number";
+        }
         return response.json();
     }).then(function (companies) {
         var mappedMaxEmployeeCompanies = companies.map(function (company) {
@@ -113,9 +167,9 @@ var postData = function () {
                             zipCode: document.getElementById('zipCode').value,
                             city: document.getElementById('city').value
                         }
-                        
+
                     }
-         
+
         })
     }).then(function (response) {
         return response.json();
@@ -149,17 +203,17 @@ var editData = function () {
                             zipCode: document.getElementById('editZipCode').value,
                             city: document.getElementById('editCity').value
                         }
-                        
+
                     }
-         
+
         })
     }).then(function (response) {
         return response.json();
     });
 };
 var deleteData = function () {
-      var headers = {
-        'Content-Type':'application/json'
+    var headers = {
+        'Content-Type': 'application/json'
     };
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/" + document.getElementById("deleteData").value, {
         method: "DELETE",
@@ -168,7 +222,7 @@ var deleteData = function () {
         return response.json();
     });
     getAllCompanies();
-    };
+};
 
 document.getElementById("phone").addEventListener("click", getCompanyByPhone);
 document.getElementById("cvr").addEventListener("click", getCompanyByCVR);
