@@ -56,6 +56,7 @@ var getCompanyByCVR = function () {
         document.getElementById("cvrBody").innerHTML = companyByCVR;
     });
 };
+
 var getCompanyByID = function () {
     var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/id/" + document.getElementById("idNumber").value);
     promise.then(function (response) {
@@ -141,6 +142,7 @@ var getCompaniesByMaxEmployees = function () {
         document.getElementById("employeeMaxBody").innerHTML = mappedMaxEmployeeCompanies;
     });
 };
+
 var postData = function () {
     var phoneNumber;
     if (document.getElementById('number').value === "") {

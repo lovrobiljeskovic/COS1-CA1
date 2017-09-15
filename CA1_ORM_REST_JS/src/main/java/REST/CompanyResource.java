@@ -148,6 +148,7 @@ public class CompanyResource {
     }
     
     @PUT
+    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
