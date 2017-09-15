@@ -49,8 +49,8 @@ public class CompanyResource {
     @GET
     @Path("complete/phone/{number}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllCompaniesCompleteByPhone(@PathParam("number") int number) {    
-        return gson.toJson(cf.getCompaniesByPhone(number));
+    public String getCompanyCompleteByPhone(@PathParam("number") String number) {    
+        return gson.toJson(cf.getCompanyByPhone(number));
     }
     
     @GET
@@ -77,7 +77,7 @@ public class CompanyResource {
     @GET
     @Path("id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCompanyById(@PathParam("id") int id) {
+    public String getCompanyById(@PathParam("id") String id) {
         return JSONCompanyConverter.getJSONFromCompany(cf.getCompanyByID(id));
     }
 
@@ -134,14 +134,14 @@ public class CompanyResource {
     @GET
     @Path("employees/more/{min}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCompaniesWithMoreEmployees(@PathParam("min") int minimumNumber) {
+    public String getCompaniesWithMoreEmployees(@PathParam("min") String minimumNumber) {
         return gson.toJson(cf.getCompaniesWithMoreEmployees(minimumNumber));
     }
     
     @GET
     @Path("employees/less/{max}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCompaniesWithLessEmployees(@PathParam("max") int maximumNumber) {
+    public String getCompaniesWithLessEmployees(@PathParam("max") String maximumNumber) {
         return gson.toJson(cf.getCompaniesWithLessEmployees(maximumNumber));
     }
     
