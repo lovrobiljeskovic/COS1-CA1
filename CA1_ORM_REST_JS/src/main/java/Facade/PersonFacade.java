@@ -1,5 +1,7 @@
 package Facade;
 
+import CustomExceptions.ErrorMessageBuilder;
+import CustomExceptions.ExceptionBuilder;
 import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
@@ -33,7 +35,12 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.find(Person.class, id);
+            Person p = em.find(Person.class, id);
+            if (p == null)
+          {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+id+" id not found"));
+          }
+            return p;
         } finally {
             em.close();
         }
@@ -55,7 +62,14 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
+            List<Person> persons = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
+       if (persons.isEmpty())
+              {
+                throw new ExceptionBuilder (new ErrorMessageBuilder(404 , "No one lives in city with zipcode " + zipCode));
+              }
+            
+            return persons;
+            
         } finally {
             em.close();
         }
@@ -79,10 +93,25 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return (Person) em.createQuery("SELECT p FROM Person p JOIN p.phones f WHERE f.number = :number").setParameter("number", number).getSingleResult();
+            Person p = (Person) em.createQuery("SELECT p FROM Person p JOIN p.phones "
+                    + "f WHERE f.number = :number").setParameter("number", number).getSingleResult();
+            
+            if (number != (int)number)
+              {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(400 , "Thats not a number"));
+              }
+            
+            
+            if (p == null)
+              {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+number+" phone number not found"));
+              }
+            return p;
         } finally {
             em.close();
         }
+        
+        
     }
 
     @Override
@@ -90,8 +119,17 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.name = :hobby").setParameter("hobby", hobby).getResultList();
-        } finally {
+            List<Person> persons = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.name = :hobby").setParameter("hobby", hobby).getResultList();
+               
+            if(persons.isEmpty())
+              {
+                throw new ExceptionBuilder (new ErrorMessageBuilder(404 , "No persons that likes " +hobby));
+              }
+            return persons;
+        
+        }
+        
+        finally {
             em.close();
         }
     }
@@ -112,11 +150,18 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.city = :city").setParameter("city", city).getResultList();
+            List<Person> persons = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.city = :city").setParameter("city", city).getResultList();
+            
+            if (persons.isEmpty())
+              {
+                throw new ExceptionBuilder (new ErrorMessageBuilder(404 , "No one lives in " +city));
+              }
+            
+            return persons;
+            
         } finally {
             em.close();
         }
-
     }
 
     @Override
@@ -200,6 +245,12 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
+
+   
+    
+            
+    
+        
 
 
 
