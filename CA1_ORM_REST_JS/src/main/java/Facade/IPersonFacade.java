@@ -14,10 +14,10 @@ public interface IPersonFacade {
     
     void addEntityManagerFactory(EntityManagerFactory emf);
     void createPerson(Person p);
-    Person getPersonByID(int id);
+    Person getPersonByID(String Stringid);
     Person addPerson(Person p);
     Person editPerson(Person p);
-    Person getPersonByPhone(int phone);
+     Person getPersonByPhone(String phone);
     List<Address> getAllStreets();
     List<CityInfo> getAllZipCodes();
     List<Person> getPersons();
