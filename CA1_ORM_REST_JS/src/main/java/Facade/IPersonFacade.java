@@ -13,7 +13,7 @@ import javax.persistence.EntityManagerFactory;
 public interface IPersonFacade {
     
     void createPerson(Person p);
-    Person getPersonByID(int id);
+    Person getPersonByID(String Stringid);
     Person addPerson(Person p);
     Person editPerson(Person p);
     List<Address> getAllStreets();
@@ -21,7 +21,7 @@ public interface IPersonFacade {
     List<Person> getPersons();
     List<Person> getPersonsByZipCode(String zipCode);
     List<Person> getPersonsByHobby(String hobby);
-    Person getPersonByPhone(int phone);
+    Person getPersonByPhone(String phone);
     List<Person> getPersonsByCity(String city);
     Long getCountOfPersonsByCity(String zipCode);
     Long getCountOfPersonsWithHobby(String hobby);
