@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 /**
@@ -48,16 +49,14 @@ public class CompanyFacade implements ICompanyFacade {
     @Override
     public Company getCompanyByPhone(String number) {
         EntityManager em = getEntityManager();
-
         try {
             int intPhone = Integer.parseInt(number);          
             Company cp = (Company) em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", intPhone).getSingleResult();
-        if (cp == null) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following phone number " + number));
-            }
             return cp;
         } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid phone number"));
+        }catch (NoResultException e) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following phone number " + number));
         }finally {
             em.close();
         }
@@ -128,12 +127,11 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             int testFormat = Integer.parseInt(cvr);
             Company company = (Company) em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr").setParameter("cvr", cvr).getSingleResult();
-           if (company == null) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following cvr "+cvr));
-            }
             return company;
         } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid cvr"));
+        }catch (NoResultException e) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following cvr "+cvr));
         }finally {
             em.close();
         }
@@ -157,8 +155,8 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
-            int testFormat = Integer.parseInt(minimumNum);
-            List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees > :min").setParameter("min", minimumNum).getResultList();
+            int minInt = Integer.parseInt(minimumNum);
+            List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees > :min").setParameter("min", minInt).getResultList();
         if (list.isEmpty()) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with more than "+minimumNum)+ " employees");
             }
@@ -175,8 +173,8 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
-            int testFormat = Integer.parseInt(maximumNum);
-            List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees < :max").setParameter("max", maximumNum).getResultList();
+            int maxInt = Integer.parseInt(maximumNum);
+            List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees < :max").setParameter("max", maxInt).getResultList();
          if (list.isEmpty()) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with less than "+maximumNum)+ " employees");
             }
