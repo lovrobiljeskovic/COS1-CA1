@@ -281,7 +281,7 @@ public class CompanyFacade implements ICompanyFacade {
          em.getTransaction().commit();
          return company;
      }  catch (NumberFormatException e) {
-            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid number"));
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid id"));
                  
                  
      }finally{
