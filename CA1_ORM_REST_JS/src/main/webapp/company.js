@@ -226,6 +226,7 @@ var editData = function () {
         return response.json();
     });
 };
+
 var deleteData = function () {
     var headers = {
         'Content-Type': 'application/json'

@@ -177,8 +177,9 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             int minInt = Integer.parseInt(minimumNum);
             List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees > :min").setParameter("min", minInt).getResultList();
+            System.out.println(list.size());
             if (list.isEmpty()) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with more than " + minimumNum) + " employees");
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There are no companies with " + minimumNum + " or more employees"));
             }
             return list;
         } catch (NumberFormatException e) {
@@ -195,10 +196,14 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             int maxInt = Integer.parseInt(maximumNum);
             List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees < :max").setParameter("max", maxInt).getResultList();
+                        System.out.println(list.size());
+
             if (list.isEmpty()) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with less than " + maximumNum) + " employees");
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There are no companies with " + maximumNum + " or less employees"));
             }
             return list;
+        } catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid number"));
         } finally {
             em.close();
         }

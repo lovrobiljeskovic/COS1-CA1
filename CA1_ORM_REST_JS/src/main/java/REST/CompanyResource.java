@@ -148,7 +148,6 @@ public class CompanyResource {
     }
     
     @PUT
-    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String putJson(String content) {
@@ -164,10 +163,9 @@ public class CompanyResource {
     
     @DELETE
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String deletePerson(@PathParam("id") String id) {
-       
          return getJSONFromCompany(cf.deleteCompany(id));
-    
     }
 }
