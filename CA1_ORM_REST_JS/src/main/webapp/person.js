@@ -14,7 +14,6 @@ var getAllPersons = function () {
         document.getElementById("tbody").innerHTML = mappedPersons;
     });
 };
-getAllPersons();
 
 var getPersonByID = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/complete/" + document.getElementById("idNumber").value);
@@ -58,6 +57,14 @@ var getPersonsByPhone = function () {
 var getPersonsByCity = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/city/" + document.getElementById("cityName").value);
     promise.then(function (response) {
+       if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There are no persons in the following city " + document.getElementById("cityName").value;
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid city name";
+        }
         return response.json();
     }).then(function (persons) {
       var mappedCityPersons = persons.map(function (person) {
