@@ -1,6 +1,10 @@
 var getAllPersons = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/complete");
     promise.then(function (response) {
+         if (response.status === 204) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There are currently no persons.";
+        }
         return response.json();
     }).then(function (persons) {
         var mappedPersons = persons.map(function (person) {
@@ -15,6 +19,14 @@ getAllPersons();
 var getPersonByID = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/complete/" + document.getElementById("idNumber").value);
     promise.then(function (response) {
+          if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no person with the following id " + document.getElementById("idNumber").value;
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid id";
+        }
         return response.json();
     }).then(function (person) {
         var personByID = "<tr><td>" + person.firstName + "</td>" + "<td>" + person.lastName + "</td>" + "<td>" + person.email + "</td>" + "<td>" + person.address+ "</td></tr>";
@@ -27,6 +39,14 @@ var getPersonByID = function () {
 var getPersonsByPhone = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/phone/" + document.getElementById("phoneNumber").value);
     promise.then(function (response) {
+         if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no person with the following phone number " + document.getElementById("phoneNumber").value;
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid phone number";
+        }
         return response.json();
   }).then(function (person) {
         var personByPhone = "<tr><td>" + person.firstName + "</td>" + "<td>" + person.lastName + "</td>" + "<td>" + person.email + "</td>" + "<td>" + person.address+ "</td></tr>";
@@ -52,6 +72,14 @@ var getPersonsByCity = function () {
 var getPersonsByZipCode = function () {
     var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/zip/" + document.getElementById("zipCodeNumber"));
     promise.then(function (response) {
+         if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no person with the following zip code " + document.getElementById("zipCodeNumber").value;
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid zip code";
+        }
         return response.json();
     }).then(function (persons) {
           var mappedZipPersons = persons.map(function (person) {
