@@ -2,13 +2,10 @@ package REST;
 
 import Entity.Address;
 import Entity.CityInfo;
-import CustomExceptions.ErrorMessageBuilder;
-import CustomExceptions.ExceptionBuilder;
 import Utility.JSONPersonContactDetails;
 import Entity.Person;
 import Facade.PersonFacade;
 import Utility.JSONCity;
-import static Utility.JSONCompanyConverter.getCompanyFromJson;
 import Utility.JSONPerson;
 import Utility.JSONStreet;
 import com.google.gson.Gson;
@@ -26,7 +23,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -57,7 +53,12 @@ public class PersonResource {
             jpl.add(jp);
         }
         return gson.toJson(jpl);
+<<<<<<< HEAD
+    }
+    
+=======
     }    
+>>>>>>> master
     
     @GET
     @Path("complete/{id}")
@@ -82,7 +83,12 @@ public class PersonResource {
 
         return gson.toJson(jpcds);
     }
+<<<<<<< HEAD
+    
+  
+=======
         
+>>>>>>> master
     @GET
     @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -94,7 +100,14 @@ public class PersonResource {
     @GET
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
+<<<<<<< HEAD
+
+
     public String getContactInfoByPhone(@PathParam("phone") String phone) {
+       
+=======
+    public String getContactInfoByPhone(@PathParam("phone") String phone) {
+>>>>>>> master
         Person p = pf.getPersonByPhone(phone);
 
             JSONPersonContactDetails jp = new JSONPersonContactDetails(p);
@@ -107,6 +120,10 @@ public class PersonResource {
     @Path("city/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsInCity(@PathParam("city") String city) {
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
         List<JSONPerson> jpl = new ArrayList();
         for (Person p : pf.getPersonsByCity(city)) {
             JSONPerson jp = new JSONPerson(p);
