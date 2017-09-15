@@ -172,6 +172,10 @@ var postData = function () {
 
         })
     }).then(function (response) {
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please fill up the required fields";
+        }
         return response.json();
     });
 };
@@ -208,6 +212,10 @@ var editData = function () {
 
         })
     }).then(function (response) {
+        if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Company not found";
+        }
         return response.json();
     });
 };
@@ -219,6 +227,14 @@ var deleteData = function () {
         method: "DELETE",
         headers: headers
     }).then(function (response) {
+        if (response.status === 404) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Company with following id: " + document.getElementById("deleteData").value + ", not found";
+        }
+        if (response.status === 400) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid id";
+        }
         return response.json();
     });
     getAllCompanies();
