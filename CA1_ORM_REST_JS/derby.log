@@ -1,4 +1,5 @@
 ----------------------------------------------------------------
+<<<<<<< HEAD
 Fri Sep 15 10:14:38 CEST 2017:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-849a-9a88-0000067244e0 
 on database directory /Users/thomasthimothee/Documents/AP Degree Class/Semester 3/CA-1/Project/COS1-CA1/CA1_ORM_REST_JS/Company with class loader sun.misc.Launcher$AppClassLoader@7ea987ac 
@@ -22,5 +23,30 @@ user.dir=/Users/thomasthimothee/Documents/AP Degree Class/Semester 3/CA-1/Projec
 os.name=Mac OS X
 os.arch=x86_64
 os.version=10.11.6
+=======
+Fri Sep 15 10:14:37 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-849a-9917-00000724fab8 
+on database directory C:\Users\Dell\Documents\NetBeansProjects\COS1-CA1\CA1_ORM_REST_JS\Company with class loader sun.misc.Launcher$AppClassLoader@6bc7c054 
+Loaded from file:/C:/Users/Dell/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_144-b01
+user.dir=C:\Users\Dell\Documents\NetBeansProjects\COS1-CA1\CA1_ORM_REST_JS
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Fri Sep 15 10:14:39 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance ce8780ad-015e-849a-9917-00000724fab8 
+on database directory C:\Users\Dell\Documents\NetBeansProjects\COS1-CA1\CA1_ORM_REST_JS\Person with class loader sun.misc.Launcher$AppClassLoader@6bc7c054 
+Loaded from file:/C:/Users/Dell/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_144-b01
+user.dir=C:\Users\Dell\Documents\NetBeansProjects\COS1-CA1\CA1_ORM_REST_JS
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+>>>>>>> 70bbc813ea52fd71e1589af2b025d163f19988d0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

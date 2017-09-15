@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -60,7 +61,7 @@ public class PersonFacade implements IPersonFacade {
             persons = em.createQuery("SELECT p FROM Person p").getResultList();
             if (persons.isEmpty())
               {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(200, "There are no persons"));
+                throw new ExceptionBuilder(new ErrorMessageBuilder(204, "There are no persons"));
               }
             return persons;
         } finally {
@@ -73,6 +74,7 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
+            Integer.parseInt(zipCode);
             List<Person> persons = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
        if (persons.isEmpty())
               {
@@ -80,11 +82,13 @@ public class PersonFacade implements IPersonFacade {
               }
             
             return persons;
-            
+        }catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipcode"));
         } finally {
             em.close();
         }
-    }
+}
+    
 
     @Override
     public void createPerson(Person p) {
@@ -100,26 +104,23 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person getPersonByPhone(String StringNumber) {
+    public Person getPersonByPhone(String stringNumber) {
         EntityManager em = getEntityManager();
    
         try {
-            int number = Integer.parseInt(StringNumber);
+            int number = Integer.parseInt(stringNumber);
             Person p = (Person) em.createQuery("SELECT p FROM Person p JOIN p.phones "
                     + "f WHERE f.number = :number").setParameter("number", number).getSingleResult();
-            if (p == null)
-              {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with "+number+" phone number not found"));
-              }
             return p;
             } catch (NumberFormatException e) {
-            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid id"));
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid phone"));
+            }catch (NoResultException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no person with the following phone number " + stringNumber));
             }
         finally {
             em.close();
         }
-        
-        
+   
     }
 
     @Override
@@ -177,8 +178,13 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = getEntityManager();
 
         try {
+            Integer.parseInt(zipCode);
             return (Long) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getSingleResult();
-        } finally {
+        } catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipcode"));
+        }
+        
+        finally {
             em.close();
         }
     }
@@ -253,13 +259,5 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
-
-   
-    
-            
-    
-        
-
-
 
 }
