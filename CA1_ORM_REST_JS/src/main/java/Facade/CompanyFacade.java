@@ -87,6 +87,8 @@ public class CompanyFacade implements ICompanyFacade {
             if (list.isEmpty()) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following zipcode " + zipCode));
             }
+            System.out.println(list.get(0).getName());
+                        System.out.println(list.get(0).getCvr());
             return list;
         } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipCode"));
