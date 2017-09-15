@@ -47,40 +47,36 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllPersons() {
         List<JSONPerson> jpl = new ArrayList();
-        
+
         for (Person p : pf.getPersons()) {
             JSONPerson jp = new JSONPerson(p);
             jpl.add(jp);
         }
         return gson.toJson(jpl);
     }
-    
 
-        
-    
     @GET
     @Path("complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonFromId(@PathParam("id") String id) {
-        
+
         Person p = pf.getPersonByID(id);
         JSONPerson jp = new JSONPerson(p);
         return gson.toJson(jp);
-        
+
     }
-    
+
     @GET
     @Path("contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllContactInfo() {
         List<JSONPersonContactDetails> jpcds = new ArrayList<>();
-
         for (Person p : pf.getPersons()) {
             jpcds.add(new JSONPersonContactDetails(p));
         }
-
         return gson.toJson(jpcds);
     }
+
     @GET
     @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -88,20 +84,13 @@ public class PersonResource {
         JSONPersonContactDetails jpcd = new JSONPersonContactDetails(pf.getPersonByID(id));
         return gson.toJson(jpcd);
     }
-    
+
     @GET
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
-
-
-    public String getContactInfoByPhone(@PathParam("phone") String phone) {
-       
     public String getContactInfoByPhone(@PathParam("phone") String phone) {
         Person p = pf.getPersonByPhone(phone);
-
-            JSONPersonContactDetails jp = new JSONPersonContactDetails(p);
-          
-        
+        JSONPersonContactDetails jp = new JSONPersonContactDetails(p);
         return (gson.toJson(jp));
     }
 
@@ -109,7 +98,6 @@ public class PersonResource {
     @Path("city/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsInCity(@PathParam("city") String city) {
-
         List<JSONPerson> jpl = new ArrayList();
         for (Person p : pf.getPersonsByCity(city)) {
             JSONPerson jp = new JSONPerson(p);
@@ -157,35 +145,35 @@ public class PersonResource {
         }
         return gson.toJson(jpl);
     }
-    
+
     @GET
     @Path("street")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllStreets() {
         List<JSONStreet> newList = new ArrayList();
-        
+
         for (Address a : pf.getAllStreets()) {
             JSONStreet js = new JSONStreet(a);
             newList.add(js);
         }
-        
+
         return gson.toJson(newList);
     }
-    
+
     @GET
     @Path("zip")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllZipCodes() {
         List<JSONCity> newList = new ArrayList();
-        
+
         for (CityInfo c : pf.getAllZipCodes()) {
             JSONCity js = new JSONCity(c);
             newList.add(js);
         }
-        
+
         return gson.toJson(newList);
     }
-    
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -196,7 +184,7 @@ public class PersonResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String postCompany(String personAsJson) {        
+    public String postCompany(String personAsJson) {
         return gson.toJson(pf.addPerson(gson.fromJson(personAsJson, Person.class)));
 }
 }

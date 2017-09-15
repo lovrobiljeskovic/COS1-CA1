@@ -1,5 +1,6 @@
 ----------------------------------------------------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
 Fri Sep 15 09:43:39 CEST 2017:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-847e-3ecc-0000072cc2a8 
 on database directory C:\Users\Lovro\Desktop\CAProjectSem3\COS1-CA1\CA1_ORM_REST_JS\Company with class loader sun.misc.Launcher$AppClassLoader@4aa298b7 
@@ -7,6 +8,31 @@ Loaded from file:/C:/Users/Lovro/.m2/repository/org/apache/derby/derby/10.13.1.1
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_111-b14
 user.dir=C:\Users\Lovro\Desktop\CAProjectSem3\COS1-CA1\CA1_ORM_REST_JS
+=======
+Fri Sep 15 10:14:38 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-849a-9a88-0000067244e0 
+on database directory /Users/thomasthimothee/Documents/AP Degree Class/Semester 3/CA-1/Project/COS1-CA1/CA1_ORM_REST_JS/Company with class loader sun.misc.Launcher$AppClassLoader@7ea987ac 
+Loaded from file:/Users/thomasthimothee/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_45-b14
+user.dir=/Users/thomasthimothee/Documents/AP Degree Class/Semester 3/CA-1/Project/COS1-CA1/CA1_ORM_REST_JS
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.11.6
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Fri Sep 15 10:14:43 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance ce8780ad-015e-849a-9a88-0000067244e0 
+on database directory /Users/thomasthimothee/Documents/AP Degree Class/Semester 3/CA-1/Project/COS1-CA1/CA1_ORM_REST_JS/Person with class loader sun.misc.Launcher$AppClassLoader@7ea987ac 
+Loaded from file:/Users/thomasthimothee/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_45-b14
+user.dir=/Users/thomasthimothee/Documents/AP Degree Class/Semester 3/CA-1/Project/COS1-CA1/CA1_ORM_REST_JS
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.11.6
+>>>>>>> ace09bc47d4f2a064a7830549f2f691bbcd7243f
 =======
 Fri Sep 15 10:14:37 CEST 2017:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-849a-9917-00000724fab8 
@@ -42,5 +68,6 @@ user.dir=C:\Users\Dell\Documents\NetBeansProjects\COS1-CA1\CA1_ORM_REST_JS
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
+>>>>>>> 70bbc813ea52fd71e1589af2b025d163f19988d0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
