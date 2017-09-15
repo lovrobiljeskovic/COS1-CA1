@@ -253,4 +253,25 @@ public class CompanyFacade implements ICompanyFacade {
             em.close();
         }
     }
+
+    public Company deleteCompany(String id) {
+     EntityManager em = getEntityManager();
+     try{
+         int idInt = Integer.parseInt(id);
+           Company company = em.find(Company.class, idInt);
+           if(company == null) {
+                  throw new ExceptionBuilder(new ErrorMessageBuilder(404, "Company with id " + id + " not found"));
+           }
+         em.getTransaction().begin();
+         em.remove(company);
+         em.getTransaction().commit();
+         return company;
+     }  catch (NumberFormatException e) {
+            throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid number"));
+                 
+                 
+     }finally{
+         em.close();
+     }
+    }
 }

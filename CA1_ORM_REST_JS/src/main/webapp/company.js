@@ -161,7 +161,7 @@ var deleteData = function () {
       var headers = {
         'Content-Type':'application/json'
     };
-    var promise = fetch("http://localhost:8805/RESTexercise2/api/person/" + document.getElementById("deleteData").value, {
+    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/company/" + document.getElementById("deleteData").value, {
         method: "DELETE",
         headers: headers
     }).then(function (response) {
