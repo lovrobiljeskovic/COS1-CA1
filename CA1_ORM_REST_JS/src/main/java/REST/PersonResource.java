@@ -57,24 +57,7 @@ public class PersonResource {
             jpl.add(jp);
         }
         return gson.toJson(jpl);
-    }
-    
-//    @GET
-//    @Path("contactinfo/{id}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getContactInfo(@PathParam("id")int id)
-//    {
-//        Person p = pf.getPersonByID(id);
-//        if (p == null)
-//          {
-//            throw new ExceptionBuilder(new ErrorMessageBuilder(404 , "Person with id "+id+" not found"));
-//          }
-//       JSONPersonContactDetails jpcd = new JSONPersonContactDetails(p);
-//
-//        return Response.ok().entity(gson.toJson(jpcd)).type(MediaType.APPLICATION_JSON).build();
-//        
-//        
-//    }
+    }    
     
     @GET
     @Path("complete/{id}")
@@ -99,11 +82,7 @@ public class PersonResource {
 
         return gson.toJson(jpcds);
     }
-    
-    
-    
-
-    
+        
     @GET
     @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -115,13 +94,7 @@ public class PersonResource {
     @GET
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
-<<<<<<< HEAD
-
     public String getContactInfoByPhone(@PathParam("phone") String phone) {
-        
-=======
-    public String getContactInfoByPhone(@PathParam("phone") int phone) {        
->>>>>>> master
         Person p = pf.getPersonByPhone(phone);
 
             JSONPersonContactDetails jp = new JSONPersonContactDetails(p);
@@ -130,17 +103,11 @@ public class PersonResource {
         return (gson.toJson(jp));
     }
 
-
     @GET
     @Path("city/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsInCity(@PathParam("city") String city) {
-
-        
-        
-
         List<JSONPerson> jpl = new ArrayList();
-
         for (Person p : pf.getPersonsByCity(city)) {
             JSONPerson jp = new JSONPerson(p);
             jpl.add(jp);
