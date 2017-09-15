@@ -99,7 +99,7 @@ var getCompanyByZipCode = function () {
 };
 
 var getCompaniesByMinEmployees = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/employees/less/" + document.getElementById("employeeMinNumber").value);
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/employees/more/" + document.getElementById("employeeMinNumber").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -121,7 +121,7 @@ var getCompaniesByMinEmployees = function () {
 };
 
 var getCompaniesByMaxEmployees = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/employees/more/" + document.getElementById("employeeMaxNumber").value);
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/employees/less/" + document.getElementById("employeeMaxNumber").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";

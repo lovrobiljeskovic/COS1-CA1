@@ -1,5 +1,5 @@
 var getAllPersons = function () {
-    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/complete");
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/complete");
     promise.then(function (response) {
          if (response.status === 204) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -16,7 +16,7 @@ var getAllPersons = function () {
 };
 
 var getPersonByID = function () {
-    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/complete/" + document.getElementById("idNumber").value);
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/complete/" + document.getElementById("idNumber").value);
     promise.then(function (response) {
           if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -36,7 +36,7 @@ var getPersonByID = function () {
 };
 
 var getPersonsByPhone = function () {
-    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/phone/" + document.getElementById("phoneNumber").value);
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/phone/" + document.getElementById("phoneNumber").value);
     promise.then(function (response) {
          if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -55,7 +55,7 @@ var getPersonsByPhone = function () {
     });
 };
 var getPersonsByCity = function () {
-    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/city/" + document.getElementById("cityName").value);
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/city/" + document.getElementById("cityName").value);
     promise.then(function (response) {
        if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -77,7 +77,7 @@ var getPersonsByCity = function () {
 };
 
 var getPersonsByZipCode = function () {
-    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person/zip/" + document.getElementById("zipCodeNumber"));
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/zip/" + document.getElementById("zipCodeNumber"));
     promise.then(function (response) {
          if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -102,7 +102,7 @@ var postData = function () {
     var headers = {
         'Content-Type': 'application/json'
     };
-    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person", {
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person", {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
@@ -141,7 +141,7 @@ var editData = function () {
      var headers = {
         'Content-Type': 'application/json'
     };
-    var promise = fetch("http://localhost:8805/CA1_ORM_REST_JS/api/person", {
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person", {
         method: "PUT",
         headers: headers,
         body: JSON.stringify({
