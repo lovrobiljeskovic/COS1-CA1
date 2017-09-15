@@ -38,11 +38,11 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public List<Company> getCompaniesByPhone(int number) {
+    public Company getCompanyByPhone(int number) {
         EntityManager em = getEntityManager();
 
         try {
-            return em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", number).getResultList();
+            return (Company) em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", number).getSingleResult();
         } finally {
             em.close();
         }

@@ -50,7 +50,7 @@ public class CompanyResource {
     @Path("complete/phone/{number}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompaniesCompleteByPhone(@PathParam("number") int number) {    
-        return gson.toJson(cf.getCompaniesByPhone(number));
+        return gson.toJson(cf.getCompanyByPhone(number));
     }
     
     @GET

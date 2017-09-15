@@ -11,6 +11,7 @@ import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,9 +30,7 @@ public class PersonFacadeTest {
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("1");
         pf.addEntityManagerFactory(Persistence.createEntityManagerFactory("PersonFacadeTest"));
-        System.out.println("2");
         Person p1 = new Person("Mathias", "Jepsen");
         Person p2 = new Person("Thomas", "Thimothee");
         Person p3 = new Person("Lovro", "Biljeskovic");
@@ -100,7 +99,7 @@ public class PersonFacadeTest {
     @Test
     public void getPersons() {
         List<Person> persons = pf.getPersons();
-        assertEquals(3, persons.size());
+        assertFalse(persons.isEmpty());
     }
     
     @Test
@@ -136,6 +135,56 @@ public class PersonFacadeTest {
         Long count = pf.getCountOfPersonsWithHobby("handball");
         assertEquals(Long.valueOf(1l), count);
     }
+    
+    @Test
+    public void addPerson() {
+        Person p = new Person();
+        Address a = new Address();
+        CityInfo c = new CityInfo();
+        c.setCity("City");
+        c.setZipCode("1337");
+        a.setStreet("Street");
+        a.setAddSitionalInfo("Additional info");
+        a.setCityInfo(c);
+        p.setFirstName("NewPerson");
+        p.setAddress(a);
+        pf.addPerson(p);
+        assertEquals("NewPerson", pf.getPersonByID(4).getFirstName());
+    }
+    
+    @Test
+    public void editPerson() {
+        Person p = new Person();
+        Address a = new Address();
+        CityInfo c = new CityInfo();
+        c.setCity("City");
+        c.setZipCode("1337");
+        a.setStreet("Street");
+        a.setAddSitionalInfo("Additional info");
+        a.setCityInfo(c);
+        p.setId(1);
+        p.setAddress(a);
+        p.setFirstName("NotMathias");
+        p.setLastName("Lastname");
+        p.setEmail("email@mail.com");
+        pf.editPerson(p); 
+        assertEquals("NotMathias", pf.getPersonByID(1).getFirstName());
+    }
+    
+    @Test
+    public void getAllStreets() {
+        List<Address> addresses = pf.getAllStreets();
+        assertEquals("Kongevejen 438", addresses.get(0).getStreet());
+        assertEquals(3, addresses.size());
+    }
+    
+    @Test
+    public void getAllZipCodes() {
+        List<CityInfo> cities = pf.getAllZipCodes();
+        assertEquals("2840", cities.get(0).getZipCode());
+        assertEquals(3, cities.size());
+    }
+    
     
 }   
 

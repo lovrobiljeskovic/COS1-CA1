@@ -13,18 +13,18 @@ import javax.persistence.EntityManagerFactory;
  */
 public interface ICompanyFacade {
     
+    void addEntityManagerFactory(EntityManagerFactory emf);
     void createCompany(Company c);
     Company getCompanyByID(int id);
     Company getCompanyByCVR(String cvr);
     Company editCompany(Company c);
     Company addCompany(Company c);
+    Company getCompanyByPhone(int number);
     List<CityInfo> getAllZipCodes();
     List<Address> getAllStreets();
     List<Company> getCompanies();
     List<Company> getCompaniesByZipCode(String zipCode);
-    List<Company> getCompaniesByPhone(int number);
     List<Company> getCompaniesWithMoreEmployees(int minimumNum);
     List<Company> getCompaniesWithLessEmployees(int maximumNum);
-    void addEntityManagerFactory(EntityManagerFactory emf);
 
 }
