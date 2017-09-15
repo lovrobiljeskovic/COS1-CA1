@@ -217,6 +217,11 @@ public class PersonFacade implements IPersonFacade {
         
         try {
             Person p = em.find(Person.class, person.getId());
+            
+            if (p == null) {
+               throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no person with the following id " + person.getId()));
+            }
+            
             CityInfo city = em.find(CityInfo.class, person.getAddress().getCityInfo().getZipCode());
             
             if (city != null) {
@@ -224,13 +229,17 @@ public class PersonFacade implements IPersonFacade {
                 a.setCityInfo(city);
                 person.setAddress(a);
             }
-//            if (p == null) {
-//                throw new PersonNotFoundException("Cannot edit. Person with provided id does not exist");
-//            }
+
             em.getTransaction().begin();
-            if (!person.getFirstName().isEmpty()) p.setFirstName(person.getFirstName()); 
-            if (!person.getLastName().isEmpty()) p.setLastName(person.getLastName());
-            if (!person.getEmail().isEmpty()) p.setEmail(person.getEmail()); 
+            if (!person.getFirstName().isEmpty()) {
+                p.setFirstName(person.getFirstName());
+            } 
+            if (!person.getLastName().isEmpty()) {
+                p.setLastName(person.getLastName());
+            }
+            if (!person.getEmail().isEmpty()) {
+                p.setEmail(person.getEmail());
+            } 
             em.getTransaction().commit();
             return p;
         } finally {

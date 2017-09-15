@@ -160,6 +160,10 @@ public class CompanyFacadeTest {
         Company company = new Company();
         Address address = new Address();
         CityInfo city = new CityInfo();
+        Phone phone = new Phone();
+        phone.setDescription("fgfd");
+        phone.setNumber(324234);
+        company.addPhone(phone);
         company.setCvr("23423");
         company.setDescription("Description");
         company.setEmail("email");

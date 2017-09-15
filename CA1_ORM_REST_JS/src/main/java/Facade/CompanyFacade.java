@@ -107,8 +107,17 @@ public class CompanyFacade implements ICompanyFacade {
                 a.setCityInfo(city);
                 c.setAddress(a);
             }
-            if (c == null) {
-                throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please fill up the required fields"));
+            
+            if  (c.getName().trim().isEmpty() || 
+                (c.getCvr().trim().isEmpty()) || 
+                (c.getDescription().trim().isEmpty()) || 
+                (c.getEmail().trim().isEmpty()) || 
+                (c.getAddress().getStreet().trim().isEmpty()) ||
+                (c.getAddress().getAddSitionalInfo().trim().isEmpty()) || 
+                (c.getAddress().getCityInfo().getCity().trim().isEmpty()) || 
+                (c.getAddress().getCityInfo().getZipCode().trim().isEmpty()) || 
+                (c.getPhones().isEmpty())) {
+                    throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please fill up the required fields"));
             }
 
             em.getTransaction().begin();
