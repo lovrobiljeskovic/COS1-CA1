@@ -6,10 +6,7 @@ import Entity.Person;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 
-/**
- *
- * @author mathiasjepsen
- */
+
 public interface IPersonFacade {
     
     void addEntityManagerFactory(EntityManagerFactory emf);

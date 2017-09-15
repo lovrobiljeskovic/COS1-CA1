@@ -14,10 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 
-/**
- *
- * @author mathiasjepsen
- */
+
 public class PersonFacade implements IPersonFacade {
 
     private EntityManagerFactory emf;
