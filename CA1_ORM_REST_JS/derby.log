@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Thu Sep 14 21:56:11 CEST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-81f6-8879-000008f4a458 
+Fri Sep 15 10:41:29 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-84b3-3069-000006f67840 
 on database directory /Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS/Company with class loader sun.misc.Launcher$AppClassLoader@28d93b30 
 Loaded from file:/Users/mathiasjepsen/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
 java.vendor=Oracle Corporation
@@ -12,8 +12,8 @@ os.version=10.12.6
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Thu Sep 14 21:56:13 CEST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance ce8780ad-015e-81f6-8879-000008f4a458 
+Fri Sep 15 10:41:31 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance ce8780ad-015e-84b3-3069-000006f67840 
 on database directory /Users/mathiasjepsen/Dropbox/Datamatiker/Semester 3/COS1-CA1/CA1_ORM_REST_JS/Person with class loader sun.misc.Launcher$AppClassLoader@28d93b30 
 Loaded from file:/Users/mathiasjepsen/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
 java.vendor=Oracle Corporation

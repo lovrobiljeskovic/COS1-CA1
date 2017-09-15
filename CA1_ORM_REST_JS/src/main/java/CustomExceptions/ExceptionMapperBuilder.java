@@ -24,7 +24,6 @@ public class ExceptionMapperBuilder implements ExceptionMapper<ExceptionBuilder>
     @Override
     public Response toResponse(ExceptionBuilder ex)
     {
-        
         return Response.status(ex.getQ().getCode()).entity(gson.toJson(ex.q)).type(MediaType.APPLICATION_JSON).build();
     }
     
