@@ -115,9 +115,13 @@ public class PersonResource {
     @GET
     @Path("phone/{phone}")
     @Produces(MediaType.APPLICATION_JSON)
+<<<<<<< HEAD
 
     public String getContactInfoByPhone(@PathParam("phone") String phone) {
         
+=======
+    public String getContactInfoByPhone(@PathParam("phone") int phone) {        
+>>>>>>> master
         Person p = pf.getPersonByPhone(phone);
 
             JSONPersonContactDetails jp = new JSONPersonContactDetails(p);
