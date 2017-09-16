@@ -6,7 +6,6 @@ import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
 import Entity.Phone;
-import Utility.JPAHelper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
