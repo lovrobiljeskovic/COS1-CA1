@@ -1,6 +1,7 @@
 var queryResults = [];
-var tblheaders = "<th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th>";
-document.getElementById("tblhead").innerHTML = tblheaders;
+var tblHeaders = "<th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th>";
+
+document.getElementById("tblhead").innerHTML = tblHeaders;
 
 var reloadData = function () {
     var mappedPersons = queryResults.map(function (person) {
@@ -13,13 +14,26 @@ var reloadData = function () {
                 "</td></tr>";
     }).join("");
     document.getElementById("tblbody").innerHTML = mappedPersons;
-    document.getElementById("tblhead").innerHTML = tblheaders;
+    document.getElementById("tblhead").innerHTML = tblHeaders;
+};
+
+var reloadDataContactDetails = function () {
+    var mappedPersons = queryResults.map(function (person) {
+        return "<tr><td>" + person.email + "</td><td>"
+                + person.phone + "</td><td>"
+                + person.address + "</td><td>"
+                + "<a href=\"#\" class=\"deleteBtn btn btn-danger\" id=\"" + person.id + "\">delete</a> / "
+                + "<a data-toggle=\"modal\" class=\"editBtn btn btn-default\" id=\"" + person.id + "\">edit</a>" 
+                + "</td></tr>";
+    }).join("");
+    document.getElementById("tblbody").innerHTML = mappedPersons;
+    document.getElementById("tblhead").innerHTML = tblHeaders;
 };
 
 var getPersonByID = function () {
     var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/complete/" + document.getElementById("inputField").value);
     promise.then(function (response) {
-          if (response.status === 404) {
+        if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There is no person with the following ID: " + document.getElementById("inputField").value;
         }
@@ -27,6 +41,7 @@ var getPersonByID = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid id";
         }
+        tblHeaders = "<th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th>";
         return response.json();
     }).then(function (person) {
         queryResults = [];
@@ -48,12 +63,13 @@ var getPersonByPhone = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid phone number";
         }
+        tblHeaders = "<th>E-mail</th><th>Phone number</th><th>Address</th>";
         return response.json();
   }).then(function (person) {
         queryResults = [];
         if (!person.hasOwnProperty("code")) {
             queryResults = [person];
-            reloadData();
+            reloadDataContactDetails();
         }
     });
 };
@@ -68,6 +84,7 @@ var getPersonsByCity = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid city name";
         }
+        tblHeaders = "<th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th>";
         return response.json();
     }).then(function (persons) {
         queryResults = [];
@@ -91,6 +108,7 @@ var getPersonsByZipCode = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid zip code";
         }
+        tblHeaders = "<th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th>";
         return response.json();
     }).then(function (persons) {
         queryResults = [];
@@ -114,6 +132,7 @@ var getPersonsByHobby = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid hobby.";
         }
+        tblHeaders = "<th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th>";
         return response.json();
     }).then(function (persons) {
         queryResults = [];

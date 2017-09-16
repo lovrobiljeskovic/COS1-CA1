@@ -1,6 +1,6 @@
 var queryResults = [];
-var tblheaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
-document.getElementById("tblhead").innerHTML = tblheaders;
+var tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
+document.getElementById("tblhead").innerHTML = tblHeaders;
 
 var reloadData = function () {
     var mappedCompanies = queryResults.map(function (company) {
@@ -13,8 +13,21 @@ var reloadData = function () {
                 "</td></tr>";
     }).join("");
     document.getElementById("tblbody").innerHTML = mappedCompanies;
-    document.getElementById("tblhead").innerHTML = tblheaders;
+    document.getElementById("tblhead").innerHTML = tblHeaders;
+};
 
+var reloadDataContactDetails = function () {
+    var mappedPersons = queryResults.map(function (company) {
+        return "<tr><td>" + company.name + "</td><td>"
+                + company.email + "</td><td>"
+                + company.phone + "</td><td>"
+                + company.address + "</td><td>"
+                + "<a href=\"#\" class=\"deleteBtn btn btn-danger\" id=\"" + company.id + "\">delete</a> / "
+                + "<a data-toggle=\"modal\" class=\"editBtn btn btn-default\" id=\"" + company.id + "\">edit</a>" 
+                + "</td></tr>";
+    }).join("");
+    document.getElementById("tblbody").innerHTML = mappedPersons;
+    document.getElementById("tblhead").innerHTML = tblHeaders;
 };
 
 var getCompanyByID = function () {
@@ -28,6 +41,7 @@ var getCompanyByID = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid id";
         }
+        tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
         return response.json();
     }).then(function (company) {
         queryResults = [];
@@ -49,6 +63,7 @@ var getCompanyByPhone = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid phone number";
         }
+        tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
         return response.json();
     }).then(function (company) {
         queryResults = [];
@@ -70,6 +85,7 @@ var getCompanyByCVR = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid cvr";
         }
+        tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
         return response.json();
     }).then(function (company) {
         queryResults = [];
@@ -91,6 +107,7 @@ var getCompaniesByZipCode = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid zip code";
         }
+        tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
         return response.json();
     }).then(function (companies) {
         queryResults = [];
@@ -114,6 +131,7 @@ var getCompaniesByMinEmployees = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid number";
         }
+        tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
         return response.json();
     }).then(function (companies) {
         queryResults = [];
@@ -137,6 +155,7 @@ var getCompaniesByMaxEmployees = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid number";
         }
+        tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
         return response.json();
     }).then(function (companies) {
         queryResults = [];

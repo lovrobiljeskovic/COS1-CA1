@@ -15,14 +15,15 @@ import java.util.List;
  */
 public class JSONCompanyContactDetails {
     private String email;
-    private List<Phone> phones;
-    String address;
-    String name;
+    private String phone;
+    private String address;
+    private String name;
 
     public JSONCompanyContactDetails(Company company) {
         this.email = company.getEmail();
-        this.phones = company.getPhones();
+        this.phone = "" + company.getPhones().get(0).getNumber();
         this.address = company.getAddress().getStreet() + " " + company.getAddress().getAddSitionalInfo() + " " + company.getAddress().getCityInfo().getCity() + " "+ company.getAddress().getCityInfo().getZipCode();
+        this.name = company.getName();
     }
     
 }
