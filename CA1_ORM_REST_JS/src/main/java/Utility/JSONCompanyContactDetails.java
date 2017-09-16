@@ -15,13 +15,13 @@ import java.util.List;
  */
 public class JSONCompanyContactDetails {
     private String email;
-    private String phone;
+    private int phone;
     private String address;
     private String name;
 
     public JSONCompanyContactDetails(Company company) {
         this.email = company.getEmail();
-        this.phone = "" + company.getPhones().get(0).getNumber();
+        this.phone = company.getPhones().get(0).getNumber();
         this.address = company.getAddress().getStreet() + " " + company.getAddress().getAddSitionalInfo() + " " + company.getAddress().getCityInfo().getCity() + " "+ company.getAddress().getCityInfo().getZipCode();
         this.name = company.getName();
     }
@@ -32,14 +32,6 @@ public class JSONCompanyContactDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getAddress() {

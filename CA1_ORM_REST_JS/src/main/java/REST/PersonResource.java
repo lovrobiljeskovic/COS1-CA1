@@ -6,7 +6,6 @@ import Utility.JSONPersonContactDetails;
 import Entity.Person;
 import Facade.PersonFacade;
 import Utility.JSONCity;
-import static Utility.JSONCompanyConverter.getJSONFromCompany;
 import Utility.JSONPerson;
 import Utility.JSONStreet;
 import com.google.gson.Gson;
@@ -73,9 +72,11 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllContactInfo() {
         List<JSONPersonContactDetails> jpcds = new ArrayList<>();
+        
         for (Person p : pf.getPersons()) {
             jpcds.add(new JSONPersonContactDetails(p));
         }
+        
         return gson.toJson(jpcds);
     }
 

@@ -19,14 +19,14 @@ public class JSONPersonContactDetails
 {   
     private int id;
     private String email;
-    private String phone;
+    private int phone;
     private String address;
     
     public JSONPersonContactDetails(Person p)
     {
         this.id = p.getId();
         this.email =  p.getEmail() ;
-        this.phone = "" + p.getPhones().get(0).getNumber();
+        this.phone = p.getPhones().get(0).getNumber();
         this.address = p.getAddress().getStreet() + " " + p.getAddress().getAddSitionalInfo() + " " + p.getAddress().getCityInfo().getCity() + " " + p.getAddress().getCityInfo().getZipCode();
         
     }

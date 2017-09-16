@@ -154,10 +154,12 @@ var showAllPersonsContactDetails = function () {
         }
         tblHeaders = "<th>E-mail</th><th>Phone number</th><th>Address</th>";
         return response.json();
-  }).then(function (person) {
+  }).then(function (persons) {
         queryResults = [];
-        if (!person.hasOwnProperty("code")) {
-            queryResults = [person];
+        if (!persons.hasOwnProperty("code")) {
+            persons.map(function (person) {
+                return queryResults.unshift(person);
+            });
             reloadDataContactDetails();
         }
     });
@@ -204,8 +206,14 @@ var addPerson = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please fill up the required fields";
         }
+        if (response.status === 200) {
+            document.getElementById("warning").className += "alert alert-success alert-dismissable";
+            document.getElementById("warning").innerHTML = "<strong>Success!</strong> A new person has been created";
+        }
+        tblHeaders = "<th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th>";
         return response.json();
     }).then(function(person) {
+        queryResults = [];
         if (!person.hasOwnProperty("code")) {
             queryResults.unshift(person);
             reloadData();
@@ -250,14 +258,19 @@ var editPerson = function (e) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Person not found";
         }
+        if (response.status === 200) {
+            document.getElementById("warning").className += "alert alert-success alert-dismissable";
+            document.getElementById("warning").innerHTML = "<strong>Success!</strong> Person was successfully edited";
+        }
+        tblHeaders = "<th>ID</th><th>First Name</th><th>Last Name</th><th>E-mail</th>";
         return response.json();
     }).then(function(person) {
         $("#editPersonModal").modal('toggle');
-        queryResults = queryResults.filter(function (c) {
-            return person.id !== c.id;
-        });
-        queryResults.unshift(person);
-        reloadData();
+        queryResults = [];
+        if (!person.hasOwnProperty("code")) {
+            queryResults.unshift(person);
+            reloadData();
+        }
     });
 };
 

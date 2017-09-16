@@ -177,10 +177,12 @@ var showAllCompaniesContactDetails = function () {
         }
         tblHeaders = "<th>Name</th><th>E-mail</th><th>Phone number</th><th>Address</th>";
         return response.json();
-  }).then(function (company) {
+  }).then(function (companies) {
         queryResults = [];
-        if (!company.hasOwnProperty("code")) {
-            queryResults = [company];
+        if (!companies.hasOwnProperty("code")) {
+            companies.map(function (company) {
+                return queryResults.unshift(company);
+            });
             reloadDataContactDetails();
         }
     });
@@ -227,8 +229,14 @@ var addCompany = function () {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please fill up the required fields";
         }
+        if (response.status === 200) {
+            document.getElementById("warning").className += "alert alert-success alert-dismissable";
+            document.getElementById("warning").innerHTML = "<strong>Success!</strong> A new company has been created";
+        }
+        tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
         return response.json();
     }).then(function(company) {
+        queryResults = [];
         if (!company.hasOwnProperty("code")) {
             queryResults.unshift(company);
             reloadData();
@@ -272,14 +280,19 @@ var editCompany = function (e) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
             document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Company not found";
         }
+        if (response.status === 200) {
+            document.getElementById("warning").className += "alert alert-success alert-dismissable";
+            document.getElementById("warning").innerHTML = "<strong>Success!</strong> Company was successfully edited";
+        }
+        tblHeaders = "<th>ID</th><th>Name</th><th>CVR</th><th>Description</th>";
         return response.json();
     }).then(function(company) {
         $("#editCompanyModal").modal('toggle');
-        queryResults = queryResults.filter(function (c) {
-            return company.id !== c.id;
-        });
-        queryResults.unshift(company);
-        reloadData();
+        queryResults = [];
+        if (!company.hasOwnProperty("code")) {
+            queryResults.unshift(company);
+            reloadData();
+        }
     });
 };
 
