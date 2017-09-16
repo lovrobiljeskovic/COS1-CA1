@@ -104,7 +104,11 @@ public class CompanyFacade implements ICompanyFacade {
 
         try {
             CityInfo city = em.find(CityInfo.class, c.getAddress().getCityInfo().getZipCode());
-            Phone phone = em.find(Phone.class, c.getPhones().get(0).getNumber());
+            Phone phone = null;
+            
+            if (c.getPhones().size() > 0) {
+                phone = em.find(Phone.class, c.getPhones().get(0).getNumber());
+            }
 
             if (phone != null) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Duplicate phone number error"));

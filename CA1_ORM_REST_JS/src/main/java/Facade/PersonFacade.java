@@ -239,8 +239,12 @@ public class PersonFacade implements IPersonFacade {
 
         try {
             CityInfo city = em.find(CityInfo.class, person.getAddress().getCityInfo().getZipCode());
-            Phone phone = em.find(Phone.class, person.getPhones().get(0).getNumber());
-
+            Phone phone = null;
+            
+            if (person.getPhones().size() > 0) {
+                phone = em.find(Phone.class, person.getPhones().get(0).getNumber());
+            }
+            
             if (phone != null) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Duplicate phone number error"));
             }
