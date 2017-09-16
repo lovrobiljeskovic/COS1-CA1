@@ -145,6 +145,24 @@ var getPersonsByHobby = function () {
     });
 };
 
+var showAllPersonsContactDetails = function () {
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/contactinfo");
+    promise.then(function (response) {
+         if (response.status === 204) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There is no company registered on our platform";
+        }
+        tblHeaders = "<th>E-mail</th><th>Phone number</th><th>Address</th>";
+        return response.json();
+  }).then(function (person) {
+        queryResults = [];
+        if (!person.hasOwnProperty("code")) {
+            queryResults = [person];
+            reloadDataContactDetails();
+        }
+    });
+};
+
 var addPerson = function () {
     var phoneNumber;
     if (document.getElementById('newNumber').value === "") {
@@ -310,6 +328,7 @@ document.getElementById("tblbody").addEventListener("click", deletePerson);
 document.getElementById("tblbody").addEventListener("click", showEditModal);
 document.getElementById("editSubmitBtn").addEventListener("click", editPerson);
 document.getElementById("addSubmitBtn").addEventListener("click", addPerson);
+document.getElementById("seeAllPersonsBtn").addEventListener("click", showAllPersonsContactDetails);
 
 
 

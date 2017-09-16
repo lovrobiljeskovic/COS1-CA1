@@ -67,12 +67,13 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCompaniesContactInfo() {
         List<JSONCompanyContactDetails> newList = new ArrayList();
-        
-        for (Company c : cf.getCompanies()) {
+        List<Company> list = cf.getCompanies();
+        for (Company c : list) {
             JSONCompanyContactDetails jc = new JSONCompanyContactDetails(c);
+            System.out.println(jc.getName());
             newList.add(jc);
-        }
-        
+        }        
+        System.out.println("size list " +newList.size());
         return gson.toJson(newList);
     }
 

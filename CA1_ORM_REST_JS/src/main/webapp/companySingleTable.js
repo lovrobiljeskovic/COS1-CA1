@@ -17,7 +17,7 @@ var reloadData = function () {
 };
 
 var reloadDataContactDetails = function () {
-    var mappedPersons = queryResults.map(function (company) {
+    var mappedCompanies = queryResults.map(function (company) {
         return "<tr><td>" + company.name + "</td><td>"
                 + company.email + "</td><td>"
                 + company.phone + "</td><td>"
@@ -26,7 +26,7 @@ var reloadDataContactDetails = function () {
                 + "<a data-toggle=\"modal\" class=\"editBtn btn btn-default\" id=\"" + company.id + "\">edit</a>" 
                 + "</td></tr>";
     }).join("");
-    document.getElementById("tblbody").innerHTML = mappedPersons;
+    document.getElementById("tblbody").innerHTML = mappedCompanies;
     document.getElementById("tblhead").innerHTML = tblHeaders;
 };
 
@@ -164,6 +164,24 @@ var getCompaniesByMaxEmployees = function () {
                 return queryResults.unshift(company);
             });
             reloadData();
+        }
+    });
+};
+
+var showAllCompaniesContactDetails = function () {
+    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/contactinfo");
+    promise.then(function (response) {
+         if (response.status === 204) {
+            document.getElementById("warning").className += "alert alert-warning alert-dismissable";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There is no company registered on our platform";
+        }
+        tblHeaders = "<th>Name</th><th>E-mail</th><th>Phone number</th><th>Address</th>";
+        return response.json();
+  }).then(function (company) {
+        queryResults = [];
+        if (!company.hasOwnProperty("code")) {
+            queryResults = [company];
+            reloadDataContactDetails();
         }
     });
 };
@@ -333,4 +351,5 @@ document.getElementById("tblbody").addEventListener("click", deleteCompany);
 document.getElementById("tblbody").addEventListener("click", showEditModal);
 document.getElementById("editSubmitBtn").addEventListener("click", editCompany);
 document.getElementById("addSubmitBtn").addEventListener("click", addCompany);
+document.getElementById("seeAllCompaniesBtn").addEventListener("click", showAllCompaniesContactDetails);
 
