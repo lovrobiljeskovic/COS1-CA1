@@ -6,6 +6,7 @@ import Utility.JSONPersonContactDetails;
 import Entity.Person;
 import Facade.PersonFacade;
 import Utility.JSONCity;
+import static Utility.JSONCompanyConverter.getJSONFromCompany;
 import Utility.JSONPerson;
 import Utility.JSONStreet;
 import com.google.gson.Gson;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -186,5 +188,13 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String postPerson(String personAsJson) {
         return gson.toJson(pf.addPerson(gson.fromJson(personAsJson, Person.class)));
-}
+    }
+    
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deletePerson(@PathParam("id") String id) {
+         return gson.toJson(pf.deletePerson(id));
+    }
 }

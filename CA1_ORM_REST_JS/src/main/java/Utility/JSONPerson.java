@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class JSONPerson {
     
+    private int id;
     private String firstName;
     private String lastName;
     private List<String> hobbies;
@@ -24,6 +25,7 @@ public class JSONPerson {
     private String address;
 
     public JSONPerson(Person person) {
+        this.id = person.getId();
         phones = new ArrayList();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();

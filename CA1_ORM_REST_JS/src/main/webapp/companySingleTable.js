@@ -22,11 +22,11 @@ var getCompanyByID = function () {
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with the following id " + document.getElementById("inputField").value;
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There is no company with the following id " + document.getElementById("inputField").value;
         }
         if (response.status === 400) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid id";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid id";
         }
         return response.json();
     }).then(function (company) {
@@ -43,11 +43,11 @@ var getCompanyByPhone = function () {
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with the following phone number: " + document.getElementById("inputField").value;
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There is no company with the following phone number: " + document.getElementById("inputField").value;
         }
         if (response.status === 400) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid phone number";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid phone number";
         }
         return response.json();
     }).then(function (company) {
@@ -64,11 +64,11 @@ var getCompanyByCVR = function () {
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with the following CVR: " + document.getElementById("inputField").value;
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There is no company with the following CVR: " + document.getElementById("inputField").value;
         }
         if (response.status === 400) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid cvr";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid cvr";
         }
         return response.json();
     }).then(function (company) {
@@ -85,11 +85,11 @@ var getCompaniesByZipCode = function () {
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There is no company with the following zip code:  " + document.getElementById("inputField").value;
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There is no company with the following zip code:  " + document.getElementById("inputField").value;
         }
         if (response.status === 400) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid zip code";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid zip code";
         }
         return response.json();
     }).then(function (companies) {
@@ -108,11 +108,11 @@ var getCompaniesByMinEmployees = function () {
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There are no companies with " + document.getElementById("inputField").value + " or more employees";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There are no companies with " + document.getElementById("inputField").value + " or more employees";
         }
         if (response.status === 400) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid number";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid number";
         }
         return response.json();
     }).then(function (companies) {
@@ -131,11 +131,11 @@ var getCompaniesByMaxEmployees = function () {
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> There are no companies with " + document.getElementById("inputField").value + " or less employees";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> There are no companies with " + document.getElementById("inputField").value + " or less employees";
         }
         if (response.status === 400) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid number";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid number";
         }
         return response.json();
     }).then(function (companies) {
@@ -188,7 +188,7 @@ var addCompany = function () {
     }).then(function (response) {
         if (response.status === 400) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please fill up the required fields";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please fill up the required fields";
         }
         return response.json();
     }).then(function(company) {
@@ -228,13 +228,12 @@ var editCompany = function (e) {
                             zipCode: document.getElementById('editZip').value,
                             city: document.getElementById('editCity').value
                         }
-
                     }
         })
     }).then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-            document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Company not found";
+            document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Company not found";
         }
         return response.json();
     }).then(function(company) {
@@ -250,7 +249,7 @@ var editCompany = function (e) {
 var deleteCompany = function (e) {
     e.stopPropagation();
 
-    if (e.target.className === "deleteBtn") {
+    if (e.target.className === "deleteBtn btn btn-danger") {
         var headers = {
             'Content-Type': 'application/json'
         };
@@ -260,11 +259,11 @@ var deleteCompany = function (e) {
         }).then(function (response) {
             if (response.status === 404) {
                 document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-                document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Company with following id: " + e.target.id + ", not found";
+                document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Company with following id: " + e.target.id + ", not found";
             }
             if (response.status === 400) {
                 document.getElementById("warning").className += "alert alert-warning alert-dismissable";
-                document.getElementById("warning").innerHTML = "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>WOOPS!</strong> Please enter a valid id";
+                document.getElementById("warning").innerHTML = "<strong>WOOPS!</strong> Please enter a valid id";
             }
             return response.json();
         }).then(function (company) {
@@ -303,7 +302,7 @@ var optionController = function () {
 
 var idToEdit;
 var showEditModal = function (e) {
-    if (e.target.className === "editBtn") {
+    if (e.target.className === "editBtn btn btn-default") {
         e.stopPropagation();
         $("#editCompanyModal").modal();
         idToEdit = e.target.id;

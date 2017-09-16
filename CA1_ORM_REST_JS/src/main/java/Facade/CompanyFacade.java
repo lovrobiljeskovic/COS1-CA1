@@ -89,7 +89,7 @@ public class CompanyFacade implements ICompanyFacade {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following zipcode " + zipCode));
             }
             System.out.println(list.get(0).getName());
-                        System.out.println(list.get(0).getCvr());
+            System.out.println(list.get(0).getCvr());
             return list;
         } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipCode"));
@@ -105,27 +105,27 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             CityInfo city = em.find(CityInfo.class, c.getAddress().getCityInfo().getZipCode());
             Phone phone = em.find(Phone.class, c.getPhones().get(0).getNumber());
-            
+
             if (phone != null) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Duplicate phone number error"));
             }
-            
+
             if (city != null) {
                 Address a = c.getAddress();
                 a.setCityInfo(city);
                 c.setAddress(a);
             }
-            
-            if  (c.getName().trim().isEmpty() || 
-                (c.getCvr().trim().isEmpty()) || 
-                (c.getDescription().trim().isEmpty()) || 
-                (c.getEmail().trim().isEmpty()) || 
-                (c.getAddress().getStreet().trim().isEmpty()) ||
-                (c.getAddress().getAddSitionalInfo().trim().isEmpty()) || 
-                (c.getAddress().getCityInfo().getCity().trim().isEmpty()) || 
-                (c.getAddress().getCityInfo().getZipCode().trim().isEmpty()) || 
-                (c.getPhones().isEmpty())) {
-                    throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please fill up the required fields"));
+
+            if (c.getName().trim().isEmpty()
+                    || (c.getCvr().trim().isEmpty())
+                    || (c.getDescription().trim().isEmpty())
+                    || (c.getEmail().trim().isEmpty())
+                    || (c.getAddress().getStreet().trim().isEmpty())
+                    || (c.getAddress().getAddSitionalInfo().trim().isEmpty())
+                    || (c.getAddress().getCityInfo().getCity().trim().isEmpty())
+                    || (c.getAddress().getCityInfo().getZipCode().trim().isEmpty())
+                    || (c.getPhones().isEmpty())) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please fill up the required fields"));
             }
 
             em.getTransaction().begin();
@@ -196,7 +196,7 @@ public class CompanyFacade implements ICompanyFacade {
         try {
             int maxInt = Integer.parseInt(maximumNum);
             List<Company> list = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees < :max").setParameter("max", maxInt).getResultList();
-                        System.out.println(list.size());
+            System.out.println(list.size());
 
             if (list.isEmpty()) {
                 throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There are no companies with " + maximumNum + " or less employees"));
@@ -280,23 +280,22 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     public Company deleteCompany(String id) {
-     EntityManager em = getEntityManager();
-     try{
-         int idInt = Integer.parseInt(id);
-           Company company = em.find(Company.class, idInt);
-           if(company == null) {
-                  throw new ExceptionBuilder(new ErrorMessageBuilder(404, "Company with id " + id + " not found"));
-           }
-         em.getTransaction().begin();
-         em.remove(company);
-         em.getTransaction().commit();
-         return company;
-     }  catch (NumberFormatException e) {
+        EntityManager em = getEntityManager();
+        try {
+            int idInt = Integer.parseInt(id);
+            Company company = em.find(Company.class, idInt);
+            if (company == null) {
+                throw new ExceptionBuilder(new ErrorMessageBuilder(404, "Company with id " + id + " not found"));
+            }
+            em.getTransaction().begin();
+            em.remove(company);
+            em.getTransaction().commit();
+            return company;
+        } catch (NumberFormatException e) {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid id"));
-                 
-                 
-     }finally{
-         em.close();
-     }
+
+        } finally {
+            em.close();
+        }
     }
 }

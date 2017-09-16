@@ -16,13 +16,19 @@ import java.util.List;
  * @author Dell
  */
 public class JSONPersonContactDetails
-{
+{   
+    private int id;
+    private String firstName;
+    private String lastName;
     private String email;
     private List<Phone> phones;
     private Address address;
     
     public JSONPersonContactDetails(Person p)
     {
+        this.id = p.getId();
+        this.firstName = p.getFirstName();
+        this.lastName = p.getLastName();
         this.email =  p.getEmail() ;
         this.phones = p.getPhones();
         this.address = p.getAddress();
