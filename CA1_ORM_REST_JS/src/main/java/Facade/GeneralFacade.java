@@ -11,6 +11,7 @@ import Entity.Company;
 import Entity.Hobby;
 import Entity.Person;
 import Entity.Phone;
+import Utility.JPAUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,19 +25,10 @@ import javax.persistence.Query;
  */
 public class GeneralFacade {
 
-    private EntityManagerFactory emf;
     Random random = new Random();
 
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
-
-    public void addEntityManagerFactory(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
     public List<CityInfo> getCityInfoList() {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
         List<CityInfo> list = new ArrayList();
         try {
             Query q1 = em.createQuery("SELECT ci FROM CityInfo ci");
@@ -48,7 +40,7 @@ public class GeneralFacade {
     }
 
     public CityInfo getCityInfoByZipCode(CityInfo city) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
 
         try {
             return em.find(CityInfo.class, city.getZipCode());
@@ -58,7 +50,7 @@ public class GeneralFacade {
     }
 
     public Address createAddress(Address address) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
         
         List<CityInfo> cities = em.createQuery("SELECT c FROM CityInfo c").getResultList();
 
@@ -74,7 +66,7 @@ public class GeneralFacade {
     }
     
     public Company createCompany(Company company, int addressIndex, int phoneIndex) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -90,7 +82,7 @@ public class GeneralFacade {
     }
     
         public Person createPerson(Person person, int addressIndex, int phoneIndex, int hobbyId) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -109,7 +101,7 @@ public class GeneralFacade {
     }
 
     public Phone createPhone(Phone phone) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
         
         try {
             em.getTransaction().begin();
@@ -122,7 +114,7 @@ public class GeneralFacade {
     }
     
     public Phone getPhone(int id) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
         
         try {
             return em.find(Phone.class, id);
@@ -132,7 +124,7 @@ public class GeneralFacade {
     }
 
     public Hobby createHobby(Hobby hobby) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
         
         try {
             em.getTransaction().begin();
@@ -145,7 +137,7 @@ public class GeneralFacade {
     }
     
     public Hobby getHobby(int id) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
         
         try {
             return em.find(Hobby.class, id);
@@ -155,7 +147,7 @@ public class GeneralFacade {
     }
 
     public Person createPerson(Person person) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
         
         List<Address> addresses = em.createQuery("SELECT a FROM Address a").getResultList();
 

@@ -31,7 +31,7 @@ var reloadDataContactDetails = function () {
 };
 
 var getCompanyByID = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/id/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/id/" + document.getElementById("inputField").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -53,7 +53,7 @@ var getCompanyByID = function () {
 };
 
 var getCompanyByPhone = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/complete/phone/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/complete/phone/" + document.getElementById("inputField").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -75,7 +75,7 @@ var getCompanyByPhone = function () {
 };
 
 var getCompanyByCVR = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/cvr/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/cvr/" + document.getElementById("inputField").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -97,7 +97,7 @@ var getCompanyByCVR = function () {
 };
 
 var getCompaniesByZipCode = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/city/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/city/" + document.getElementById("inputField").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -121,7 +121,7 @@ var getCompaniesByZipCode = function () {
 };
 
 var getCompaniesByMinEmployees = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/employees/more/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/employees/more/" + document.getElementById("inputField").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -145,7 +145,7 @@ var getCompaniesByMinEmployees = function () {
 };
 
 var getCompaniesByMaxEmployees = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/employees/less/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/employees/less/" + document.getElementById("inputField").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -169,7 +169,7 @@ var getCompaniesByMaxEmployees = function () {
 };
 
 var showAllCompaniesContactDetails = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/contactinfo");
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/contactinfo");
     promise.then(function (response) {
          if (response.status === 204) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -199,7 +199,7 @@ var addCompany = function () {
     var headers = {
         'Content-Type': 'application/json'
     };
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company", {
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company", {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
@@ -249,7 +249,7 @@ var editCompany = function (e) {
     var headers = {
         'Content-Type': 'application/json'
     };
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/", {
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/", {
         method: "PUT",
         headers: headers,
         body: JSON.stringify({
@@ -303,7 +303,7 @@ var deleteCompany = function (e) {
         var headers = {
             'Content-Type': 'application/json'
         };
-        fetch("http://localhost:8080/CA1_ORM_REST_JS/api/company/" + e.target.id, {
+        fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/company/" + e.target.id, {
             method: "DELETE",
             headers: headers
         }).then(function (response) {

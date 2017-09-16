@@ -3,7 +3,6 @@ package Entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -11,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @Entity
-@XmlRootElement
 public class CityInfo implements Serializable {
 
     @Id

@@ -4,34 +4,22 @@ import CustomExceptions.ErrorMessageBuilder;
 import CustomExceptions.ExceptionBuilder;
 import Entity.Address;
 import Entity.CityInfo;
-import Entity.Company;
 import Entity.Person;
 import Entity.Phone;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 
 public class PersonFacade implements IPersonFacade {
-
-    private EntityManagerFactory emf;
-    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
-
-    @Override
-    public void addEntityManagerFactory(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
+    
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("master");
+    
     @Override
     public Person getPersonByID(String idString) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             int id = Integer.parseInt(idString);
@@ -44,12 +32,13 @@ public class PersonFacade implements IPersonFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid id"));
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Person> getPersons() {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             List<Person> persons = new ArrayList<>();
@@ -60,12 +49,13 @@ public class PersonFacade implements IPersonFacade {
             return persons;
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Person> getPersonsByZipCode(String zipCode) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             Integer.parseInt(zipCode);
@@ -79,12 +69,13 @@ public class PersonFacade implements IPersonFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipcode"));
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public void createPerson(Person p) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -92,12 +83,13 @@ public class PersonFacade implements IPersonFacade {
             em.getTransaction().commit();
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Person getPersonByPhone(String stringNumber) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             int number = Integer.parseInt(stringNumber);
@@ -110,13 +102,14 @@ public class PersonFacade implements IPersonFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no person with the following phone number " + stringNumber));
         } finally {
             em.close();
+            
         }
 
     }
 
     @Override
     public List<Person> getPersonsByHobby(String hobby) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             hobby = hobby.toLowerCase();
@@ -129,23 +122,25 @@ public class PersonFacade implements IPersonFacade {
 
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Long getCountOfPersonsWithHobby(String hobby) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             return (Long) em.createQuery("SELECT COUNT(p) FROM Person p JOIN p.hobbies h WHERE h.name = :hobby").setParameter("hobby", hobby).getSingleResult();
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Person> getPersonsByCity(String city) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             List<Person> persons = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.city = :city").setParameter("city", city).getResultList();
@@ -158,12 +153,13 @@ public class PersonFacade implements IPersonFacade {
 
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Long getCountOfPersonsByCity(String zipCode) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             Integer.parseInt(zipCode);
@@ -172,34 +168,37 @@ public class PersonFacade implements IPersonFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipcode"));
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Address> getAllStreets() {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             return em.createQuery("SELECT a FROM Address a").getResultList();
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<CityInfo> getAllZipCodes() {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             return em.createQuery("SELECT c FROM CityInfo c").getResultList();
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Person editPerson(Person person) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             Person p = em.find(Person.class, person.getId());
@@ -230,12 +229,13 @@ public class PersonFacade implements IPersonFacade {
             return p;
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Person addPerson(Person person) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             CityInfo city = em.find(CityInfo.class, person.getAddress().getCityInfo().getZipCode());
@@ -271,11 +271,13 @@ public class PersonFacade implements IPersonFacade {
             return person;
         } finally {
             em.close();
+            
         }
     }
 
     public Person deletePerson(String id) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
+        
         try {
             int idInt = Integer.parseInt(id);
             Person person = em.find(Person.class, idInt);
@@ -291,6 +293,8 @@ public class PersonFacade implements IPersonFacade {
 
         } finally {
             em.close();
+            
         }
+        
     }
 }

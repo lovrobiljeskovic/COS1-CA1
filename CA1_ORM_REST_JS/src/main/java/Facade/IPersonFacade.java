@@ -9,7 +9,6 @@ import javax.persistence.EntityManagerFactory;
 
 public interface IPersonFacade {
     
-    void addEntityManagerFactory(EntityManagerFactory emf);
     void createPerson(Person p);
     Person getPersonByID(String Stringid);
     Person addPerson(Person p);

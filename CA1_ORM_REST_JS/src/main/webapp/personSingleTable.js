@@ -31,7 +31,7 @@ var reloadDataContactDetails = function () {
 };
 
 var getPersonByID = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/complete/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person/complete/" + document.getElementById("inputField").value);
     promise.then(function (response) {
         if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -53,7 +53,7 @@ var getPersonByID = function () {
 };
 
 var getPersonByPhone = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/phone/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person/phone/" + document.getElementById("inputField").value);
     promise.then(function (response) {
          if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -74,7 +74,7 @@ var getPersonByPhone = function () {
     });
 };
 var getPersonsByCity = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/city/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person/city/" + document.getElementById("inputField").value);
     promise.then(function (response) {
        if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -98,7 +98,7 @@ var getPersonsByCity = function () {
 };
 
 var getPersonsByZipCode = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/zip/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person/zip/" + document.getElementById("inputField").value);
     promise.then(function (response) {
          if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -122,7 +122,7 @@ var getPersonsByZipCode = function () {
 };
 
 var getPersonsByHobby = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/hobby/" + document.getElementById("inputField").value);
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person/hobby/" + document.getElementById("inputField").value);
     promise.then(function (response) {
          if (response.status === 404) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -146,7 +146,7 @@ var getPersonsByHobby = function () {
 };
 
 var showAllPersonsContactDetails = function () {
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/contactinfo");
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person/contactinfo");
     promise.then(function (response) {
          if (response.status === 204) {
             document.getElementById("warning").className += "alert alert-warning alert-dismissable";
@@ -177,7 +177,7 @@ var addPerson = function () {
         'Content-Type': 'application/json'
     };
     
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person", {
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person", {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
@@ -228,7 +228,7 @@ var editPerson = function (e) {
         'Content-Type': 'application/json'
     };
     
-    var promise = fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person", {
+    var promise = fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person", {
         method: "PUT",
         headers: headers,
         body: JSON.stringify({
@@ -282,7 +282,7 @@ var deletePerson = function (e) {
         var headers = {
             'Content-Type': 'application/json'
         };
-        fetch("http://localhost:8080/CA1_ORM_REST_JS/api/person/" + e.target.id, {
+        fetch("http://146.185.167.16/CA1_ORM_REST_JS/api/person/" + e.target.id, {
             method: "DELETE",
             headers: headers
         }).then(function (response) {

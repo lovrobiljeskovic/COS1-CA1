@@ -40,7 +40,6 @@ public class PersonResource {
     PersonFacade pf = new PersonFacade();
 
     public PersonResource() {
-        pf.addEntityManagerFactory(Persistence.createEntityManagerFactory("cos1_CA1_ORM_REST_JS_war_1.0-SNAPSHOTPU"));
     }
 
     @GET

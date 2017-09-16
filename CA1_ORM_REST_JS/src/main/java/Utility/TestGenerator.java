@@ -27,8 +27,7 @@ public class TestGenerator {
     CompanyFacade cf = new CompanyFacade();
     PersonFacade pf = new PersonFacade();
 
-    public TestGenerator(EntityManagerFactory emf) {
-        gf.addEntityManagerFactory(emf);
+    public TestGenerator() {
     }
 
     private List<String> companyNames = new ArrayList();

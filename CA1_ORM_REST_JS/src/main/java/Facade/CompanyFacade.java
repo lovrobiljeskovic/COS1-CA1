@@ -6,11 +6,13 @@ import Entity.Address;
 import Entity.CityInfo;
 import Entity.Company;
 import Entity.Phone;
+import Utility.JPAHelper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -18,21 +20,13 @@ import javax.persistence.Query;
  * @author Lovro
  */
 public class CompanyFacade implements ICompanyFacade {
-
-    private EntityManagerFactory emf;
-
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
-
-    @Override
-    public void addEntityManagerFactory(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
+    
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("master");
 
     @Override
     public Company getCompanyByID(String idString) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
+        
         try {
             int id = Integer.parseInt(idString);
             Company cp = em.find(Company.class, id);
@@ -44,12 +38,14 @@ public class CompanyFacade implements ICompanyFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid id"));
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Company getCompanyByPhone(String number) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
+        
         try {
             int intPhone = Integer.parseInt(number);
             Company cp = (Company) em.createQuery("SELECT c FROM Company c JOIN c.phones p WHERE p.number = :number").setParameter("number", intPhone).getSingleResult();
@@ -60,12 +56,14 @@ public class CompanyFacade implements ICompanyFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(404, "There is no company with the following phone number " + number));
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Company> getCompanies() {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
+        
         List<Company> list = new ArrayList();
         try {
             Query q1 = em.createQuery("SELECT c FROM Company c");
@@ -76,12 +74,14 @@ public class CompanyFacade implements ICompanyFacade {
             return list;
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Company> getCompaniesByZipCode(String zipCode) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
+        
         try {
             int testFormat = Integer.parseInt(zipCode);
             List<Company> list = em.createQuery("SELECT c FROM Company c JOIN c.address e WHERE e.cityInfo.zipCode = :zipCode").setParameter("zipCode", zipCode).getResultList();
@@ -95,12 +95,13 @@ public class CompanyFacade implements ICompanyFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid zipCode"));
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Company addCompany(Company c) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             CityInfo city = em.find(CityInfo.class, c.getAddress().getCityInfo().getZipCode());
@@ -138,12 +139,13 @@ public class CompanyFacade implements ICompanyFacade {
             return c;
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Company getCompanyByCVR(String cvr) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             int testFormat = Integer.parseInt(cvr);
@@ -160,7 +162,7 @@ public class CompanyFacade implements ICompanyFacade {
 
     @Override
     public void createCompany(Company c) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             if (c == null) {
@@ -171,12 +173,13 @@ public class CompanyFacade implements ICompanyFacade {
             em.getTransaction().commit();
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Company> getCompaniesWithMoreEmployees(String minimumNum) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             int minInt = Integer.parseInt(minimumNum);
@@ -190,12 +193,13 @@ public class CompanyFacade implements ICompanyFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid number"));
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Company> getCompaniesWithLessEmployees(String maximumNum) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             int maxInt = Integer.parseInt(maximumNum);
@@ -210,12 +214,13 @@ public class CompanyFacade implements ICompanyFacade {
             throw new ExceptionBuilder(new ErrorMessageBuilder(400, "Please enter a valid number"));
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public Company editCompany(Company company) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             Company c = em.find(Company.class, company.getId());
@@ -250,12 +255,13 @@ public class CompanyFacade implements ICompanyFacade {
             return c;
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<Address> getAllStreets() {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             List<Address> list = em.createQuery("SELECT a FROM Address a").getResultList();
@@ -265,12 +271,13 @@ public class CompanyFacade implements ICompanyFacade {
             return list;
         } finally {
             em.close();
+            
         }
     }
 
     @Override
     public List<CityInfo> getAllZipCodes() {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
 
         try {
             List<CityInfo> list = em.createQuery("SELECT c FROM CityInfo c").getResultList();
@@ -280,11 +287,13 @@ public class CompanyFacade implements ICompanyFacade {
             return list;
         } finally {
             em.close();
+            
         }
     }
 
     public Company deleteCompany(String id) {
-        EntityManager em = getEntityManager();
+        EntityManager em = emf.createEntityManager();
+        
         try {
             int idInt = Integer.parseInt(id);
             Company company = em.find(Company.class, idInt);
@@ -300,6 +309,7 @@ public class CompanyFacade implements ICompanyFacade {
 
         } finally {
             em.close();
+            
         }
     }
 }
