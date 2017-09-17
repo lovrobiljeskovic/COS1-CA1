@@ -1,13 +1,2 @@
-test commitplease show my name!<<<<<<<
-
-=======
-# BEST GROUP EVER
-# A
->>>>>>>
-
-# COS1-CA1
-SALUT LES FILLES!
-my commit
-
-
-_)_)_)+_)+)+)(KNKJVDV:LKVHKJ)
+COS-C1
+the documentation regarding REST-API, inheritance strategy and testing is found in the Documentation doc.
